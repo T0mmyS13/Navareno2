@@ -1,0 +1,128 @@
+[
+  {
+    "title": "Česnečka",
+    "description": "Tradiční česká česneková polévka s bramborami a krutony.",
+    "image": "https://images.unsplash.com/photo-1611745451987-bd5df5565d9e?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/polevka/cesnecka",
+    "ingredients": [
+      {"name": "brambory", "quantity": 2, "unit": "ks"},
+      {"name": "česnek", "quantity": 4, "unit": "stroužek"},
+      {"name": "voda", "quantity": 1, "unit": "l"},
+      {"name": "majoránka", "quantity": 1, "unit": "lžička"},
+      {"name": "máslo", "quantity": 1, "unit": "lžíce"},
+      {"name": "chleba na krutony", "quantity": 2, "unit": "plátek"}
+    ],
+    "instructions": [
+      "Oloupejte a nakrájejte brambory na malé kostky.",
+      "Dejte vařit vodu a přidejte brambory.",
+      "Po 10 minutách přidejte prolisovaný česnek, sůl, pepř a majoránku.",
+      "Vařte do změknutí brambor, cca 5 minut.",
+      "Na pánvi osmažte na másle na kostičky nakrájený chleba a přidejte do polévky."
+    ],
+    "time": 20,
+    "rating": 4.8,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Rajčatová polévka",
+    "description": "Krémová rajčatová polévka s bazalkou a smetanou.",
+    "image": "https://images.unsplash.com/photo-1620418029653-f708dd37096a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/polevka/rajcatova",
+    "ingredients": [
+      {"name": "rajčata", "quantity": 5, "unit": "ks"},
+      {"name": "cibule", "quantity": 1, "unit": "ks"},
+      {"name": "česnek", "quantity": 2, "unit": "stroužek"},
+      {"name": "olivový olej", "quantity": 1, "unit": "lžíce"},
+      {"name": "vývar", "quantity": 500, "unit": "ml"},
+      {"name": "smetana", "quantity": 100, "unit": "ml"},
+      {"name": "bazalka", "quantity": 1, "unit": "hrst"}
+
+    ],
+    "instructions": [
+      "Na oleji osmažte nadrobno nakrájenou cibuli a česnek.",
+      "Přidejte na kostky nakrájená rajčata a chvíli restujte.",
+      "Zalijte vývarem a vařte cca 15 minut.",
+      "Rozmixujte dohladka, dochuťte, přidejte smetanu a bazalku.",
+      "Podávejte teplé s pečivem."
+    ],
+    "time": 25,
+    "rating": 4.7,
+    "difficulty": 2,
+    "portion": 2
+  },
+  {
+    "title": "Gulášová polévka",
+    "description": "Sytá polévka s hovězím masem, paprikou a bramborami.",
+    "image": "https://media.istockphoto.com/id/628856914/photo/traditional-hungarian-goulash-soup-bogracs-close-up-in-a-bowl.jpg?s=612x612&w=0&k=20&c=qi9Obn6iOKnCWqtdxe9-LKmCW4tmSIqps0OdJdowVE0=",
+    "link": "/polevka/gulasova",
+    "ingredients": [
+      {"name": "hovězí maso", "quantity": 200, "unit": "g"},
+      {"name": "cibule", "quantity": 1, "unit": "ks"},
+      {"name": "česnek", "quantity": 2, "unit": "stroužek"},
+      {"name": "paprika sladká", "quantity": 1, "unit": "lžička"},
+      {"name": "brambory", "quantity": 2, "unit": "ks"},
+      {"name": "vývar", "quantity": 750, "unit": "ml"},
+      {"name": "olej", "quantity": 1, "unit": "lžíce"}
+    ],
+    "instructions": [
+      "Na oleji osmahněte nakrájenou cibuli, přidejte maso a osmažte.",
+      "Přidejte česnek, papriku a zalijte vývarem.",
+      "Vařte asi 30 minut, poté přidejte brambory a dovařte do změknutí.",
+      "Dochutťe dle potřeby a podávejte."
+    ],
+    "time": 45,
+    "rating": 4.9,
+    "difficulty": 3,
+    "portion": 2
+  },
+  {
+    "title": "Hráškový krém",
+    "description": "Jemný krém z hrášku se smetanou a mátou.",
+    "image": "https://images.unsplash.com/photo-1736752346246-61f4daedfde0?q=80&w=1966&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/polevka/hraskovy-krem",
+    "ingredients": [
+      {"name": "hrášek (mražený)", "quantity": 300, "unit": "g"},
+      {"name": "cibule", "quantity": 1, "unit": "ks"},
+      {"name": "vývar", "quantity": 500, "unit": "ml"},
+      {"name": "smetana", "quantity": 100, "unit": "ml"},
+      {"name": "máslo", "quantity": 1, "unit": "lžíce"},
+      {"name": "čerstvá máta", "quantity": 3, "unit": "lístek"}
+    ],
+    "instructions": [
+      "Na másle osmahněte cibuli do sklovata.",
+      "Přidejte hrášek a vývar, vařte cca 10 minut.",
+      "Rozmixujte dohladka, přidejte smetanu a dochuťte.",
+      "Na závěr přidejte jemně nasekanou mátu."
+    ],
+    "time": 20,
+    "rating": 4.6,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Dýňová polévka",
+    "description": "Podzimní klasika z dýně Hokkaido se zázvorem a smetanou.",
+    "image": "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/polevka/dynova",
+    "ingredients": [
+      {"name": "dýně Hokkaido", "quantity": 500, "unit": "g"},
+      {"name": "cibule", "quantity": 1, "unit": "ks"},
+      {"name": "česnek", "quantity": 2, "unit": "stroužek"},
+      {"name": "zázvor", "quantity": 1, "unit": "cm"},
+      {"name": "vývar", "quantity": 750, "unit": "ml"},
+      {"name": "smetana", "quantity": 100, "unit": "ml"},
+      {"name": "olej", "quantity": 1, "unit": "lžíce"}
+    ],
+    "instructions": [
+      "Na oleji osmažte cibuli, česnek a zázvor.",
+      "Přidejte na kostky nakrájenou dýni a chvíli restujte.",
+      "Zalijte vývarem a vařte do změknutí (cca 20 minut).",
+      "Rozmixujte, přidejte smetanu a dochuťte."
+    ],
+    "time": 35,
+    "rating": 4.8,
+    "difficulty": 2,
+    "portion": 2
+  }
+]

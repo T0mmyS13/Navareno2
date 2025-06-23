@@ -1,0 +1,117 @@
+[
+  {
+    "title": "Bruschetta",
+    "description": "Chutné opečené toasty s rajčaty a bazalkou.",
+    "image": "https://images.unsplash.com/photo-1558679582-4d81ce75993a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fEJydXNjaGV0dGElMjJ8ZW58MHx8MHx8fDA%3D",
+    "link": "/predkrm/bruschetta",
+    "ingredients": [
+      {"name": "chléb", "quantity": 1, "unit": "plátek"},
+      {"name": "rajče", "quantity": 1, "unit": "ks"},
+      {"name": "bazalka", "quantity": 5, "unit": "lístek"},
+      {"name": "olivový olej", "quantity": 1, "unit": "lžička"}
+    ],
+    "instructions": [
+      "Opečte chléb na pánvi nebo v troubě do zlatova.",
+      "Rajče nakrájejte na malé kostičky.",
+      "Smíchejte rajčata s nasekanou bazalkou, osolte a opepřete.",
+      "Na opečený chléb naneste směs a zakápněte olivovým olejem."
+    ],
+    "time": 15,
+    "rating": 4.6,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Hummus s pita chlebem",
+    "description": "Krémový hummus podávaný s teplým pita chlebem, ideální předkrm plný chuti.",
+    "image": "https://media.istockphoto.com/id/1244880683/cs/fotografie/hummus-tal%C3%AD%C5%99-s-pita-chlebem-autentick%C3%A1-arabsk%C3%A1-kuchyn%C4%9B.jpg?s=612x612&w=0&k=20&c=bdHaQfulq8xjlJdhN_TPmkPY7wMChnSpXsMBCXEcFWo=",
+    "link": "/predkrm/hummus-s-pita",
+    "ingredients": [
+      {"name": "cizrna", "quantity": 0.25, "unit": "konzervy"},
+      {"name": "tahini", "quantity": 0.5, "unit": "lžíce"},
+      {"name": "citronová šťáva", "quantity": 0.25, "unit": "ks"},
+      {"name": "česnek", "quantity": 0.25, "unit": "stroužku"},
+      {"name": "extra panenský olivový olej", "quantity": 1, "unit": "lžička"},
+      {"name": "pita chléb", "quantity": 1, "unit": "plátek"}
+    ],
+    "instructions": [
+      "Cizrnu slijte a propláchněte.",
+      "V mixéru rozmixujte cizrnu, tahini, citronovou šťávu, česnek, olivový olej, sůl a kmín do hladké konzistence.",
+      "Pokud je hummus příliš hustý, přidejte trochu vody.",
+      "Přeneste do misky, posypte paprikou a podávejte s teplým pita chlebem."
+    ],
+    "time": 20,
+    "rating": 4.9,
+    "difficulty": 2,
+    "portion": 2
+  },
+  {
+    "title": "Rajčatová salsa s nachos",
+    "description": "Osvěžující rajčatová salsa s křupavými kukuřičnými chipsy.",
+    "image": "https://st2.depositphotos.com/1007298/44144/i/1600/depositphotos_441440226-stock-photo-tortilla-chips-red-tomato-salsa.jpg",
+    "link": "/predkrm/salsa-nachos",
+    "ingredients": [
+      {"name": "rajčata", "quantity": 2, "unit": "ks"},
+      {"name": "cibule", "quantity": 0.5, "unit": "ks"},
+      {"name": "česnek", "quantity": 1, "unit": "stroužek"},
+      {"name": "limetková šťáva", "quantity": 1, "unit": "lžička"},
+      {"name": "koriandr", "quantity": 1, "unit": "lžíce"},
+      {"name": "nachos", "quantity": 1, "unit": "hrst"}
+    ],
+    "instructions": [
+      "Rajčata spařte a oloupejte, poté nakrájejte na malé kousky.",
+      "Cibuli nasekejte nadrobno, česnek prolisujte.",
+      "Smíchejte všechny ingredience, přidejte limetkovou šťávu a koriandr.",
+      "Podávejte s nachos."
+    ],
+    "time": 10,
+    "rating": 4.4,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Tatarák z červené řepy",
+    "description": "Zdravý a chutný vegetariánský předkrm inspirovaný klasickým tatarákem.",
+    "image": "https://cdn.administrace.tv/2023/06/16/small_169/9354c0d9f6f7c9033686bc32c7c7aa82.jpg",
+    "link": "/predkrm/tatarak-repa",
+    "ingredients": [
+      {"name": "červená řepa", "quantity": 1, "unit": "ks"},
+      {"name": "kyselá okurka", "quantity": 1, "unit": "ks"},
+      {"name": "červená cibule", "quantity": 0.25, "unit": "ks"},
+      {"name": "hořčice", "quantity": 1, "unit": "lžička"},
+      {"name": "chléb", "quantity": 2, "unit": "plátek"}
+    ],
+    "instructions": [
+      "Řepu upečte nebo uvařte do měkka a nastrouhejte.",
+      "Přidejte nakrájenou okurku, cibuli, hořčici, osolte a opepřete.",
+      "Podávejte na opečeném chlebu."
+    ],
+    "time": 25,
+    "rating": 4.2,
+    "difficulty": 2,
+    "portion": 2
+  },
+  {
+    "title": "Pečené papriky plněné fetou",
+    "description": "Lehké pečené papriky s bylinkovou fetou, ideální pro hosty.",
+    "image": "https://cdn.administrace.tv/2022/08/06/small_169/21c4e245348cd03addab0949795769ff.jpg",
+    "link": "/predkrm/pecene-papriky-feta",
+    "ingredients": [
+      {"name": "malé papriky", "quantity": 3, "unit": "ks"},
+      {"name": "feta sýr", "quantity": 100, "unit": "g"},
+      {"name": "olivový olej", "quantity": 1, "unit": "lžíce"},
+      {"name": "česnek", "quantity": 1, "unit": "stroužek"},
+      {"name": "bylinky (např. tymián, oregano)", "quantity": 1, "unit": "lžička"}
+    ],
+    "instructions": [
+      "Papriky omyjte, odkrojte vršky a očistěte vnitřek.",
+      "Fetu smíchejte s nasekaným česnekem, bylinkami a olivovým olejem.",
+      "Papriky naplňte směsí a pečte 15 minut na 180 °C.",
+      "Podávejte teplé nebo vlažné."
+    ],
+    "time": 20,
+    "rating": 4.5,
+    "difficulty": 2,
+    "portion": 2
+  }
+]

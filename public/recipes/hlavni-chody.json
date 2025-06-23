@@ -1,0 +1,126 @@
+[
+  {
+    "title": "Svíčková na smetaně",
+    "description": "Tradiční české jídlo s hovězím masem a smetanovou omáčkou, podávané s houskovým knedlíkem.",
+    "image": "https://cdn.administrace.tv/2022/08/06/small_169/f1f13d31984ad04ed5bd24d501678a2d.jpg",
+    "link": "/hlavni-chod/svickova-na-smetane",
+    "ingredients": [
+      { "name": "hovězí svíčková", "quantity": 500, "unit": "g" },
+      { "name": "mrkev", "quantity": 2, "unit": "ks" },
+      { "name": "petržel", "quantity": 1, "unit": "ks" },
+      { "name": "celer", "quantity": 100, "unit": "g" },
+      { "name": "cibule", "quantity": 1, "unit": "ks" },
+      { "name": "smetana", "quantity": 200, "unit": "ml" },
+      { "name": "máslo", "quantity": 2, "unit": "lžíce" },
+      { "name": "ocet", "quantity": 1, "unit": "lžíce" },
+      { "name": "cukr", "quantity": 1, "unit": "lžička" },
+      { "name": "bobkový list", "quantity": 2, "unit": "ks" },
+      { "name": "nové koření", "quantity": 3, "unit": "kulička" },
+      { "name": "pepř", "quantity": 3, "unit": "kulička" },
+      { "name": "houskový knedlík", "quantity": 1, "unit": "ks" }
+    ],
+    "instructions": [
+      "Zeleninu očistěte a nakrájejte na kostičky.",
+      "Na másle osmahněte cibuli, přidejte zeleninu a restujte.",
+      "Přidejte maso, koření, podlijte vodou a duste do měkka (cca 1,5 hodiny).",
+      "Maso vyjměte, omáčku propasírujte a dochuťte octem, cukrem, solí a smetanou.",
+      "Podávejte s houskovým knedlíkem."
+    ],
+    "time": 120,
+    "rating": 4.9,
+    "difficulty": 3,
+    "portion": 2
+  },
+  {
+    "title": "Kuřecí řízek",
+    "description": "Klasický smažený kuřecí řízek s bramborovým salátem.",
+    "image": "https://cdn.administrace.tv/2022/08/06/small_169/aa66d0e3f5c45d344b5baade65b94ec5.jpg",
+    "link": "/hlavni-chod/kureci-rizek",
+    "ingredients": [
+      { "name": "kuřecí prsa", "quantity": 2, "unit": "ks" },
+      { "name": "mouka", "quantity": 3, "unit": "lžíce" },
+      { "name": "vejce", "quantity": 2, "unit": "ks" },
+      { "name": "strouhanka", "quantity": 5, "unit": "lžíce" }
+    ],
+    "instructions": [
+      "Kuřecí prsa naklepejte, osolte a opepřete.",
+      "Obalte je v mouce, vejcích a strouhance.",
+      "Smažte dozlatova na oleji z obou stran.",
+      "Podávejte s bramborovým salátem nebo vařenými bramborami."
+    ],
+    "time": 30,
+    "rating": 4.7,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Špagety Carbonara",
+    "description": "Italské těstoviny s vejci, sýrem a slaninou.",
+    "image": "https://www.shutterstock.com/shutterstock/videos/3656781259/thumb/1.jpg?ip=x480",
+    "link": "/hlavni-chod/spagety-carbonara",
+    "ingredients": [
+      { "name": "špagety", "quantity": 200, "unit": "g" },
+      { "name": "vejce", "quantity": 2, "unit": "ks" },
+      { "name": "parmazán", "quantity": 50, "unit": "g" },
+      { "name": "slanina", "quantity": 100, "unit": "g" }
+    ],
+    "instructions": [
+      "Uvařte špagety al dente.",
+      "Na pánvi orestujte slaninu dozlatova.",
+      "V misce rozšlehejte vejce s nastrouhaným parmazánem a pepřem.",
+      "Uvařené špagety slijte a ihned smíchejte s vejci a slaninou.",
+      "Podávejte ihned, případně posypte ještě parmazánem."
+    ],
+    "time": 20,
+    "rating": 4.8,
+    "difficulty": 2,
+    "portion": 2
+  },
+  {
+    "title": "Pečená kachna se zelím",
+    "description": "Pomalu pečená kachna podávaná s červeným zelím a knedlíkem.",
+    "image": "https://static8.depositphotos.com/1010050/1047/i/950/depositphotos_10475561-stock-photo-roast-duck-with-red-cabbage.jpg",
+    "link": "/hlavni-chod/pecena-kachna",
+    "ingredients": [
+      { "name": "kachna", "quantity": 1.5, "unit": "kg" },
+      { "name": "červené zelí", "quantity": 300, "unit": "g" },
+      { "name": "cibule", "quantity": 1, "unit": "ks" },
+      { "name": "kmín", "quantity": 1, "unit": "lžička" },
+      { "name": "jablko", "quantity": 1, "unit": "ks" },
+      { "name": "bramborový knedlík", "quantity": 1, "unit": "ks" }
+    ],
+    "instructions": [
+      "Kachnu osolte, okmínujte a vložte do pekáče.",
+      "Pečte v troubě při 160 °C 2,5–3 hodiny, občas podlijte výpekem.",
+      "Zelí poduste s cibulí a nastrouhaným jablkem do měkka.",
+      "Podávejte kachnu se zelím a knedlíkem."
+    ],
+    "time": 180,
+    "rating": 4.9,
+    "difficulty": 3,
+    "portion": 2
+  },
+  {
+    "title": "Zapečené brambory se smetanou",
+    "description": "Jednoduchý a chutný zapečený pokrm ze smetany, brambor a sýra.",
+    "image": "https://media.istockphoto.com/id/1445981896/cs/fotografie/vroubkovan%C3%A9-brambory-bramborov%C3%BD-kastrol-s-p%C5%99%C3%ADdavkem-bylinek-cibule-a-%C4%8Desneku-v-keramick%C3%A9.jpg?s=612x612&w=0&k=20&c=i1Y9WHFEZQcyLKN98BS76iEuc0Pa4lbFvRqBJwMAdhk=",
+    "link": "/hlavni-chod/zapecene-brambory",
+    "ingredients": [
+      { "name": "brambory", "quantity": 500, "unit": "g" },
+      { "name": "smetana", "quantity": 200, "unit": "ml" },
+      { "name": "česnek", "quantity": 1, "unit": "stroužek" },
+      { "name": "sýr", "quantity": 100, "unit": "g" },
+      { "name": "máslo", "quantity": 1, "unit": "lžička" }
+    ],
+    "instructions": [
+      "Brambory oloupejte a nakrájejte na tenké plátky.",
+      "Formu vymažte máslem a vrstvěte brambory, smetanu, česnek a koření.",
+      "Nakonec zasypte sýrem.",
+      "Pečte v troubě při 180 °C cca 45 minut dozlatova."
+    ],
+    "time": 60,
+    "rating": 4.6,
+    "difficulty": 2,
+    "portion": 2
+  }
+]

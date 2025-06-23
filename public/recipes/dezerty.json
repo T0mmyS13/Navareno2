@@ -1,0 +1,121 @@
+[
+  {
+    "title": "Bábovka",
+    "description": "Tradiční česká mramorová bábovka, vláčná a voňavá.",
+    "image": "https://img-new.mimibazar.cz/h/bc/c/babovka-recept-peceni-moucnik-1.jpg",
+    "link": "/dezert/babovka",
+    "ingredients": [
+      { "name": "hladká mouka", "quantity": 300, "unit": "g" },
+      { "name": "cukr", "quantity": 200, "unit": "g" },
+      { "name": "vejce", "quantity": 3, "unit": "ks" },
+      { "name": "máslo", "quantity": 150, "unit": "g" },
+      { "name": "mléko", "quantity": 200, "unit": "ml" },
+      { "name": "prášek do pečiva", "quantity": 1, "unit": "balení" },
+      { "name": "kakao", "quantity": 2, "unit": "lžíce" }
+    ],
+    "instructions": [
+      "Vyšlehejte vejce s cukrem do pěny.",
+      "Přidejte rozpuštěné máslo a mléko, promíchejte.",
+      "Postupně přidejte mouku smíchanou s práškem do pečiva.",
+      "Část těsta obarvěte kakaem a vlijte střídavě do formy.",
+      "Pečte na 180 °C asi 40–50 minut."
+    ],
+    "time": 60,
+    "rating": 4.7,
+    "difficulty": 2,
+    "portion": 2
+  },
+  {
+    "title": "Jablečný závin",
+    "description": "Klasický štrůdl plněný jablky, skořicí a ořechy.",
+    "image": "https://media.istockphoto.com/id/482134685/cs/fotografie/v%C3%ADde%C5%88sk%C3%BD-jable%C4%8Dn%C3%BD-z%C3%A1vin.jpg?s=612x612&w=0&k=20&c=Zci3Bn4f7IXL64wDfO-jepubXF1cLkoZJF9LTnGbEyo=",
+    "link": "/dezert/jablecny-zavin",
+    "ingredients": [
+      { "name": "listové těsto", "quantity": 1, "unit": "balení" },
+      { "name": "jablka", "quantity": 500, "unit": "g" },
+      { "name": "cukr", "quantity": 50, "unit": "g" },
+      { "name": "skořice", "quantity": 1, "unit": "lžička" },
+      { "name": "ořechy", "quantity": 50, "unit": "g" },
+      { "name": "vejce", "quantity": 1, "unit": "ks" }
+    ],
+    "instructions": [
+      "Jablka oloupejte a nastrouhejte.",
+      "Smíchejte s cukrem, skořicí a ořechy.",
+      "Rozválejte těsto, naplňte směsí a zaviňte.",
+      "Pomažte vejcem a pečte na 180 °C asi 30 minut."
+    ],
+    "time": 45,
+    "rating": 4.8,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Tiramisu",
+    "description": "Italský dezert s mascarpone, kávou a piškoty.",
+    "image": "https://plus.unsplash.com/premium_photo-1695028378225-97fbe39df62a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8VGlyYW1pc3V8ZW58MHx8MHx8fDA%3D",
+    "link": "/dezert/tiramisu",
+    "ingredients": [
+      { "name": "mascarpone", "quantity": 250, "unit": "g" },
+      { "name": "vejce", "quantity": 2, "unit": "ks" },
+      { "name": "cukr", "quantity": 60, "unit": "g" },
+      { "name": "piškoty", "quantity": 150, "unit": "g" },
+      { "name": "káva", "quantity": 200, "unit": "ml" },
+      { "name": "kakao", "quantity": 1, "unit": "lžíce" }
+    ],
+    "instructions": [
+      "Ušlehejte žloutky s cukrem a přidejte mascarpone.",
+      "Zvlášť ušlehejte bílky a vmíchejte do krému.",
+      "Piškoty namáčejte v kávě a vrstvěte s krémem.",
+      "Dezert nechte chladit v lednici a před podáváním posypte kakaem."
+    ],
+    "time": 30,
+    "rating": 4.9,
+    "difficulty": 2,
+    "portion": 2
+  },
+  {
+    "title": "Palačinky",
+    "description": "Tenoučké palačinky, které můžete naplnit dle chuti.",
+    "image": "https://images.unsplash.com/photo-1597524305544-cd821476715f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fHBhbmNha2VzfGVufDB8fDB8fHww",
+    "link": "/dezert/palacinky",
+    "ingredients": [
+      { "name": "hladká mouka", "quantity": 200, "unit": "g" },
+      { "name": "mléko", "quantity": 400, "unit": "ml" },
+      { "name": "vejce", "quantity": 2, "unit": "ks" }
+    ],
+    "instructions": [
+      "Smíchejte všechny ingredience do hladkého těsta.",
+      "Nechte těsto odpočinout a poté smažte na pánvi.",
+      "Podávejte s marmeládou, čokoládou nebo tvarohem."
+    ],
+    "time": 20,
+    "rating": 4.6,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Čokoládový dort",
+    "description": "Bohatý čokoládový dort pro milovníky sladkého.",
+    "image": "https://images.unsplash.com/photo-1607257882338-70f7dd2ae344?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/dezert/cokoladovy-dort",
+    "ingredients": [
+      { "name": "hladká mouka", "quantity": 200, "unit": "g" },
+      { "name": "cukr", "quantity": 150, "unit": "g" },
+      { "name": "kakao", "quantity": 50, "unit": "g" },
+      { "name": "vejce", "quantity": 3, "unit": "ks" },
+      { "name": "máslo", "quantity": 100, "unit": "g" },
+      { "name": "prášek do pečiva", "quantity": 1, "unit": "lžička" },
+      { "name": "mléko", "quantity": 150, "unit": "ml" }
+    ],
+    "instructions": [
+      "Vyšlehejte vejce s cukrem, přidejte rozpuštěné máslo.",
+      "Vmíchejte sypké suroviny a nakonec mléko.",
+      "Těsto nalijte do formy a pečte na 180 °C asi 40 minut.",
+      "Ozdobte dle chuti polevou nebo ovocem."
+    ],
+    "time": 60,
+    "rating": 4.9,
+    "difficulty": 2,
+    "portion": 2
+  }
+]

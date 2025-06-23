@@ -1,0 +1,117 @@
+[
+  {
+    "title": "Limonáda",
+    "description": "Refreshující nápoj z čerstvých citronů a máty.",
+    "image": "https://images.unsplash.com/photo-1507281549113-040fcfef650e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bGVtb25hZGV8ZW58MHx8MHx8fDA%3D",
+    "link": "/napoje/limonada",
+    "ingredients": [
+      { "name": "citron", "quantity": 2, "unit": "ks" },
+      { "name": "máta", "quantity": 5, "unit": "lístků" },
+      { "name": "cukr", "quantity": 3, "unit": "lžíce" },
+      { "name": "voda", "quantity": 1000, "unit": "ml" },
+      { "name": "led", "quantity": 1, "unit": "hrst" }
+    ],
+    "instructions": [
+      "Vymačkejte šťávu z citronů do nádoby.",
+      "Přidejte cukr, mátu a trochu vody, aby se cukr rozpustil.",
+      "Doplníte vodou a přidejte led.",
+      "Podávejte s několika plátky citronu a mátou na ozdobu."
+    ],
+    "time": 10,
+    "rating": 4.5,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Mojito",
+    "description": "Oblíbený koktejl z rumu, máty, limetky a cukru.",
+    "image": "https://plus.unsplash.com/premium_photo-1722194069211-199c1b4a2e0c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bW9qaXRvfGVufDB8fDB8fHww",
+    "link": "/napoje/mojito",
+    "ingredients": [
+      { "name": "bílý rum", "quantity": 50, "unit": "ml" },
+      { "name": "limetka", "quantity": 1, "unit": "ks" },
+      { "name": "máta", "quantity": 8, "unit": "lístek" },
+      { "name": "cukr", "quantity": 2, "unit": "lžičky" },
+      { "name": "perlivá voda", "quantity": 100, "unit": "ml" },
+      { "name": "led", "quantity": 1, "unit": "hrst" }
+    ],
+    "instructions": [
+      "V mističce smíchejte cukr a mátu.",
+      "Přidejte šťávu z limetky a jemně promíchejte.",
+      "Do sklenice přidejte led a nalijte rum.",
+      "Doplníte perlivou vodou a zamíchejte.",
+      "Podávejte s většími lístky máty na ozdobu."
+    ],
+    "time": 5,
+    "rating": 4.8,
+    "difficulty": 2,
+    "portion": 2
+  },
+  {
+    "title": "Pina Colada",
+    "description": "Sladký tropický koktejl z kokosu a ananasu.",
+    "image": "https://images.unsplash.com/photo-1607644536940-6c300b5784c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/napoje/pina-colada",
+    "ingredients": [
+      { "name": "bílý rum", "quantity": 50, "unit": "ml" },
+      { "name": "ananasový džus", "quantity": 100, "unit": "ml" },
+      { "name": "kokosový krém", "quantity": 50, "unit": "ml" },
+      { "name": "led", "quantity": 1, "unit": "hrst" }
+    ],
+    "instructions": [
+      "Do mixéru přidejte rum, ananasový džus a kokosový krém.",
+      "Přidejte led a mixujte do hladka.",
+      "Nalijte do sklenice a podávejte s plátkem ananasu."
+    ],
+    "time": 5,
+    "rating": 4.7,
+    "difficulty": 2,
+    "portion": 2
+  },
+  {
+    "title": "Nealkoholická mojito",
+    "description": "Verze mojita bez alkoholu, s osvěžující mátou a limetkou.",
+    "image": "https://images.unsplash.com/photo-1634496064950-02f043806b09?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dmlyZ2luJTIwbW9qaXRvfGVufDB8fDB8fHww",
+    "link": "/napoje/nealko-mojito",
+    "ingredients": [
+      { "name": "máta", "quantity": 8, "unit": "lístků" },
+      { "name": "limetka", "quantity": 1, "unit": "ks" },
+      { "name": "cukr", "quantity": 2, "unit": "lžička" },
+      { "name": "perlivá voda", "quantity": 200, "unit": "ml" },
+      { "name": "led", "quantity": 1, "unit": "hrst" }
+    ],
+    "instructions": [
+      "V mističce smíchejte mátu a cukr.",
+      "Přidejte šťávu z limetky a jemně promíchejte.",
+      "Do sklenice dejte led a nalijte perlivou vodu.",
+      "Podávejte s většími lístky máty na ozdobu."
+    ],
+    "time": 5,
+    "rating": 4.3,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Frapé",
+    "description": "Studený kávový nápoj ideální na horké letní dny.",
+    "image": "https://plus.unsplash.com/premium_photo-1663853491881-8bbd70e7d93b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZnJhcHBlfGVufDB8MHwwfHx8MA%3D%3D",
+    "link": "/napoje/frape",
+    "ingredients": [
+      { "name": "instantní káva", "quantity": 1, "unit": "lžička" },
+      { "name": "cukr", "quantity": 1, "unit": "lžička" },
+      { "name": "led", "quantity": 1, "unit": "hrst" },
+      { "name": "voda", "quantity": 50, "unit": "ml" },
+      { "name": "mléko", "quantity": 100, "unit": "ml" }
+    ],
+    "instructions": [
+      "V malé nádobě smíchejte instantní kávu, cukr a vodu.",
+      "Přidejte led a důkladně promíchejte.",
+      "Nalijte do sklenice a dolijte mlékem.",
+      "Podávejte se strouhanou čokoládou na ozdobu."
+    ],
+    "time": 5,
+    "rating": 4.4,
+    "difficulty": 1,
+    "portion": 2
+  }
+]

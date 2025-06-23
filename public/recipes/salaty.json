@@ -1,0 +1,123 @@
+[
+  {
+    "title": "Řecký salát",
+    "description": "Osvěžující salát s okurkou, rajčaty, olivami a fetou.",
+    "image": "https://cdn.administrace.tv/2022/08/07/small_169/fcd385bc69ae78716fc13ccc6cf3b345.jpg",
+    "link": "/salat/recky-salat",
+    "ingredients": [
+      { "name": "rajče", "quantity": 2, "unit": "ks" },
+      { "name": "okurka", "quantity": 1, "unit": "ks" },
+      { "name": "červená cibule", "quantity": 0.5, "unit": "ks" },
+      { "name": "černé olivy", "quantity": 10, "unit": "ks" },
+      { "name": "sýr feta", "quantity": 100, "unit": "g" },
+      { "name": "olivový olej", "quantity": 2, "unit": "lžíce" }
+    ],
+    "instructions": [
+      "Rajčata a okurku nakrájejte na kousky.",
+      "Cibuli nakrájejte na tenké proužky.",
+      "Vše vložte do mísy a přidejte olivy.",
+      "Přidejte na kostičky nakrájenou fetu.",
+      "Zakápněte olivovým olejem, posypte oreganem a dochuťte solí a pepřem."
+    ],
+    "time": 15,
+    "rating": 4.7,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Cizrnový salát",
+    "description": "Výživný salát s cizrnou, paprikou a bylinkami.",
+    "image": "https://cdn.administrace.tv/2025/01/13/small_169/3b5211a9517d3aff5f37975db64c49b2.jpg",
+    "link": "/salat/cizrnovy-salat",
+    "ingredients": [
+      { "name": "cizrna", "quantity": 200, "unit": "g" },
+      { "name": "červená paprika", "quantity": 1, "unit": "ks" },
+      { "name": "okurka", "quantity": 0.5, "unit": "ks" },
+      { "name": "petržel", "quantity": 2, "unit": "ks" },
+      { "name": "olivový olej", "quantity": 1, "unit": "lžíce" },
+      { "name": "citronová šťáva", "quantity": 1, "unit": "lžíce" }
+    ],
+    "instructions": [
+      "Cizrnu slijte a propláchněte.",
+      "Papriky a okurku nakrájejte na malé kousky.",
+      "Smíchejte vše v míse, přidejte nasekanou petržel.",
+      "Zalijte citronovou šťávou a olivovým olejem.",
+      "Dochutíme solí a pepřem a dobře promícháme."
+    ],
+    "time": 10,
+    "rating": 4.5,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Těstovinový salát",
+    "description": "Barevný salát s těstovinami, zeleninou a jogurtovým dresinkem.",
+    "image": "https://media.istockphoto.com/id/1216211251/cs/fotografie/zdrav%C3%A9-fusilli-pasta-sal%C3%A1t-b%C3%ADl%C3%A9-pozad%C3%AD.jpg?s=612x612&w=0&k=20&c=npS2eWZWKbgib6E-5Sl1aQSAM9xmVNRTBYlfH4EWFEw=",
+    "link": "/salat/testovinovy-salat",
+    "ingredients": [
+      { "name": "těstoviny", "quantity": 150, "unit": "g" },
+      { "name": "kukuřice", "quantity": 100, "unit": "g" },
+      { "name": "červená paprika", "quantity": 1, "unit": "ks" },
+      { "name": "okurka", "quantity": 0.5, "unit": "ks" },
+      { "name": "bílý jogurt", "quantity": 3, "unit": "lžíce" },
+      { "name": "citronová šťáva", "quantity": 1, "unit": "lžička" }
+    ],
+    "instructions": [
+      "Těstoviny uvařte dle návodu a nechte vychladnout.",
+      "Zeleninu nakrájejte na kostičky.",
+      "V míse smíchejte těstoviny, zeleninu a kukuřici.",
+      "Přidejte jogurt, citronovou šťávu, sůl a pepř.",
+      "Dobře promíchejte a podávejte chlazené."
+    ],
+    "time": 20,
+    "rating": 4.4,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Mrkvový salát s jablky",
+    "description": "Sladkokyselý salát z čerstvé mrkve a jablek.",
+    "image": "https://www.vegan.cz/wp-content/uploads/2023/03/mrkvovy-salat-recept-1024x683.jpg",
+    "link": "/salat/mrkvovy-s-jablky",
+    "ingredients": [
+      { "name": "mrkev", "quantity": 2, "unit": "ks" },
+      { "name": "jablko", "quantity": 1, "unit": "ks" },
+      { "name": "citronová šťáva", "quantity": 1, "unit": "lžička" },
+      { "name": "med", "quantity": 1, "unit": "lžička" }
+    ],
+    "instructions": [
+      "Mrkev i jablko nastrouhejte nahrubo.",
+      "Zakápněte citronovou šťávou a přidejte med.",
+      "Promíchejte a nechte chvíli odležet v lednici."
+    ],
+    "time": 10,
+    "rating": 4.6,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Salát s tuňákem",
+    "description": "Lehký salát s tuňákem, vejcem a zeleninou.",
+    "image": "https://cdn.administrace.tv/2022/08/06/small_169/f2c1276000a916bf8cac798c61214f43.jpg",
+    "link": "/salat/salat-s-tunakem",
+    "ingredients": [
+      { "name": "listový salát", "quantity": 2, "unit": "hrst" },
+      { "name": "tuňák v oleji", "quantity": 1, "unit": "ks" },
+      { "name": "vejce", "quantity": 1, "unit": "ks" },
+      { "name": "rajče", "quantity": 1, "unit": "ks" },
+      { "name": "okurka", "quantity": 0.5, "unit": "ks" },
+      { "name": "olivový olej", "quantity": 1, "unit": "lžíce" }
+    ],
+    "instructions": [
+      "Vejce uvařte natvrdo, oloupejte a nakrájejte.",
+      "Zeleninu omyjte a nakrájejte na kousky.",
+      "Listový salát natrhejte do mísy.",
+      "Přidejte tuňáka, zeleninu a vejce.",
+      "Zakápněte olivovým olejem, osolte a opepřete."
+    ],
+    "time": 15,
+    "rating": 4.6,
+    "difficulty": 1,
+    "portion": 2
+  }
+]
