@@ -15,7 +15,7 @@ export async function GET(
         const result = await sql`
             SELECT * FROM recipes
             WHERE category = ${decodeURIComponent(category)}
-              AND title ILIKE ${decodeURIComponent(recipe)}
+              AND slug = ${decodeURIComponent(recipe)}
                 LIMIT 1
         `;
 

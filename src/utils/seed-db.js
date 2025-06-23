@@ -12,6 +12,23 @@ const pool = new Pool({
   },
 });
 
+function removeDiacritics(str) {
+  return str
+    ? str.normalize("NFD").replace(/\p{Diacritic}/gu, "")
+    : str;
+}
+
+function generateSlug(str) {
+  return str
+    ? str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
+        .replace(/[^a-z0-9 ]/g, "")
+        .replace(/\s+/g, "-")
+    : str;
+}
+
 async function seed() {
   try {
     const recipesDir = path.resolve('./public/recipes');
@@ -26,11 +43,15 @@ async function seed() {
         const recipes = JSON.parse(rawData);
 
         for (const r of recipes) {
+          // Zachovej diakritiku u všeho kromě slugu
+          const slug = generateSlug(r.title);
+
           await pool.query(
-              `INSERT INTO recipes (title, description, category, image, time, portion, difficulty, ingredients, instructions)
-             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+              `INSERT INTO recipes (title, slug, description, category, image, time, portion, difficulty, ingredients, instructions)
+             VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
               [
                 r.title,
+                slug,
                 r.description,
                 category,
                 r.image,
@@ -38,7 +59,7 @@ async function seed() {
                 r.portion,
                 r.difficulty,
                 JSON.stringify(r.ingredients),
-                JSON.stringify(r.instructions),
+                JSON.stringify(r.instructions)
               ]
           );
           console.log(`Nahrán recept: ${r.title} (kategorie: ${category})`);

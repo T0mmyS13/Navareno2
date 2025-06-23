@@ -18,65 +18,100 @@ import { Add, Remove } from "@mui/icons-material";
 import ImageIcon from "@mui/icons-material/Image";
 import { useToast } from "@/utils/ToastNotify";
 
-const AddRecipePage = () => {
+interface Ingredient {
+    name: string;
+    quantity: string; // držíme string, protože input vrací string
+    unit: string | null;
+}
+
+interface RecipeData {
+    title: string;
+    description: string;
+    image: string;
+    portion: string;
+    time: string;
+    instructions: string[];
+    ingredients: Ingredient[];
+    category: string;
+    difficulty: number;
+}
+
+const AddRecipePage: React.FC = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [isCopying, setIsCopying] = useState(false);
     const [originalTitle, setOriginalTitle] = useState("");
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [image, setImage] = useState("");
+    const [portion, setPortion] = useState("");
+    const [time, setTime] = useState("");
+    const [instructions, setInstructions] = useState<string[]>([""]);
+    const [ingredients, setIngredients] = useState<Ingredient[]>([
+        { name: "", quantity: "", unit: null },
+    ]);
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [difficulty, setDifficulty] = useState<number | "">("");
+
     const { showToast } = useToast();
     const router = useRouter();
 
-    const loadEditingData = () => {
+    // načti data z sessionStorage jen jednou při mountu
+    useEffect(() => {
         const editingRecipeData = sessionStorage.getItem("editingRecipe");
         if (editingRecipeData) {
-            const editingRecipe = JSON.parse(editingRecipeData);
+            const editingRecipe: RecipeData = JSON.parse(editingRecipeData);
             sessionStorage.removeItem("editingRecipe");
             setIsEditing(true);
             setOriginalTitle(editingRecipe.title);
-            return editingRecipe;
+
+            setTitle(editingRecipe.title);
+            setDescription(editingRecipe.description);
+            setImage(editingRecipe.image);
+            setPortion(editingRecipe.portion);
+            setTime(editingRecipe.time);
+            setInstructions(editingRecipe.instructions);
+            setIngredients(editingRecipe.ingredients);
+            setSelectedCategory(editingRecipe.category);
+            setDifficulty(editingRecipe.difficulty);
+            return;
         }
+
         const copyingRecipeData = sessionStorage.getItem("copyingRecipe");
         if (copyingRecipeData) {
-            const copyingRecipe = JSON.parse(copyingRecipeData);
+            const copyingRecipe: RecipeData = JSON.parse(copyingRecipeData);
             sessionStorage.removeItem("copyingRecipe");
             setIsCopying(true);
-            return { ...copyingRecipe, title: "" };
+
+            setTitle(""); // nové pole musí mít prázdný title
+            setDescription(copyingRecipe.description);
+            setImage(copyingRecipe.image);
+            setPortion(copyingRecipe.portion);
+            setTime(copyingRecipe.time);
+            setInstructions(copyingRecipe.instructions);
+            setIngredients(copyingRecipe.ingredients);
+            setSelectedCategory(copyingRecipe.category);
+            setDifficulty(copyingRecipe.difficulty);
         }
-        return null;
-    };
-
-    const editingRecipe = loadEditingData();
-
-    const [title, setTitle] = useState(editingRecipe?.title || "");
-    const [description, setDescription] = useState(editingRecipe?.description || "");
-    const [image, setImage] = useState(editingRecipe?.image || "");
-    const [portion, setPortion] = useState(editingRecipe?.portion || "");
-    const [time, setTime] = useState(editingRecipe?.time || "");
-    const [instructions, setInstructions] = useState<string[]>(editingRecipe?.instructions || [""]);
-    const [ingredients, setIngredients] = useState(editingRecipe?.ingredients || [{ name: "", quantity: "", unit: "" }]);
-    const [selectedCategory, setSelectedCategory] = useState(editingRecipe?.category || "");
-    const [difficulty, setDifficulty] = useState(editingRecipe?.difficulty || "");
+    }, []);
 
     const handleAddIngredient = () => {
-        setIngredients([...ingredients, { name: "", quantity: "", unit: "" }]);
+        setIngredients((prev) => [...prev, { name: "", quantity: "", unit: null }]);
     };
 
     const handleRemoveIngredient = (index: number) => {
-        const newIngredients = [...ingredients];
-        newIngredients.splice(index, 1);
-        setIngredients(newIngredients);
+        setIngredients((prev) => prev.filter((_, i) => i !== index));
     };
 
     const handleAddInstruction = () => {
-        setInstructions([...instructions, ""]);
+        setInstructions((prev) => [...prev, ""]);
     };
 
     const handleRemoveInstruction = (index: number) => {
-        const newInstructions = [...instructions];
-        newInstructions.splice(index, 1);
-        setInstructions(newInstructions);
+        setInstructions((prev) => prev.filter((_, i) => i !== index));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!title.trim() || title.trim().length < 5) {
@@ -87,15 +122,26 @@ const AddRecipePage = () => {
             showToast("Popis musí mít alespoň 10 znaků", "error");
             return;
         }
-        if (ingredients.length === 0 || ingredients.every(ing => !ing.name.trim())) {
+        if (ingredients.length === 0 || ingredients.every((ing) => !ing.name.trim())) {
             showToast("Musí být zadána alespoň jedna ingredience s názvem", "error");
             return;
         }
-        if (ingredients.some(ing => isNaN(ing.quantity) || ing.quantity <= 0 || !ing.unit)) {
-            showToast("Množství u všech ingrediencí musí být platné číslo větší než 0 a musí být vyplněna jednotka", "error");
+        if (
+            ingredients.some(
+                (ing) =>
+                    isNaN(Number(ing.quantity)) ||
+                    Number(ing.quantity) <= 0 ||
+                    !ing.unit ||
+                    ing.unit === ""
+            )
+        ) {
+            showToast(
+                "Množství u všech ingrediencí musí být platné číslo větší než 0 a musí být vyplněna jednotka",
+                "error"
+            );
             return;
         }
-        if (instructions.length === 0 || instructions.every(instr => !instr.trim())) {
+        if (instructions.length === 0 || instructions.every((instr) => !instr.trim())) {
             showToast("Musí být zadán alespoň jeden krok postupu", "error");
             return;
         }
@@ -104,45 +150,51 @@ const AddRecipePage = () => {
             return;
         }
 
-        const normalizedCategory = selectedCategory
+        // Vygeneruj slug z názvu receptu
+        const slug = title
             .toLowerCase()
             .normalize("NFD")
             .replace(/\p{Diacritic}/gu, "")
+            .replace(/[^a-z0-9 ]/g, "")
             .replace(/\s+/g, "-");
-
-        const storedRecipes = JSON.parse(localStorage.getItem(normalizedCategory) || "[]");
-        let updatedRecipes = storedRecipes;
-
-        if (isEditing) {
-            updatedRecipes = storedRecipes.filter((recipe: any) => recipe.title !== originalTitle);
-        }
-
-        const isDuplicate = updatedRecipes.some((recipe: any) => recipe.title === title);
-        if (isDuplicate) {
-            showToast(`Recept pod názvem ${title} už existuje`, "error");
-            return;
-        }
 
         const newRecipe = {
             title,
             description,
-            ingredients,
-            instructions,
+            ingredients: ingredients.map((ing) => ({
+                name: ing.name.trim(),
+                quantity: Number(ing.quantity),
+                unit: ing.unit,
+            })),
+            instructions: instructions.map((instr) => instr.trim()),
             time,
-            difficulty,
+            difficulty: Number(difficulty),
             image,
             portion,
-            rating: null,
+            category: selectedCategory,
+            slug,
         };
 
-        updatedRecipes.push(newRecipe);
-        localStorage.setItem(normalizedCategory, JSON.stringify(updatedRecipes));
-        showToast(
-            isEditing ? "Úprava úspěšná" : isCopying ? "Recept zkopírován" : "Recept přidán",
-            "success"
-        );
+        try {
+            const response = await fetch("/api/recipes", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newRecipe),
+            });
 
-        router.push(`/${normalizedCategory}/${encodeURIComponent(title)}`);
+            if (!response.ok) {
+                throw new Error("Failed to add recipe");
+            }
+
+            const result = await response.json();
+            showToast("Recept úspěšně přidán", "success");
+            router.push(`/${selectedCategory}/${slug}`);
+        } catch (error) {
+            console.error(error);
+            showToast("Chyba při přidávání receptu", "error");
+        }
     };
 
     return (
@@ -172,6 +224,7 @@ const AddRecipePage = () => {
                             value={selectedCategory}
                             onChange={(e) => setSelectedCategory(e.target.value)}
                             disabled={isEditing || isCopying}
+                            label="Kategorie"
                         >
                             <MenuItem value="predkrmy">Předkrmy</MenuItem>
                             <MenuItem value="polevky">Polévky</MenuItem>
@@ -184,7 +237,13 @@ const AddRecipePage = () => {
                 </div>
 
                 <Box>
-                    {image && <img src={image} alt="náhled" className="rounded w-full h-48 object-cover mb-4" />}
+                    {image && (
+                        <img
+                            src={image}
+                            alt="náhled"
+                            className="rounded w-full h-48 object-cover mb-4"
+                        />
+                    )}
                     <Box display="flex" alignItems="center" gap={2}>
                         <TextField
                             label="Odkaz na obrázek"
@@ -218,17 +277,19 @@ const AddRecipePage = () => {
                     </Box>
                 </Box>
 
-                <TextField
-                    label="Krátký popis"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    fullWidth
-                    multiline
-                    rows={2}
-                    inputProps={{ maxLength: 200 }}
-                    required
-                    disabled={isCopying}
-                />
+                <div className="space-y-6" >
+                    <TextField
+                        label="Krátký popis"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        fullWidth
+                        multiline
+                        rows={2}
+                        inputProps={{ maxLength: 200 }}
+                        required
+                        disabled={isCopying}
+                    />
+                </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <TextField
@@ -268,37 +329,60 @@ const AddRecipePage = () => {
                 <div className="space-y-4">
                     <Typography variant="h6">Ingredience</Typography>
                     {ingredients.map((ingredient, index) => (
-                        <div key={index} className="grid grid-cols-1 sm:grid-cols-4 gap-2 items-center">
+                        <div
+                            key={index}
+                            className="grid grid-cols-1 sm:grid-cols-4 gap-2 items-center"
+                        >
                             <TextField
                                 label="Ingredience"
                                 value={ingredient.name}
-                                onChange={(e) => setIngredients(
-                                    ingredients.map((ing, i) =>
-                                        i === index ? { ...ing, name: e.target.value } : ing
+                                onChange={(e) =>
+                                    setIngredients((prev) =>
+                                        prev.map((ing, i) =>
+                                            i === index ? { ...ing, name: e.target.value } : ing
+                                        )
                                     )
-                                )}
+                                }
                                 disabled={isCopying}
                             />
                             <TextField
                                 label="Množství"
                                 type="number"
                                 value={ingredient.quantity}
-                                onChange={(e) => setIngredients(
-                                    ingredients.map((ing, i) =>
-                                        i === index ? { ...ing, quantity: e.target.value } : ing
+                                onChange={(e) =>
+                                    setIngredients((prev) =>
+                                        prev.map((ing, i) =>
+                                            i === index ? { ...ing, quantity: e.target.value } : ing
+                                        )
                                     )
-                                )}
+                                }
                                 disabled={isCopying}
                             />
                             <Autocomplete
-                                options={["g", "kg", "ml", "l", "ks", "lžička", "lžíce", "hrst", "plátek", "stroužek", "konzerva"]}
+                                options={[
+                                    "g",
+                                    "kg",
+                                    "ml",
+                                    "l",
+                                    "ks",
+                                    "lžička",
+                                    "lžíce",
+                                    "hrst",
+                                    "plátek",
+                                    "stroužek",
+                                    "konzerva",
+                                ]}
                                 value={ingredient.unit}
-                                onChange={(e, newValue) => setIngredients(
-                                    ingredients.map((ing, i) =>
-                                        i === index ? { ...ing, unit: newValue } : ing
+                                onChange={(e, newValue) =>
+                                    setIngredients((prev) =>
+                                        prev.map((ing, i) =>
+                                            i === index ? { ...ing, unit: newValue } : ing
+                                        )
                                     )
+                                }
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Jednotka" />
                                 )}
-                                renderInput={(params) => <TextField {...params} label="Jednotka" />}
                                 disabled={isCopying}
                             />
                             <IconButton
@@ -310,7 +394,12 @@ const AddRecipePage = () => {
                             </IconButton>
                         </div>
                     ))}
-                    <Button variant="outlined" onClick={handleAddIngredient} startIcon={<Add />} disabled={isCopying}>
+                    <Button
+                        variant="outlined"
+                        onClick={handleAddIngredient}
+                        startIcon={<Add />}
+                        disabled={isCopying}
+                    >
                         Přidat ingredienci
                     </Button>
                 </div>
@@ -324,11 +413,11 @@ const AddRecipePage = () => {
                                 multiline
                                 rows={3}
                                 value={instruction}
-                                onChange={(e) => setInstructions(
-                                    instructions.map((instr, i) =>
-                                        i === index ? e.target.value : instr
+                                onChange={(e) =>
+                                    setInstructions((prev) =>
+                                        prev.map((instr, i) => (i === index ? e.target.value : instr))
                                     )
-                                )}
+                                }
                                 fullWidth
                                 disabled={isCopying}
                             />
@@ -341,14 +430,23 @@ const AddRecipePage = () => {
                             </IconButton>
                         </div>
                     ))}
-                    <Button variant="outlined" onClick={handleAddInstruction} startIcon={<Add />} disabled={isCopying}>
+                    <Button
+                        variant="outlined"
+                        onClick={handleAddInstruction}
+                        startIcon={<Add />}
+                        disabled={isCopying}
+                    >
                         Přidat krok
                     </Button>
                 </div>
 
                 <div className="text-center">
                     <Button variant="contained" type="submit">
-                        {isEditing ? "Upravit recept" : isCopying ? "Zkopírovat recept" : "Přidat recept"}
+                        {isEditing
+                            ? "Upravit recept"
+                            : isCopying
+                                ? "Zkopírovat recept"
+                                : "Přidat recept"}
                     </Button>
                 </div>
             </form>

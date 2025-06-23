@@ -5,9 +5,11 @@ import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Button, Checkbox } from "@mui/material";
+import { Checkbox } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useToast } from "@/utils/ToastNotify";
+import { getDeclinedUnit, convertUnits } from "@/utils/units";
+import Rating from '@mui/material/Rating';
 
 // Typy pro komponenty
 interface Ingredient {
@@ -20,8 +22,8 @@ interface Recipe {
   image: string;
   difficulty: number;
   time: number;
-  rating: string | number;
-  ratingsCount: number;
+  rating_sum?: number;
+  rating_count?: number;
   description: string;
   ingredients: Ingredient[];
   instructions: string[];
@@ -29,14 +31,6 @@ interface Recipe {
   [key: string]: unknown;
 }
 
-// Pomocné funkce pro konverzi jednotek (placeholder)
-const convertUnits = (quantity: number, unit: string) => {
-  return { quantity, unit };
-};
-
-const getDeclinedUnit = (unit: string, quantity: number) => {
-  return unit;
-};
 
 export default function RecipeDetailPage() {
   const params = useParams();
@@ -160,6 +154,34 @@ export default function RecipeDetailPage() {
     }
   };
 
+  // Hodnocení receptu
+  const [userRating, setUserRating] = useState<number | null>(null);
+  const [isRatingLoading, setIsRatingLoading] = useState(false);
+  const averageRating = recipe && recipe.rating_count && recipe.rating_sum
+    ? recipe.rating_sum / recipe.rating_count
+    : 0;
+
+  const handleRate = async (value: number | null) => {
+    if (!value) return;
+    setIsRatingLoading(true);
+    try {
+      const res = await fetch(`/api/recipes/${category}/${recipeName}/rating`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rating: value })
+      });
+      if (!res.ok) throw new Error('Chyba při ukládání hodnocení');
+      const data = await res.json();
+      setUserRating(value);
+      setRecipe((prev) => prev ? { ...prev, rating_sum: data.rating_sum, rating_count: data.rating_count } : prev);
+      showToast('Děkujeme za hodnocení!', 'success');
+    } catch {
+      showToast('Chyba při ukládání hodnocení', 'error');
+    } finally {
+      setIsRatingLoading(false);
+    }
+  };
+
   // Zobrazení obtížnosti
   const renderDifficulty = (difficulty: number) => {
     const labels = ["Snadné", "Střední", "Obtížné"];
@@ -189,6 +211,7 @@ export default function RecipeDetailPage() {
 
   return (
       <div className="max-w-4xl mx-auto p-4 recipe-detail">
+
         {/* Hlavička receptu */}
         <div className="mb-6 relative h-80 rounded-lg overflow-hidden shadow-lg">
           {recipe.image ? (
@@ -211,24 +234,38 @@ export default function RecipeDetailPage() {
             <div className="flex items-center mt-2 text-white">
               <span className="mr-4">Čas: {recipe.time} min</span>
               <span className="mr-4">Obtížnost: {renderDifficulty(recipe.difficulty)}</span>
-              <div className="flex">
-                {Array.from({length: 5}).map((_, i) => (
-                    <span key={i} className={i < (Number(recipe.rating) || 0) ? "text-yellow-400" : "text-gray-400"}>
-                  ★
-                </span>
-                ))}
-              </div>
             </div>
           </div>
         </div>
 
+
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div className="flex items-center gap-6 mb-6">
           <Link
               href={`/${category}`}
-              className="inline-block bg-[#ff5e57] hover:bg-[#e04e47] text-white py-2 px-4 rounded-lg mb-6 no-underline transition-colors"
+              className="inline-block bg-[#ff5e57] hover:bg-[#e04e47] text-white py-2 px-4 rounded-lg no-underline transition-colors"
+              style={{ whiteSpace: "nowrap" }}
           >
             ← Zpět na kategorii
           </Link>
+            <div className="flex items-center gap-4">
+            <span className="font-medium">Hodnocení:</span>
+            <Rating
+                name="recipe-rating"
+                value={averageRating}
+                precision={0.5}
+                readOnly
+            />
+            <span>({recipe.rating_count || 0}x)</span>
+            <span className="ml-4 font-medium">Ohodnoťte recept:</span>
+            <Rating
+                name="user-rating"
+                value={userRating}
+                onChange={(_, value) => handleRate(value)}
+                disabled={isRatingLoading || !!userRating}
+            />
+          </div>
+          </div>
 
           <div className="recipe-content">
             {/* Ingredience */}
@@ -296,6 +333,10 @@ export default function RecipeDetailPage() {
 
             {/* Postup */}
             <h2 className="text-2xl font-bold mb-4">Postup</h2>
+
+            {/* Hodnocení */}
+            {/* (přesunuto nahoru) */}
+
             {recipe.instructions && recipe.instructions.length > 0 ? (
                 <ol className="space-y-4 mb-8">
                   {recipe.instructions.map((step, index) => (
@@ -313,6 +354,7 @@ export default function RecipeDetailPage() {
 
             {/* Akce pro úpravu a kopírování receptu */}
             <div className="flex justify-center gap-4 mt-8">
+              {/*
               <Button
                   variant="contained"
                   color="primary"
@@ -327,6 +369,7 @@ export default function RecipeDetailPage() {
               >
                 Upravit recept
               </Button>
+              */}
             </div>
           </div>
         </div>

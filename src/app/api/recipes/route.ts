@@ -42,16 +42,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Kontrola, zda slug už existuje v dané kategorii
+    const existing = await sql`
+      SELECT 1 FROM recipes WHERE slug = ${recipe.slug} AND category = ${recipe.category}
+    `;
+    if (existing.length > 0) {
+      return NextResponse.json(
+        { error: 'Recept s tímto názvem už existuje.' },
+        { status: 409 }
+      );
+    }
+
     // Vložení nového receptu do databáze
     const result = await sql`
       INSERT INTO recipes (
         title, description, image, category, time, difficulty, 
-        portion, ingredients, instructions
+        portion, ingredients, instructions, slug
       ) VALUES (
         ${recipe.title}, ${recipe.description}, ${recipe.image}, 
         ${recipe.category}, ${recipe.time}, ${recipe.difficulty},
         ${recipe.portion}, ${JSON.stringify(recipe.ingredients)}, 
-        ${JSON.stringify(recipe.instructions)}
+        ${JSON.stringify(recipe.instructions)}, ${recipe.slug}
       )
       RETURNING *
     `;
@@ -69,27 +80,29 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     const recipe = await request.json();
-    
+
     // Validace receptu
-    if (!recipe.title || !recipe.category) {
+    if (!recipe.title || !recipe.category || !recipe.slug) {
       return NextResponse.json(
         { error: 'Neplatný recept - chybí požadovaná pole' },
         { status: 400 }
       );
     }
 
-    // Aktualizace receptu v databázi
+    // Aktualizace receptu v databázi podle slug a category
     const result = await sql`
-      UPDATE recipes 
-      SET 
+      UPDATE recipes
+      SET
+        title = ${recipe.title},
         description = ${recipe.description},
         image = ${recipe.image},
         time = ${recipe.time},
         difficulty = ${recipe.difficulty},
         portion = ${recipe.portion},
         ingredients = ${JSON.stringify(recipe.ingredients)},
-        instructions = ${JSON.stringify(recipe.instructions)}
-      WHERE title = ${recipe.title} AND category = ${recipe.category}
+        instructions = ${JSON.stringify(recipe.instructions)},
+        slug = ${recipe.slug}
+      WHERE slug = ${recipe.slug} AND category = ${recipe.category}
       RETURNING *
     `;
 

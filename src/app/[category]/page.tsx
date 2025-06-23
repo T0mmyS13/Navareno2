@@ -17,7 +17,6 @@ import {
     CardActionArea
 } from "@mui/material";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import GradeIcon from '@mui/icons-material/Grade';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
 // Definujeme typy pro recepty
@@ -104,6 +103,10 @@ export default function CategoryPage() {
             sortedArray.sort((a, b) => a.difficulty - b.difficulty);
         } else if (sortCriteria === "time") {
             sortedArray.sort((a, b) => a.time - b.time);
+        } else if (sortCriteria === "title") {
+            sortedArray.sort((a, b) => a.title.localeCompare(b.title, "cs", { sensitivity: "base" }));
+        } else if (sortCriteria === "portion") {
+            sortedArray.sort((a, b) => Number(a.portion) - Number(b.portion));
         }
         return sortedArray;
     }, [recipes, sortCriteria]);
@@ -112,7 +115,7 @@ export default function CategoryPage() {
     const handleRandomRecipe = () => {
         if (sortedRecipes.length > 0) {
             const randomRecipe = sortedRecipes[Math.floor(Math.random() * sortedRecipes.length)];
-            router.push(`/${category}/${randomRecipe.title.toLowerCase()}`);
+            router.push(`/${category}/${randomRecipe.slug}`);
         }
     };
 
@@ -173,6 +176,8 @@ export default function CategoryPage() {
                         <option value="difficulty">Obtížnost</option>
                         <option value="time">Délka přípravy</option>
                         <option value="rating">Hodnocení</option>
+                        <option value="title">Název</option>
+                        <option value="portion">Porce</option>
                     </select>
                 </div>
             </div>
@@ -202,7 +207,7 @@ export default function CategoryPage() {
                                 elevation={3}
                             >
                                 <CardActionArea
-                                    onClick={() => router.push(`/${category}/${recipe.title.toLowerCase()}`)}
+                                    onClick={() => router.push(`/${category}/${recipe.slug}`)}
                                     sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}
                                 >
                                     <CardMedia
@@ -243,17 +248,16 @@ export default function CategoryPage() {
                                             />
                                         </Stack>
 
-                                        <Box display="flex" alignItems="center">
+                                        {/* Zobrazení ratingu z databáze */}
+                                        <Box display="flex" alignItems="center" mb={1}>
                                             <Rating
-                                                value={parseFloat(String(recipe.rating))}
+                                                value={Number(recipe.rating_count) && Number(recipe.rating_sum) ? Number(recipe.rating_sum) / Number(recipe.rating_count) : 0}
                                                 precision={0.5}
                                                 readOnly
                                                 size="small"
-                                                icon={<GradeIcon fontSize="inherit" />}
-                                                emptyIcon={<GradeIcon fontSize="inherit" style={{ opacity: 0.55 }} />}
                                             />
                                             <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
-                                                ({recipe.ratingsCount})
+                                                ({recipe.rating_count || 0}x)
                                             </Typography>
                                         </Box>
                                     </CardContent>
