@@ -71,7 +71,7 @@ export default function RecipeDetailPage() {
         setRecipe(data);
         setAdjustedIngredients(data.ingredients);
         setPortionCount(data.portion || 2);
-      } catch (error) {
+      } catch {
         setRecipe(null);
       } finally {
         setLoading(false);
@@ -188,148 +188,148 @@ export default function RecipeDetailPage() {
 
 
   return (
-    <div className="max-w-4xl mx-auto p-4 recipe-detail">
-      {/* Hlavička receptu */}
-      <div className="mb-6 relative h-80 rounded-lg overflow-hidden shadow-lg">
-        {recipe.image ? (
-          <Image
-            src={recipe.image}
-            alt={recipe.title}
-            fill
-            className="object-cover"
-          />
-        ) : (
-          <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <p className="text-gray-500">Obrázek není k dispozici</p>
-          </div>
-        )}
-        
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-          <h1 className="text-3xl font-bold text-white mb-2">{recipe.title}</h1>
-          <p className="text-white/80">{recipe.description}</p>
-          
-          <div className="flex items-center mt-2 text-white">
-            <span className="mr-4">Čas: {recipe.time} min</span>
-            <span className="mr-4">Obtížnost: {renderDifficulty(recipe.difficulty)}</span>
-            <div className="flex">
-              {Array.from({length: 5}).map((_, i) => (
-                <span key={i} className={i < (Number(recipe.rating) || 0) ? "text-yellow-400" : "text-gray-400"}>
+      <div className="max-w-4xl mx-auto p-4 recipe-detail">
+        {/* Hlavička receptu */}
+        <div className="mb-6 relative h-80 rounded-lg overflow-hidden shadow-lg">
+          {recipe.image ? (
+              <Image
+                  src={recipe.image}
+                  alt={recipe.title}
+                  fill
+                  className="object-cover"
+              />
+          ) : (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                <p className="text-gray-500">Obrázek není k dispozici</p>
+              </div>
+          )}
+
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+            <h1 className="text-3xl font-bold text-white mb-2">{recipe.title}</h1>
+            <p className="text-white">{recipe.description}</p>
+
+            <div className="flex items-center mt-2 text-white">
+              <span className="mr-4">Čas: {recipe.time} min</span>
+              <span className="mr-4">Obtížnost: {renderDifficulty(recipe.difficulty)}</span>
+              <div className="flex">
+                {Array.from({length: 5}).map((_, i) => (
+                    <span key={i} className={i < (Number(recipe.rating) || 0) ? "text-yellow-400" : "text-gray-400"}>
                   ★
                 </span>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <Link 
-          href={`/${category}`} 
-          className="inline-block bg-[#ff5e57] hover:bg-[#e04e47] text-white py-2 px-4 rounded-lg mb-6 no-underline transition-colors"
-        >
-          ← Zpět na kategorii
-        </Link>
-        
-        <div className="recipe-content">
-          {/* Ingredience */}
-          <h2 className="text-2xl font-bold mb-4">Ingredience</h2>
-          
-          <div className="portion-input mb-4 flex items-center">
-            <label htmlFor="portion-count" className="mr-3 font-medium">Počet porcí:</label>
-            <input
-              id="portion-count"
-              type="number"
-              className="w-20 p-2 border border-gray-300 rounded"
-              value={portionCount}
-              onChange={handlePortionChange}
-              min="1"
-            />
-          </div>
-          
-          {adjustedIngredients && adjustedIngredients.length > 0 ? (
-            <div className="ingredients-container mb-6" style={{ height: 400 }}>
-              <DataGrid
-                rows={adjustedIngredients.map((ingredient, index) => ({
-                  id: index,
-                  name: ingredient.name,
-                  quantity: ingredient.quantity,
-                  unit: getDeclinedUnit(ingredient.unit, ingredient.quantity),
-                  isChecked: checkedRows.includes(index),
-                }))}
-                columns={[
-                  {
-                    field: 'checkbox',
-                    headerName: 'Mám',
-                    renderCell: (params) => (
-                      <Checkbox
-                        checked={params.row.isChecked}
-                        onChange={() => handleCheckboxChange(params.row.id)}
-                        color="primary"
-                      />
-                    ),
-                    width: 85,
-                  },
-                  { field: 'name', headerName: 'Ingredience', flex: 1 },
-                  { field: 'quantity', headerName: 'Množství', flex: 1, type: 'number' },
-                  { field: 'unit', headerName: 'Jednotka', flex: 1 },
-                ]}
-                hideFooter
-                getRowClassName={(params) => params.row.isChecked ? 'checked-row' : ''}
-                sx={{
-                  '& .checked-row': {
-                    textDecoration: 'line-through',
-                    color: 'text.disabled',
-                  },
-                }}
+
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <Link
+              href={`/${category}`}
+              className="inline-block bg-[#ff5e57] hover:bg-[#e04e47] text-white py-2 px-4 rounded-lg mb-6 no-underline transition-colors"
+          >
+            ← Zpět na kategorii
+          </Link>
+
+          <div className="recipe-content">
+            {/* Ingredience */}
+            <h2 className="text-2xl font-bold mb-4">Ingredience</h2>
+
+            <div className="portion-input mb-4 flex items-center">
+              <label htmlFor="portion-count" className="mr-3 font-medium">Počet porcí:</label>
+              <input
+                  id="portion-count"
+                  type="number"
+                  className="w-20 p-2 border border-gray-300 rounded"
+                  value={portionCount}
+                  onChange={handlePortionChange}
+                  min="1"
               />
             </div>
-          ) : (
-            <p>Ingredience nejsou k dispozici.</p>
-          )}
-          
-          <button 
-            className="bg-[#4caf50] hover:bg-[#388e3c] text-white py-2 px-6 rounded-lg transition-colors mb-8"
-            onClick={saveToCart}
-          >
-            Uložit do nákupního seznamu
-          </button>
-          
-          {/* Postup */}
-          <h2 className="text-2xl font-bold mb-4">Postup</h2>
-          {recipe.instructions && recipe.instructions.length > 0 ? (
-            <ol className="space-y-4 mb-8">
-              {recipe.instructions.map((step, index) => (
-                <li key={index} className="flex">
+
+            {adjustedIngredients && adjustedIngredients.length > 0 ? (
+                <div className="ingredients-container mb-6" style={{ height: 400 }}>
+                  <DataGrid
+                      rows={adjustedIngredients.map((ingredient, index) => ({
+                        id: index,
+                        name: ingredient.name,
+                        quantity: ingredient.quantity,
+                        unit: getDeclinedUnit(ingredient.unit, ingredient.quantity),
+                        isChecked: checkedRows.includes(index),
+                      }))}
+                      columns={[
+                        {
+                          field: 'checkbox',
+                          headerName: 'Mám',
+                          renderCell: (params) => (
+                              <Checkbox
+                                  checked={params.row.isChecked}
+                                  onChange={() => handleCheckboxChange(params.row.id)}
+                                  color="primary"
+                              />
+                          ),
+                          width: 85,
+                        },
+                        { field: 'name', headerName: 'Ingredience', flex: 1 },
+                        { field: 'quantity', headerName: 'Množství', flex: 1, type: 'number' },
+                        { field: 'unit', headerName: 'Jednotka', flex: 1 },
+                      ]}
+                      hideFooter
+                      getRowClassName={(params) => params.row.isChecked ? 'checked-row' : ''}
+                      sx={{
+                        '& .checked-row': {
+                          textDecoration: 'line-through',
+                          color: 'text.disabled',
+                        },
+                      }}
+                  />
+                </div>
+            ) : (
+                <p>Ingredience nejsou k dispozici.</p>
+            )}
+
+            <button
+                className="bg-[#4caf50] hover:bg-[#388e3c] text-white py-2 px-6 rounded-lg transition-colors mb-8"
+                onClick={saveToCart}
+            >
+              Uložit do nákupního seznamu
+            </button>
+
+            {/* Postup */}
+            <h2 className="text-2xl font-bold mb-4">Postup</h2>
+            {recipe.instructions && recipe.instructions.length > 0 ? (
+                <ol className="space-y-4 mb-8">
+                  {recipe.instructions.map((step, index) => (
+                      <li key={index} className="flex">
                   <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-amber-500 text-white rounded-full mr-3">
                     {index + 1}
                   </span>
-                  <div className="mt-1">{step}</div>
-                </li>
-              ))}
-            </ol>
-          ) : (
-            <p>Postup není k dispozici.</p>
-          )}
-          
-          {/* Akce pro úpravu a kopírování receptu */}
-          <div className="flex justify-center gap-4 mt-8">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleCopyRecipe}
-            >
-              Kopírovat recept
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleEditRecipe}
-            >
-              Upravit recept
-            </Button>
+                        <div className="mt-1">{step}</div>
+                      </li>
+                  ))}
+                </ol>
+            ) : (
+                <p>Postup není k dispozici.</p>
+            )}
+
+            {/* Akce pro úpravu a kopírování receptu */}
+            <div className="flex justify-center gap-4 mt-8">
+              <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleCopyRecipe}
+              >
+                Kopírovat recept
+              </Button>
+              <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleEditRecipe}
+              >
+                Upravit recept
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 }
