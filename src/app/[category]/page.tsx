@@ -99,45 +99,51 @@ export default function CategoryPage() {
     const handleRandomRecipe = () => {
         if (sortedRecipes.length > 0) {
             const randomRecipe = sortedRecipes[Math.floor(Math.random() * sortedRecipes.length)];
-            router.push(`/${category}/${randomRecipe.title.toLowerCase()}`);
+            router.push(`/${category}/${encodeURIComponent(randomRecipe.title)}`);
         }
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-8">
-            {/* Hlavni obrazek */}
-            <div className="relative h-80 sm:h-96 rounded-2xl overflow-hidden mb-8 shadow-lg">
+        <div className="p-5 max-w-7xl mx-auto">
+            {/* Hlavni obrazek - hero sekce */}
+            <div className="relative w-full h-[450px] overflow-hidden rounded-lg mb-5 shadow-lg">
                 <Image
                     src={`/images/${category}.jpg`}
                     alt={categoryTitles[category] || category}
                     fill
-                    className="object-cover"
+                    priority
+                    className="object-cover brightness-[60%]" 
                 />
-                <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white text-center p-4">
-                    <h1 className="text-4xl font-bold drop-shadow-md">{categoryTitles[category] || category}</h1>
-                    <p className="text-lg mt-2 drop-shadow-sm">
-                        Objevte nejlepší recepty v kategorii {categoryTitles[category] || category}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white bg-black/60 p-8 rounded-lg">
+                    <h1 className="text-4xl font-bold">{categoryTitles[category] || category}</h1>
+                    <p className="text-lg mt-2 first-letter:uppercase">
+                        objevte nejlepší recepty v kategorii {categoryTitles[category] || category}
                     </p>
                 </div>
             </div>
 
             {/* Ovládací prvky (zpět, náhodný recept, řazení) */}
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-                <Link href="/" className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition">
+            <div className="flex justify-between items-center mb-5 flex-wrap gap-4">
+                <Link 
+                    href="/" 
+                    className="bg-[#ff5e57] hover:bg-[#e04e47] text-white py-2.5 px-5 border-none rounded-lg text-base cursor-pointer transition-all duration-300 no-underline"
+                >
                     Zpět na hlavní stránku
                 </Link>
+                
                 <button
-                    className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg transition"
+                    className="bg-[#4caf50] hover:bg-[#388e3c] text-white py-3 px-6 border-none rounded-full text-lg font-bold cursor-pointer shadow-md hover:shadow-lg transition-all duration-300 animate-[bounce_4s_ease-in-out_infinite] active:scale-95"
                     onClick={handleRandomRecipe}
                     disabled={loading || sortedRecipes.length === 0}
                 >
                     Nevím, co si dám
                 </button>
-                <div className="w-full sm:w-auto">
+                
+                <div className="sort-filter">
                     <select
                         onChange={(e) => setSortCriteria(e.target.value)}
                         value={sortCriteria}
-                        className="w-full sm:w-auto px-4 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        className="py-2.5 px-5 text-base rounded-lg border border-gray-300 bg-white cursor-pointer"
                         disabled={loading}
                     >
                         <option value="">Seřadit podle</option>
@@ -164,7 +170,7 @@ export default function CategoryPage() {
 
             {/* Výpis receptů */}
             {!loading && !error && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-3 gap-5 p-5 bg-white rounded-lg shadow-md md:grid-cols-2 sm:grid-cols-1">
                     {sortedRecipes.length > 0 ? (
                         sortedRecipes.map((recipe) => (
                             <Food
