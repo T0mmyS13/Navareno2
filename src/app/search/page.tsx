@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { Card, CardContent, CardMedia, Typography, Rating, Box, Chip, Stack, CardActionArea } from "@mui/material";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
