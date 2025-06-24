@@ -17,6 +17,7 @@ import {
 import { Add, Remove } from "@mui/icons-material";
 import ImageIcon from "@mui/icons-material/Image";
 import { useToast } from "@/utils/ToastNotify";
+import Image from "next/image";
 
 interface Ingredient {
     name: string;
@@ -39,7 +40,6 @@ interface RecipeData {
 const AddRecipePage: React.FC = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [isCopying, setIsCopying] = useState(false);
-    const [originalTitle, setOriginalTitle] = useState("");
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -63,7 +63,6 @@ const AddRecipePage: React.FC = () => {
             const editingRecipe: RecipeData = JSON.parse(editingRecipeData);
             sessionStorage.removeItem("editingRecipe");
             setIsEditing(true);
-            setOriginalTitle(editingRecipe.title);
 
             setTitle(editingRecipe.title);
             setDescription(editingRecipe.description);
@@ -188,7 +187,6 @@ const AddRecipePage: React.FC = () => {
                 throw new Error("Failed to add recipe");
             }
 
-            const result = await response.json();
             showToast("Recept úspěšně přidán", "success");
             router.push(`/${selectedCategory}/${slug}`);
         } catch (error) {
@@ -238,10 +236,13 @@ const AddRecipePage: React.FC = () => {
 
                 <Box>
                     {image && (
-                        <img
+                        <Image
                             src={image}
                             alt="náhled"
                             className="rounded w-full h-48 object-cover mb-4"
+                            width={600}
+                            height={192}
+                            style={{ objectFit: 'cover' }}
                         />
                     )}
                     <Box display="flex" alignItems="center" gap={2}>

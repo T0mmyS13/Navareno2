@@ -31,7 +31,9 @@ interface Recipe {
     ingredients: string[];
     instructions: string[];
     portion: number | string;
-    [key: string]: string | number | string[] | number[];
+    rating_count?: number;
+    rating_sum?: number;
+    [key: string]: string | number | string[] | number[] | undefined;
 }
 
 // Typy pro categories

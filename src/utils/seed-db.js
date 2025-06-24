@@ -12,11 +12,6 @@ const pool = new Pool({
   },
 });
 
-function removeDiacritics(str) {
-  return str
-    ? str.normalize("NFD").replace(/\p{Diacritic}/gu, "")
-    : str;
-}
 
 function generateSlug(str) {
   return str

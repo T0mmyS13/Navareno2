@@ -23,7 +23,7 @@ export async function PATCH(req: NextRequest, context: { params: { category: str
             return NextResponse.json({ error: 'Recipe not found' }, { status: 404 });
         }
         return NextResponse.json({ rating_sum: result[0].rating_sum, rating_count: result[0].rating_count });
-    } catch (err) {
+    } catch {
         return NextResponse.json({ error: 'Chyba při ukládání hodnocení' }, { status: 500 });
     }
 }

@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Checkbox } from "@mui/material";
@@ -36,7 +36,7 @@ export default function RecipeDetailPage() {
   const params = useParams();
   const category = params.category as string;
   const recipeName = params.recipe as string;
-  const router = useRouter();
+  // const router = useRouter();
   const { showToast } = useToast();
 
   const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -134,25 +134,25 @@ export default function RecipeDetailPage() {
   };
 
   // Handlers pro úpravu a kopírování receptu
-  const handleEditRecipe = () => {
-    if (recipe && typeof window !== 'undefined') {
-      sessionStorage.setItem('editingRecipe', JSON.stringify({
-        ...recipe,
-        category: category
-      }));
-      router.push("/new-recipe");
-    }
-  };
+  // const handleEditRecipe = () => {
+  //   if (recipe && typeof window !== 'undefined') {
+  //     sessionStorage.setItem('editingRecipe', JSON.stringify({
+  //       ...recipe,
+  //       category: category
+  //     }));
+  //     router.push("/new-recipe");
+  //   }
+  // };
 
-  const handleCopyRecipe = () => {
-    if (recipe && typeof window !== 'undefined') {
-      sessionStorage.setItem('copyingRecipe', JSON.stringify({
-        ...recipe,
-        category: category
-      }));
-      router.push("/new-recipe");
-    }
-  };
+  // const handleCopyRecipe = () => {
+  //   if (recipe && typeof window !== 'undefined') {
+  //     sessionStorage.setItem('copyingRecipe', JSON.stringify({
+  //       ...recipe,
+  //       category: category
+  //     }));
+  //     router.push("/new-recipe");
+  //   }
+  // };
 
   // Hodnocení receptu
   const [userRating, setUserRating] = useState<number | null>(null);
