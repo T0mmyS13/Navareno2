@@ -210,10 +210,10 @@ export default function RecipeDetailPage() {
 
 
   return (
-      <div className="max-w-4xl mx-auto p-4 recipe-detail">
+      <div className="max-w-4xl mx-auto p-2 sm:p-4 recipe-detail">
 
         {/* Hlavička receptu */}
-        <div className="mb-6 relative h-80 rounded-lg overflow-hidden shadow-lg">
+        <div className="mb-6 relative h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
           {recipe.image ? (
               <Image
                   src={recipe.image}
@@ -227,56 +227,55 @@ export default function RecipeDetailPage() {
               </div>
           )}
 
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-            <h1 className="text-3xl font-bold text-white mb-2">{recipe.title}</h1>
-            <p className="text-white">{recipe.description}</p>
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent px-3 py-4 sm:p-6">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">{recipe.title}</h1>
+            <p className="text-white text-sm sm:text-base">{recipe.description}</p>
 
-            <div className="flex items-center mt-2 text-white">
-              <span className="mr-4">Čas: {recipe.time} min</span>
-              <span className="mr-4">Obtížnost: {renderDifficulty(recipe.difficulty)}</span>
+            <div className="flex flex-col sm:flex-row sm:items-center mt-2 text-white text-sm sm:text-base gap-1 sm:gap-4">
+              <span>Čas: {recipe.time} min</span>
+              <span>Obtížnost: {renderDifficulty(recipe.difficulty)}</span>
             </div>
           </div>
         </div>
 
-
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <div className="flex items-center gap-6 mb-6">
-          <Link
-              href={`/${category}`}
-              className="inline-block bg-[#ff5e57] hover:bg-[#e04e47] text-white py-2 px-4 rounded-lg no-underline transition-colors"
-              style={{ whiteSpace: "nowrap" }}
-          >
-            ← Zpět na kategorii
-          </Link>
-            <div className="flex items-center gap-4">
-            <span className="font-medium">Hodnocení:</span>
-            <Rating
-                name="recipe-rating"
-                value={averageRating}
-                precision={0.5}
-                readOnly
-            />
-            <span>({recipe.rating_count || 0}x)</span>
-            <span className="ml-4 font-medium">Ohodnoťte recept:</span>
-            <Rating
-                name="user-rating"
-                value={userRating}
-                onChange={(_, value) => handleRate(value)}
-                disabled={isRatingLoading || !!userRating}
-            />
-          </div>
+        <div className="bg-white rounded-lg shadow-md p-3 sm:p-6 mb-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6 mb-6">
+            <Link
+                href={`/${category}`}
+                className="inline-block bg-[#ff5e57] hover:bg-[#e04e47] text-white py-2 px-4 rounded-lg no-underline transition-colors text-center w-full sm:w-auto"
+                style={{ whiteSpace: "nowrap" }}
+            >
+              ← Zpět na kategorii
+            </Link>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+              <span className="font-medium">Hodnocení:</span>
+              <Rating
+                  name="recipe-rating"
+                  value={averageRating}
+                  precision={0.5}
+                  readOnly
+              />
+              <span>({recipe.rating_count || 0}x)</span>
+              <span className="font-medium">Ohodnoťte recept:</span>
+              <Rating
+                  name="user-rating"
+                  value={userRating}
+                  onChange={(_, value) => handleRate(value)}
+                  disabled={isRatingLoading || !!userRating}
+              />
+            </div>
           </div>
 
           <div className="recipe-content">
             {/* Ingredience */}
-            <h2 className="text-2xl font-bold mb-4">Ingredience</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4">Ingredience</h2>
 
-            <div className="portion-input mb-4 flex items-center">
-              <label htmlFor="portion-count" className="mr-3 font-medium">Počet porcí:</label>
+            <div className="portion-input mb-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+              <label htmlFor="portion-count" className="font-medium">Počet porcí:</label>
               <input
                   id="portion-count"
                   type="number"
-                  className="w-20 p-2 border border-gray-300 rounded"
+                  className="w-24 p-2 border border-gray-300 rounded"
                   value={portionCount}
                   onChange={handlePortionChange}
                   min="1"
@@ -284,7 +283,7 @@ export default function RecipeDetailPage() {
             </div>
 
             {adjustedIngredients && adjustedIngredients.length > 0 ? (
-                <div className="ingredients-container mb-6" style={{ height: 400 }}>
+                <div className="ingredients-container mb-6 w-full overflow-x-auto" style={{ height: 400, minWidth: 320 }}>
                   <DataGrid
                       rows={adjustedIngredients.map((ingredient, index) => ({
                         id: index,
@@ -332,7 +331,7 @@ export default function RecipeDetailPage() {
             </button>
 
             {/* Postup */}
-            <h2 className="text-2xl font-bold mb-4">Postup</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4">Postup</h2>
 
             {/* Hodnocení */}
             {/* (přesunuto nahoru) */}

@@ -3,6 +3,7 @@
 
 import Category from "@/components/Category";
 import Image from "next/image";
+import SearchWithSuggestions from "@/components/SearchWithSuggestions";
 
 type CategoryType = {
   title: string;
@@ -70,11 +71,16 @@ export default function Home() {
         </div>
 
         <h2 className="text-3xl font-semibold text-center mb-2">
-          Vyberte si z našich kategorií
+          Vyberte si na co máte chuť
         </h2>
         <p className="text-center text-gray-600 mb-8">
           Od předkrmu až po dezert
         </p>
+
+        {/* Vyhledávací pole s animovanými inspiracemi */}
+        <div className="flex justify-center mb-10">
+          <SearchWithSuggestions />
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((cat) => (

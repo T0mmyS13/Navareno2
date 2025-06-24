@@ -6,20 +6,18 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const category = searchParams.get('category');
 
-  if (!category) {
-    return NextResponse.json(
-      { error: 'Je vyžadován parametr category' },
-      { status: 400 }
-    );
-  }
-
   try {
-    // Získání receptů podle kategorie z PostgreSQL databáze
-    const recipes = await sql`
-      SELECT * FROM recipes 
-      WHERE category = ${category}
-    `;
-
+    let recipes;
+    if (category) {
+      // Získání receptů podle kategorie
+      recipes = await sql`
+        SELECT * FROM recipes 
+        WHERE category = ${category}
+      `;
+    } else {
+      // Získání všech receptů
+      recipes = await sql`SELECT * FROM recipes`;
+    }
     return NextResponse.json(recipes);
   } catch (error) {
     console.error('Chyba databáze:', error);

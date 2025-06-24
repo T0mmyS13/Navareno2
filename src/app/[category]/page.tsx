@@ -107,8 +107,6 @@ export default function CategoryPage() {
             sortedArray.sort((a, b) => a.time - b.time);
         } else if (sortCriteria === "title") {
             sortedArray.sort((a, b) => a.title.localeCompare(b.title, "cs", { sensitivity: "base" }));
-        } else if (sortCriteria === "portion") {
-            sortedArray.sort((a, b) => Number(a.portion) - Number(b.portion));
         }
         return sortedArray;
     }, [recipes, sortCriteria]);
@@ -132,9 +130,9 @@ export default function CategoryPage() {
     };
 
     return (
-        <div className="p-5 max-w-7xl mx-auto">
+        <div className="p-3 sm:p-4 md:p-5 max-w-7xl mx-auto">
             {/* Hlavni obrazek - hero sekce */}
-            <div className="relative w-full h-[450px] overflow-hidden rounded-lg mb-5 shadow-lg">
+            <div className="relative w-full h-48 sm:h-64 md:h-[350px] lg:h-[450px] overflow-hidden rounded-lg mb-5 shadow-lg">
                 <Image
                     src={`/images/${category}.jpg`}
                     alt={categoryTitles[category] || category}
@@ -142,36 +140,36 @@ export default function CategoryPage() {
                     priority
                     className="object-cover brightness-[60%]"
                 />
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white bg-black/60 p-8 rounded-lg">
-                    <h1 className="text-4xl font-bold">{categoryTitles[category] || category}</h1>
-                    <p className="text-lg mt-2 first-letter:uppercase">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white bg-black/60 px-3 py-4 sm:px-6 sm:py-6 md:p-8 rounded-lg w-[90%] max-w-2xl">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">{categoryTitles[category] || category}</h1>
+                    <p className="text-base sm:text-lg mt-2 first-letter:uppercase">
                         objevte nejlepší recepty v kategorii {categoryTitles[category] || category}
                     </p>
                 </div>
             </div>
 
             {/* Ovládací prvky (zpět, náhodný recept, řazení) */}
-            <div className="flex justify-between items-center mb-5 flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3 md:gap-4 justify-between items-center mb-5">
                 <Link
                     href="/"
-                    className="bg-[#ff5e57] hover:bg-[#e04e47] text-white py-2.5 px-5 border-none rounded-lg text-base cursor-pointer transition-all duration-300 no-underline"
+                    className="bg-[#ff5e57] hover:bg-[#e04e47] text-white py-2 px-4 sm:py-2.5 sm:px-5 border-none rounded-lg text-base cursor-pointer transition-all duration-300 no-underline w-full sm:w-auto text-center"
                 >
                     Zpět na hlavní stránku
                 </Link>
 
                 <button
-                    className="bg-[#4caf50] hover:bg-[#388e3c] text-white py-3 px-6 border-none rounded-full text-lg font-bold cursor-pointer shadow-md hover:shadow-lg transition-all duration-300 animate-[bounce_4s_ease-in-out_infinite] active:scale-95"
+                    className="bg-[#4caf50] hover:bg-[#388e3c] text-white py-2 px-4 sm:py-3 sm:px-6 border-none rounded-full text-base sm:text-lg font-bold cursor-pointer shadow-md hover:shadow-lg transition-all duration-300 animate-[bounce_4s_ease-in-out_infinite] active:scale-95 w-full sm:w-auto"
                     onClick={handleRandomRecipe}
                     disabled={loading || sortedRecipes.length === 0}
                 >
                     Nevím, co si dám
                 </button>
 
-                <div className="sort-filter">
+                <div className="w-full sm:w-auto">
                     <select
                         onChange={(e) => setSortCriteria(e.target.value)}
                         value={sortCriteria}
-                        className="py-2.5 px-5 text-base rounded-lg border border-gray-300 bg-white cursor-pointer"
+                        className="py-2 px-4 text-base rounded-lg border border-gray-300 bg-white cursor-pointer w-full"
                         disabled={loading}
                     >
                         <option value="">Seřadit podle</option>
@@ -179,7 +177,6 @@ export default function CategoryPage() {
                         <option value="time">Délka přípravy</option>
                         <option value="rating">Hodnocení</option>
                         <option value="title">Název</option>
-                        <option value="portion">Porce</option>
                     </select>
                 </div>
             </div>
@@ -200,7 +197,7 @@ export default function CategoryPage() {
 
             {/* Výpis receptů pomocí MUI komponent */}
             {!loading && !error && (
-                <div className="grid grid-cols-3 gap-5 p-5 bg-white rounded-lg shadow-md md:grid-cols-2 sm:grid-cols-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 p-2 sm:p-4 md:p-5 bg-white rounded-lg shadow-md">
                     {sortedRecipes.length > 0 ? (
                         sortedRecipes.map((recipe) => (
                             <Card
@@ -216,10 +213,10 @@ export default function CategoryPage() {
                                         component="img"
                                         image={recipe.image}
                                         alt={recipe.title}
-                                        sx={{ height: 180, objectFit: 'cover' }}
+                                        sx={{ height: { xs: 140, sm: 180 }, objectFit: 'cover' }}
                                     />
                                     <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                                        <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold' }}>
+                                        <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', sm: '1.25rem' } }}>
                                             {recipe.title}
                                         </Typography>
 
@@ -231,11 +228,12 @@ export default function CategoryPage() {
                                             WebkitLineClamp: 3,
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
+                                            fontSize: { xs: '0.9rem', sm: '1rem' }
                                         }}>
                                             {recipe.description}
                                         </Typography>
 
-                                        <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+                                        <Stack direction="row" spacing={1} sx={{ mb: 2, flexWrap: 'wrap' }}>
                                             <Chip
                                                 icon={<AccessTimeIcon />}
                                                 label={`${recipe.time} min`}
