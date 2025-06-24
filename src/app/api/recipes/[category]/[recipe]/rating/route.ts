@@ -1,17 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
+import { cookies } from 'next/headers';
 
 const sql = neon(process.env.DATABASE_URL!);
 
-// Next.js App Router: params je Promise pouze v route.ts, zde je to objekt
-export async function PATCH(req: NextRequest, context: { params: { category: string; recipe: string } }) {
+export async function PATCH(req: NextRequest, context: { params: Promise<{ category: string; recipe: string }> }) {
     try {
-        const { category, recipe } = context.params;
+        const { category, recipe } = await context.params;
+        const cookieName = `voted_${category}_${recipe}`;
+        const cookieStore = await cookies();
+        const alreadyVoted = cookieStore.get(cookieName);
+        if (alreadyVoted) {
+            return NextResponse.json({ error: 'Již jste hlasovali.' }, { status: 403 });
+        }
         const { rating } = await req.json();
         if (!rating || rating < 1 || rating > 5) {
             return NextResponse.json({ error: 'Neplatné hodnocení' }, { status: 400 });
         }
-        // Aktualizace rating_sum a rating_count
         const result = await sql`
             UPDATE recipes
             SET rating_sum = COALESCE(rating_sum,0) + ${rating},
@@ -22,7 +27,9 @@ export async function PATCH(req: NextRequest, context: { params: { category: str
         if (result.length === 0) {
             return NextResponse.json({ error: 'Recipe not found' }, { status: 404 });
         }
-        return NextResponse.json({ rating_sum: result[0].rating_sum, rating_count: result[0].rating_count });
+        const response = NextResponse.json({ rating_sum: result[0].rating_sum, rating_count: result[0].rating_count });
+        response.cookies.set(cookieName, '1', { maxAge: 60 * 60 * 24 * 365 }); // 1 rok
+        return response;
     } catch {
         return NextResponse.json({ error: 'Chyba při ukládání hodnocení' }, { status: 500 });
     }

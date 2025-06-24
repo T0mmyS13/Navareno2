@@ -15,7 +15,7 @@ import {
     Box,
 } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
-import ImageIcon from "@mui/icons-material/Image";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useToast } from "@/utils/ToastNotify";
 import Image from "next/image";
 
@@ -108,6 +108,18 @@ const AddRecipePage: React.FC = () => {
 
     const handleRemoveInstruction = (index: number) => {
         setInstructions((prev) => prev.filter((_, i) => i !== index));
+    };
+
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            if (typeof ev.target?.result === "string") {
+                setImage(ev.target.result);
+            }
+        };
+        reader.readAsDataURL(file);
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -236,44 +248,39 @@ const AddRecipePage: React.FC = () => {
 
                 <Box>
                     {image && (
-                        <Image
-                            src={image}
-                            alt="náhled"
-                            className="rounded w-full h-48 object-cover mb-4"
-                            width={600}
-                            height={192}
-                            style={{ objectFit: 'cover' }}
-                        />
+                        <div className="w-full flex justify-center mb-4">
+                            <Image
+                                src={image}
+                                alt="náhled"
+                                className="rounded-lg shadow-lg object-cover border border-blue-100 max-h-48 w-auto max-w-full transition-transform duration-300 hover:scale-105"
+                                width={320}
+                                height={192}
+                                style={{ objectFit: 'cover', maxHeight: '12rem', minWidth: '180px', background: '#f3f6fa' }}
+                            />
+                        </div>
                     )}
-                    <Box display="flex" alignItems="center" gap={2}>
+                    <Box display="flex" alignItems="center" gap={2} className="flex-col sm:flex-row">
                         <TextField
                             label="Odkaz na obrázek"
                             value={image}
                             onChange={(e) => setImage(e.target.value)}
                             fullWidth
                             disabled={isCopying}
-                        />
-                        <input
-                            accept="image/*"
-                            id="upload-image"
-                            type="file"
-                            style={{ display: "none" }}
-                            disabled={isCopying}
-                            onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) {
-                                    const reader = new FileReader();
-                                    reader.onload = (event) => {
-                                        setImage(event.target?.result as string);
-                                    };
-                                    reader.readAsDataURL(file);
-                                }
+                            InputProps={{
+                                style: { borderRadius: 12, background: '#f8fafc' }
                             }}
                         />
-                        <label htmlFor="upload-image">
-                            <IconButton component="span" color="primary">
-                                <ImageIcon />
-                            </IconButton>
+                        <label htmlFor="upload-image" className="cursor-pointer bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold px-4 py-2 rounded-lg shadow transition-colors duration-200 text-sm mt-2 sm:mt-0 flex items-center gap-2">
+                            <CloudUploadIcon fontSize="small" />
+                            <span className="hidden sm:inline">Nahrát obrázek</span>
+                            <input
+                                accept="image/*"
+                                id="upload-image"
+                                type="file"
+                                style={{ display: "none" }}
+                                onChange={handleImageUpload}
+                                disabled={isCopying}
+                            />
                         </label>
                     </Box>
                 </Box>

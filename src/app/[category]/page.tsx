@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import { motion } from "framer-motion";
 
 // Definujeme typy pro recepty
 interface Recipe {
@@ -100,7 +101,11 @@ export default function CategoryPage() {
     const sortedRecipes = React.useMemo(() => {
         const sortedArray = [...recipes];
         if (sortCriteria === "rating") {
-            sortedArray.sort((a, b) => parseFloat(String(b.rating)) - parseFloat(String(a.rating)));
+            sortedArray.sort((a, b) => {
+                const aAvg = a.rating_count && a.rating_count > 0 ? (a.rating_sum || 0) / a.rating_count : 0;
+                const bAvg = b.rating_count && b.rating_count > 0 ? (b.rating_sum || 0) / b.rating_count : 0;
+                return bAvg - aAvg;
+            });
         } else if (sortCriteria === "difficulty") {
             sortedArray.sort((a, b) => a.difficulty - b.difficulty);
         } else if (sortCriteria === "time") {
@@ -149,30 +154,57 @@ export default function CategoryPage() {
             </div>
 
             {/* Ovládací prvky (zpět, náhodný recept, řazení) */}
-            <div className="flex flex-wrap gap-3 md:gap-4 justify-between items-center mb-5">
-                <Link
-                    href="/"
-                    className="bg-[#ff5e57] hover:bg-[#e04e47] text-white py-2 px-4 sm:py-2.5 sm:px-5 border-none rounded-lg text-base cursor-pointer transition-all duration-300 no-underline w-full sm:w-auto text-center"
-                >
-                    Zpět na hlavní stránku
-                </Link>
-
-                <button
-                    className="bg-[#4caf50] hover:bg-[#388e3c] text-white py-2 px-4 sm:py-3 sm:px-6 border-none rounded-full text-base sm:text-lg font-bold cursor-pointer shadow-md hover:shadow-lg transition-all duration-300 animate-[bounce_4s_ease-in-out_infinite] active:scale-95 w-full sm:w-auto"
-                    onClick={handleRandomRecipe}
-                    disabled={loading || sortedRecipes.length === 0}
-                >
-                    Nevím, co si dám
-                </button>
-
-                <div className="w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
+                <div className="flex-1 flex justify-start">
+                    <Link
+                        href="/"
+                        className="inline-block bg-amber-500 hover:bg-amber-600 text-white py-2 px-5 rounded-lg shadow-lg font-bold no-underline transition-all duration-200 text-center border-2 border-white/70 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
+                        style={{ whiteSpace: "nowrap", letterSpacing: 1 }}
+                    >
+                        ← Zpět na hlavní stránku
+                    </Link>
+                </div>
+                <div className="flex-1 flex justify-center">
+                    <motion.button
+                        animate={{
+                            scale: [1, 1.06, 1],
+                            boxShadow: [
+                                "0 0 0 0 #90caf9, 0 0 0 0 #42a5f5",
+                                "0 0 0 8px #90caf9, 0 0 32px 8px #42a5f5",
+                                "0 0 0 0 #90caf9, 0 0 0 0 #42a5f5"
+                            ],
+                            y: [0, -4, 0, 4, 0]
+                        }}
+                        transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                        }}
+                        whileHover={{ scale: 1.09, boxShadow: "0 0 0 10px #42a5f5, 0 0 40px 10px #1976d2" }}
+                        whileTap={{ scale: 0.97 }}
+                        className="relative z-10 px-6 py-2 sm:px-10 sm:py-4 bg-gradient-to-r from-blue-100 via-white/80 to-blue-50 backdrop-blur-md text-blue-700 font-bold rounded-lg sm:rounded-full shadow-xl text-base sm:text-lg focus:outline-none border border-white/40 transition-all duration-300 overflow-hidden cursor-pointer min-w-[140px] sm:min-w-[200px] text-center"
+                        style={{ boxShadow: "0 2px 12px 0 rgba(31, 38, 135, 0.13)", WebkitBackdropFilter: "blur(8px)", backdropFilter: "blur(8px)" }}
+                        onClick={handleRandomRecipe}
+                        type="button"
+                    >
+                        <span className="absolute left-0 top-0 w-full h-full pointer-events-none z-0">
+                            <motion.span
+                                animate={{ opacity: [0.2, 0.5, 0.2], x: [0, 80, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                                className="block w-1/4 h-full bg-gradient-to-r from-blue-300 via-blue-100 to-transparent blur-lg opacity-60 rotate-3"
+                            />
+                        </span>
+                        <span className="relative z-10">Nevím co si dám</span>
+                    </motion.button>
+                </div>
+                <div className="flex-1 flex justify-end">
                     <select
                         onChange={(e) => setSortCriteria(e.target.value)}
                         value={sortCriteria}
-                        className="py-2 px-4 text-base rounded-lg border border-gray-300 bg-white cursor-pointer w-full"
+                        className="py-2 px-4 text-base rounded-lg border border-gray-300 bg-white cursor-pointer w-full max-w-xs shadow focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all font-semibold text-gray-700"
                         disabled={loading}
                     >
-                        <option value="">Seřadit podle</option>
+                        <option value="">Seřadit podle…</option>
                         <option value="difficulty">Obtížnost</option>
                         <option value="time">Délka přípravy</option>
                         <option value="rating">Hodnocení</option>
@@ -197,72 +229,69 @@ export default function CategoryPage() {
 
             {/* Výpis receptů pomocí MUI komponent */}
             {!loading && !error && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 p-2 sm:p-4 md:p-5 bg-white rounded-lg shadow-md">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 p-2 sm:p-4 md:p-5 bg-white rounded-lg shadow-md">
                     {sortedRecipes.length > 0 ? (
                         sortedRecipes.map((recipe) => (
-                            <Card
+                            <motion.div
                                 key={recipe.title}
-                                sx={{ maxWidth: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}
-                                elevation={3}
+                                whileHover={{ scale: 1.04, boxShadow: "0 8px 32px 0 rgba(33, 150, 243, 0.18)", y: -6 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="transition-all duration-300"
                             >
-                                <CardActionArea
-                                    onClick={() => router.push(`/${category}/${recipe.slug}`)}
-                                    sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}
+                                <Card
+                                    sx={{ maxWidth: '100%', height: '100%', display: 'flex', flexDirection: 'column', borderRadius: '1.5rem', boxShadow: '0 4px 24px 0 rgba(33,150,243,0.08)' }}
+                                    elevation={0}
+                                    className="overflow-hidden bg-gradient-to-br from-white via-blue-50 to-blue-100 border border-blue-100 hover:border-blue-300"
                                 >
-                                    <CardMedia
-                                        component="img"
-                                        image={recipe.image}
-                                        alt={recipe.title}
-                                        sx={{ height: { xs: 140, sm: 180 }, objectFit: 'cover' }}
-                                    />
-                                    <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                                        <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', sm: '1.25rem' } }}>
-                                            {recipe.title}
-                                        </Typography>
-
-                                        <Typography variant="body2" color="text.secondary" sx={{
-                                            mb: 2,
-                                            flexGrow: 1,
-                                            display: '-webkit-box',
-                                            WebkitBoxOrient: 'vertical',
-                                            WebkitLineClamp: 3,
-                                            overflow: 'hidden',
-                                            textOverflow: 'ellipsis',
-                                            fontSize: { xs: '0.9rem', sm: '1rem' }
-                                        }}>
-                                            {recipe.description}
-                                        </Typography>
-
-                                        <Stack direction="row" spacing={1} sx={{ mb: 2, flexWrap: 'wrap' }}>
-                                            <Chip
-                                                icon={<AccessTimeIcon />}
-                                                label={`${recipe.time} min`}
-                                                variant="outlined"
-                                                size="small"
+                                    <CardActionArea
+                                        onClick={() => router.push(`/${category}/${recipe.slug}`)}
+                                        sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch', p: 0 }}
+                                    >
+                                        <div className="relative w-full aspect-[4/3] overflow-hidden" style={{minHeight: '160px', maxHeight: '210px'}}>
+                                            <CardMedia
+                                                component="img"
+                                                image={recipe.image}
+                                                alt={recipe.title}
+                                                sx={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s', borderTopLeftRadius: '1.5rem', borderTopRightRadius: '1.5rem' }}
+                                                className="group-hover:scale-105"
                                             />
-                                            <Chip
-                                                icon={<FitnessCenterIcon />}
-                                                label={getDifficultyText(recipe.difficulty)}
-                                                variant="outlined"
-                                                size="small"
-                                            />
-                                        </Stack>
-
-                                        {/* Zobrazení ratingu z databáze */}
-                                        <Box display="flex" alignItems="center" mb={1}>
-                                            <Rating
-                                                value={Number(recipe.rating_count) && Number(recipe.rating_sum) ? Number(recipe.rating_sum) / Number(recipe.rating_count) : 0}
-                                                precision={0.5}
-                                                readOnly
-                                                size="small"
-                                            />
-                                            <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
-                                                ({recipe.rating_count || 0}x)
+                                            <div className="absolute top-2 right-2 bg-white/80 rounded-full px-3 py-1 text-xs font-semibold text-blue-700 shadow-sm backdrop-blur-md flex items-center gap-1">
+                                                <AccessTimeIcon sx={{ color: '#1976d2', fontSize: 18 }} />
+                                                <span>{recipe.time} min</span>
+                                            </div>
+                                        </div>
+                                        <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 2 }}>
+                                            <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold', fontSize: { xs: '1.1rem', sm: '1.25rem' }, color: '#1565c0' }}>
+                                                {recipe.title}
                                             </Typography>
-                                        </Box>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
+                                            <Typography variant="body2" color="text.secondary" sx={{ mb: 2, flexGrow: 1, display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 3, overflow: 'hidden', textOverflow: 'ellipsis', fontSize: { xs: '0.95rem', sm: '1.05rem' } }}>
+                                                {recipe.description}
+                                            </Typography>
+                                            <Stack direction="row" spacing={1} sx={{ mb: 1, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-start' }}>
+                                                <Chip
+                                                    icon={<FitnessCenterIcon sx={{ color: '#1976d2' }} />}
+                                                    label={getDifficultyText(recipe.difficulty)}
+                                                    variant="outlined"
+                                                    size="small"
+                                                    sx={{ borderColor: '#90caf9', color: '#1976d2', background: '#e3f2fd' }}
+                                                />
+                                                <Box display="flex" alignItems="center" ml={0.5}>
+                                                    <Rating
+                                                        value={Number(recipe.rating_count) && Number(recipe.rating_sum) ? Number(recipe.rating_sum) / Number(recipe.rating_count) : 0}
+                                                        precision={0.5}
+                                                        readOnly
+                                                        size="small"
+                                                        sx={{ color: '#ffd600', fontSize: { xs: 18, sm: 20 } }}
+                                                    />
+                                                    <Typography variant="body2" color="text.secondary" sx={{ ml: 0.5, minWidth: 32 }}>
+                                                        ({recipe.rating_count || 0}x)
+                                                    </Typography>
+                                                </Box>
+                                            </Stack>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            </motion.div>
                         ))
                     ) : (
                         <div className="col-span-full text-center py-8">

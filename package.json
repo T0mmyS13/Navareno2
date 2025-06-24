@@ -17,6 +17,7 @@
     "@mui/x-data-grid": "^8.5.3",
     "@neondatabase/serverless": "^1.0.1",
     "dotenv": "^16.5.0",
+    "framer-motion": "^12.19.1",
     "next": "15.3.4",
     "pg": "^8.16.2",
     "postgres": "^3.4.7",
