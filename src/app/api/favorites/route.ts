@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from "next-auth";
 import { sql } from '@/utils/db';
-import { authOptions } from '../auth/[...nextauth]/route';
+import { authOptions } from '../auth/authOptions';
 
 // GET: Vrátí všechny oblíbené recepty přihlášeného uživatele
-export async function GET(req: NextRequest) {
+export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session?.user?.email) {
     return NextResponse.json({ error: 'Neautorizováno' }, { status: 401 });
@@ -40,4 +40,3 @@ export async function DELETE(req: NextRequest) {
   `;
   return NextResponse.json({ ok: true });
 }
-

@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,8 +29,6 @@ export default function RegisterPage() {
     try {
       let profilePicUrl = selectedAvatar;
       if (profilePic) {
-        // TODO: Implement upload logic (e.g., to S3 or your backend)
-        // For now, just simulate upload
         profilePicUrl = URL.createObjectURL(profilePic);
       }
       const res = await fetch("/api/auth/register", {
@@ -53,15 +53,19 @@ export default function RegisterPage() {
       <div className="flex flex-col items-center mb-6">
         <div className="bg-blue-100 p-3 rounded-full shadow-md mb-2">
           {profilePic ? (
-            <img
+            <Image
               src={URL.createObjectURL(profilePic)}
               alt="Profilová fotka"
+              width={64}
+              height={64}
               className="w-16 h-16 rounded-full object-cover border-2 border-blue-400 shadow"
             />
           ) : selectedAvatar ? (
-            <img
+            <Image
               src={selectedAvatar}
               alt="Profilová fotka"
+              width={64}
+              height={64}
               className="w-16 h-16 rounded-full object-cover border-2 border-blue-400 shadow"
             />
           ) : (
@@ -111,17 +115,25 @@ export default function RegisterPage() {
           />
           {profilePic && (
             <div className="flex items-center gap-2 mt-1">
-              <img src={URL.createObjectURL(profilePic)} alt="Náhled" className="w-12 h-12 rounded-full border-2 border-blue-400" />
+              <Image
+                src={URL.createObjectURL(profilePic)}
+                alt="Náhled"
+                width={48}
+                height={48}
+                className="w-12 h-12 rounded-full border-2 border-blue-400"
+              />
               <span className="text-xs text-gray-500">Náhled</span>
             </div>
           )}
           <div className="mt-2 text-sm text-blue-700 font-semibold">Nebo si vyber z výchozích avatarů:</div>
           <div className="flex gap-2 flex-wrap mt-1">
             {defaultAvatars.map((avatar, idx) => (
-              <img
+              <Image
                 key={avatar}
                 src={avatar}
                 alt={`Avatar ${idx + 1}`}
+                width={48}
+                height={48}
                 className={`w-12 h-12 rounded-full border-2 cursor-pointer transition-all duration-150 ${selectedAvatar === avatar ? 'border-blue-500 scale-110 shadow-lg' : 'border-gray-200 hover:border-blue-300'}`}
                 onClick={() => { setSelectedAvatar(avatar); setProfilePic(null); }}
                 style={{ boxShadow: selectedAvatar === avatar ? '0 0 0 2px #3b82f6' : undefined }}

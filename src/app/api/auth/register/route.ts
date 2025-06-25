@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       [email, hashed, username, profilePic || null]
     );
     return NextResponse.json({ success: true });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: "Registration failed." }, { status: 500 });
   }
 }
