@@ -10,6 +10,9 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useToast } from "@/utils/ToastNotify";
 import { getDeclinedUnit, convertUnits } from "@/utils/units";
 import Rating from '@mui/material/Rating';
+import { useSession } from "next-auth/react";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 // Typy pro komponenty
 interface Ingredient {
@@ -38,11 +41,13 @@ export default function RecipeDetailPage() {
   const recipeName = params.recipe as string;
   // const router = useRouter();
   const { showToast } = useToast();
+  const { data: session } = useSession();
 
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
   const [portionCount, setPortionCount] = useState(2);
   const [adjustedIngredients, setAdjustedIngredients] = useState<Ingredient[]>([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   // Uložení zaškrtnutých řádků
   const storageKey = `checkedRows_${category}_${recipeName}`;
@@ -176,9 +181,10 @@ export default function RecipeDetailPage() {
       });
       if (!res.ok) {
         const data = await res.json();
-        if (data?.error === 'Již jste hlasovali.') {
+        if (data?.error === 'Již jste hodnotili tento recept.') {
           setHasVoted(true);
-          showToast('Již jste hlasovali.', 'info');
+          showToast('Již jste hodnotili tento recept', 'info');
+          setShowRatingBox(false); // Zavřít formulář i při chybě
           return;
         }
         throw new Error('Chyba při ukládání hodnocení');
@@ -188,6 +194,7 @@ export default function RecipeDetailPage() {
       setRecipe((prev) => prev ? { ...prev, rating_sum: data.rating_sum, rating_count: data.rating_count } : prev);
       setHasVoted(true);
       showToast('Děkujeme za hodnocení!', 'success');
+      setShowRatingBox(false); // Zavřít formulář po úspěšném hodnocení
     } catch {
       showToast('Chyba při ukládání hodnocení', 'error');
     } finally {
@@ -199,6 +206,44 @@ export default function RecipeDetailPage() {
   const renderDifficulty = (difficulty: number) => {
     const labels = ["Snadné", "Střední", "Obtížné"];
     return labels[difficulty - 1] || "Neznámá obtížnost";
+  };
+
+  // Add this function to handle edit
+  const handleEditRecipe = () => {
+    if (!recipe) return;
+    // Remove fields that shouldn't be edited if needed
+    sessionStorage.setItem("editingRecipe", JSON.stringify(recipe));
+    window.location.href = "/new-recipe";
+  };
+
+  // Zjisti, jestli je recept v oblíbených (API, ne localStorage)
+  useEffect(() => {
+    if (!session?.user?.email || !recipe) return;
+    fetch('/api/favorites', { method: 'GET' })
+      .then(res => res.json())
+      .then((favs: { recipe_slug: string; category: string }[]) => {
+        setIsFavorite(favs.some(fav => fav.recipe_slug === recipe.slug && fav.category === recipe.category));
+      });
+  }, [session, recipe]);
+
+  // Přidat/odebrat z oblíbených (API)
+  const handleToggleFavorite = async () => {
+    if (!session?.user?.email || !recipe) return;
+    if (isFavorite) {
+      await fetch('/api/favorites', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: recipe.slug, category: recipe.category })
+      });
+      setIsFavorite(false);
+    } else {
+      await fetch('/api/favorites', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: recipe.slug, category: recipe.category, title: recipe.title, image: recipe.image })
+      });
+      setIsFavorite(true);
+    }
   };
 
   if (loading) {
@@ -224,7 +269,6 @@ export default function RecipeDetailPage() {
 
   return (
       <div className="max-w-4xl mx-auto p-2 sm:p-4 recipe-detail">
-
         {/* Hlavička receptu */}
         <div className="mb-6 relative h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
           {recipe.image ? (
@@ -264,45 +308,90 @@ export default function RecipeDetailPage() {
         </div>
 
         <div className="bg-white rounded-lg shadow-md p-3 sm:p-6 mb-6">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6 mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
             <Link
                 href={`/${category}`}
-                className="inline-block bg-amber-500 hover:bg-amber-600 text-white py-2 px-5 rounded-lg shadow-lg font-bold no-underline transition-all duration-200 text-center w-full sm:w-auto border-2 border-white/70 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
+                className="border border-gray-400 text-gray-700 hover:bg-gray-100 font-medium px-4 py-2 rounded-xl"
                 style={{ whiteSpace: "nowrap", letterSpacing: 1 }}
             >
               ← Zpět na kategorii
             </Link>
-            {!hasVoted && (
-              <div className="flex flex-col items-start sm:items-center mt-2 relative">
-                <button
-                  className="text-amber-600 font-semibold text-sm sm:text-base mb-1 focus:outline-none focus:underline hover:underline cursor-pointer bg-transparent border-none p-0"
-                  onClick={() => setShowRatingBox(true)}
-                  tabIndex={0}
-                  type="button"
-                >
-                  Ohodnotit tento recept
-                </button>
-                {showRatingBox && (
-                  <div
-                    ref={ratingBoxRef}
-                    style={{ position: 'absolute', zIndex: 10, background: 'white', borderRadius: 8, boxShadow: '0 2px 8px rgba(0,0,0,0.12)', padding: 12, marginTop: 4, left: 0 }}
-                    className="sm:static sm:ml-2"
-                  >
-                    <Rating
-                      name="user-rating"
-                      value={userRating}
-                      onChange={(_, value) => handleRate(value)}
-                      disabled={isRatingLoading || !!userRating}
-                      size="large"
-                      sx={{ fontSize: { xs: 28, sm: 32, md: 36 } }}
-                    />
+            <div className="flex-1 flex justify-center">
+              <div className="flex flex-col items-center min-w-[220px] w-full max-w-xs">
+                {/* Hodnotit a Přidat do oblíbených vedle sebe */}
+                {session?.user && recipe && (
+                  <div className="flex flex-row gap-2 mt-3">
+                    {/* Hodnotit recept - pouze jedno tlačítko */}
+                    {!userRating && !hasVoted && (
+                      <button
+                        onClick={() => setShowRatingBox((v) => !v)}
+                        className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-4 py-2 rounded-xl"
+                        type="button"
+                        disabled={!!userRating || hasVoted}
+                      >
+                        Ohodnotit tento recept
+                      </button>
+                    )}
+                    {showRatingBox && (
+                      <div ref={ratingBoxRef} className="absolute z-50 mt-12 bg-white border border-gray-300 rounded-lg shadow-lg p-4 flex flex-col items-center">
+                        <span className="mb-2 text-gray-700">Vyberte počet hvězdiček:</span>
+                        <Rating
+                          name="user-rating"
+                          value={userRating}
+                          onChange={(_, value) => handleRate(value)}
+                          size="large"
+                          disabled={isRatingLoading}
+                        />
+                        <button
+                          className="mt-3 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-gray-700"
+                          onClick={() => setShowRatingBox(false)}
+                          type="button"
+                        >
+                          Zavřít
+                        </button>
+                      </div>
+                    )}
+                    {/* Přidat/odebrat z oblíbených */}
+                    <button
+                      onClick={handleToggleFavorite}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors duration-200 ${isFavorite ? 'bg-amber-100 border-amber-400 text-amber-700' : 'bg-gray-100 border-gray-300 text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700'}`}
+                      title={isFavorite ? 'Odebrat z oblíbených' : 'Přidat do oblíbených'}
+                      type="button"
+                    >
+                      {isFavorite ? <FavoriteIcon sx={{ color: '#f59e42' }} /> : <FavoriteBorderIcon />}
+                      <span>{isFavorite ? 'V oblíbených' : 'Přidat do oblíbených'}</span>
+                    </button>
                   </div>
                 )}
+                {/* Info o hodnocení */}
+                {hasVoted && (
+                  <span className="text-xs text-gray-500 font-semibold py-2 px-4 rounded-lg bg-gray-100 border border-gray-300 w-full text-center mt-2">Již jste hodnotili tento recept</span>
+                )}
               </div>
-            )}
-            {hasVoted && (
-              <span className="text-xs text-gray-500 ml-2 mt-2">Již jste hlasovali</span>
-            )}
+            </div>
+            {/* Autor receptu */}
+            <div className="flex items-center gap-2 min-w-[120px] justify-end">
+              {typeof recipe.author_image === 'string' && recipe.author_image ? (
+                <Image
+                  src={recipe.author_image as string}
+                  alt={typeof recipe.author_name === 'string' ? recipe.author_name : 'Autor'}
+                  width={32}
+                  height={32}
+                  className="rounded-full border border-blue-300 object-cover"
+                />
+              ) : (
+                <Image
+                  src="/images/man.png"
+                  alt="Unknown"
+                  width={32}
+                  height={32}
+                  className="rounded-full border border-blue-300 object-cover"
+                />
+              )}
+              <span className="text-sm text-gray-600 font-medium">
+                {typeof recipe.author_name === 'string' && recipe.author_name ? recipe.author_name : 'Neznamý autor'}
+              </span>
+            </div>
           </div>
 
           <div className="recipe-content">
@@ -411,6 +500,16 @@ export default function RecipeDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Upravit recept button for author only */}
+        {session?.user?.name === recipe.author_name && (
+          <button
+            className="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors duration-200"
+            onClick={handleEditRecipe}
+          >
+            Upravit recept
+          </button>
+        )}
       </div>
   );
 }

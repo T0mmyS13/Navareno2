@@ -18,6 +18,8 @@ import { Add, Remove } from "@mui/icons-material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useToast } from "@/utils/ToastNotify";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 interface Ingredient {
     name: string;
@@ -38,6 +40,8 @@ interface RecipeData {
 }
 
 const AddRecipePage: React.FC = () => {
+    const { data: session, status } = useSession();
+
     const [isEditing, setIsEditing] = useState(false);
     const [isCopying, setIsCopying] = useState(false);
 
@@ -113,6 +117,11 @@ const AddRecipePage: React.FC = () => {
     const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
+        // Check for HEIC/HEIF
+        if (file.type === "image/heic" || file.type === "image/heif" || file.name.toLowerCase().endsWith(".heic") || file.name.toLowerCase().endsWith(".heif")) {
+            showToast("Obrázky ve formátu HEIC/HEIF nejsou podporovány. Prosím, převeďte obrázek na JPG nebo PNG.", "error");
+            return;
+        }
         const reader = new FileReader();
         reader.onload = (ev) => {
             if (typeof ev.target?.result === "string") {
@@ -172,23 +181,23 @@ const AddRecipePage: React.FC = () => {
         const newRecipe = {
             title,
             description,
-            ingredients: ingredients.map((ing) => ({
-                name: ing.name.trim(),
-                quantity: Number(ing.quantity),
-                unit: ing.unit,
-            })),
-            instructions: instructions.map((instr) => instr.trim()),
-            time,
-            difficulty: Number(difficulty),
             image,
             portion,
+            time,
+            instructions,
+            ingredients,
             category: selectedCategory,
+            difficulty,
             slug,
+            author: {
+                name: session?.user?.name || "",
+                image: session?.user?.image || null,
+            },
         };
 
         try {
             const response = await fetch("/api/recipes", {
-                method: "POST",
+                method: isEditing ? "PUT" : "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -196,16 +205,32 @@ const AddRecipePage: React.FC = () => {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to add recipe");
+                throw new Error(isEditing ? "Failed to update recipe" : "Failed to add recipe");
             }
 
-            showToast("Recept úspěšně přidán", "success");
+            showToast(isEditing ? "Recept úspěšně upraven" : "Recept úspěšně přidán", "success");
             router.push(`/${selectedCategory}/${slug}`);
         } catch (error) {
             console.error(error);
-            showToast("Chyba při přidávání receptu", "error");
+            showToast(isEditing ? "Chyba při úpravě receptu" : "Chyba při přidávání receptu", "error");
         }
     };
+
+    // Redirect or block if not logged in
+    if (status === "loading") return <div className="text-center py-10">Načítám stránku pro přidání receptu...</div>;
+    if (!session || !session.user) {
+        return (
+            <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow text-center">
+                <h2 className="text-xl font-bold mb-4">Pro přidání receptu se musíte nejdříve přihlásit.</h2>
+                <Link
+                    href="/auth/signin"
+                    className="inline-block mt-4 px-6 py-2 bg-amber-500 text-white rounded-lg font-semibold hover:bg-amber-600 transition-colors"
+                >
+                    Přihlásit se
+                </Link>
+            </div>
+        );
+    }
 
     return (
         <div className="max-w-3xl mx-auto p-4">
@@ -259,20 +284,10 @@ const AddRecipePage: React.FC = () => {
                             />
                         </div>
                     )}
-                    <Box display="flex" alignItems="center" gap={2} className="flex-col sm:flex-row">
-                        <TextField
-                            label="Odkaz na obrázek"
-                            value={image}
-                            onChange={(e) => setImage(e.target.value)}
-                            fullWidth
-                            disabled={isCopying}
-                            InputProps={{
-                                style: { borderRadius: 12, background: '#f8fafc' }
-                            }}
-                        />
-                        <label htmlFor="upload-image" className="cursor-pointer bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold px-4 py-2 rounded-lg shadow transition-colors duration-200 text-sm mt-2 sm:mt-0 flex items-center gap-2">
+                    <Box display="flex" alignItems="center" gap={2} className="justify-center">
+                        <label htmlFor="upload-image" className="cursor-pointer bg-blue-100 hover:bg-blue-200 text-blue-700 font-semibold px-4 py-2 rounded-lg shadow transition-colors duration-200 text-sm flex items-center gap-2 mx-auto">
                             <CloudUploadIcon fontSize="small" />
-                            <span className="hidden sm:inline">Nahrát obrázek</span>
+                            <span>Nahrát obrázek</span>
                             <input
                                 accept="image/*"
                                 id="upload-image"

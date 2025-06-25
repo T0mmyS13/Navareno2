@@ -55,12 +55,13 @@ export async function POST(request: NextRequest) {
     const result = await sql`
       INSERT INTO recipes (
         title, description, image, category, time, difficulty, 
-        portion, ingredients, instructions, slug
+        portion, ingredients, instructions, slug, author_name, author_image
       ) VALUES (
         ${recipe.title}, ${recipe.description}, ${recipe.image}, 
         ${recipe.category}, ${recipe.time}, ${recipe.difficulty},
         ${recipe.portion}, ${JSON.stringify(recipe.ingredients)}, 
-        ${JSON.stringify(recipe.instructions)}, ${recipe.slug}
+        ${JSON.stringify(recipe.instructions)}, ${recipe.slug},
+        ${recipe.author?.name || null}, ${recipe.author?.image || null}
       )
       RETURNING *
     `;

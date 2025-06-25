@@ -158,7 +158,7 @@ export default function CategoryPage() {
                 <div className="flex-1 flex justify-start">
                     <Link
                         href="/"
-                        className="inline-block bg-amber-500 hover:bg-amber-600 text-white py-2 px-5 rounded-lg shadow-lg font-bold no-underline transition-all duration-200 text-center border-2 border-white/70 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
+                        className="border border-gray-400 text-gray-700 hover:bg-gray-100 font-medium px-4 py-2 rounded-xl"
                         style={{ whiteSpace: "nowrap", letterSpacing: 1 }}
                     >
                         ← Zpět na hlavní stránku

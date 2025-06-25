@@ -28,4 +28,24 @@ body {
   font-family: Inter,Arial, Helvetica, sans-serif;
 }
 
-
+.toast {
+  position: fixed;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  min-width: 280px;
+  max-width: 90vw;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  text-align: center;
+  opacity: 0.98;
+  transition: opacity 0.3s, top 0.3s;
+}
+.toast.success { background: #d1fae5; color: #065f46; border: 1px solid #34d399; }
+.toast.error { background: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
+.toast.info { background: #e0e7ff; color: #3730a3; border: 1px solid #818cf8; }
+.toast.warning { background: #fef9c3; color: #92400e; border: 1px solid #facc15; }
