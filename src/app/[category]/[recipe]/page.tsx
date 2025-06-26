@@ -309,14 +309,16 @@ export default function RecipeDetailPage() {
 
         <div className="bg-white rounded-lg shadow-md p-3 sm:p-6 mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
-            <Link
+            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+              <Link
                 href={`/${category}`}
-                className="border border-gray-400 text-gray-700 hover:bg-gray-100 font-medium px-4 py-2 rounded-xl"
+                className="border border-gray-400 text-gray-700 hover:bg-gray-100 font-medium px-4 py-2 rounded-xl text-center"
                 style={{ whiteSpace: "nowrap", letterSpacing: 1 }}
-            >
-              ← Zpět na kategorii
-            </Link>
-            <div className="flex-1 flex justify-center">
+              >
+                ← Zpět na kategorii
+              </Link>
+            </div>
+            <div className="flex-1 flex justify-center mt-2 sm:mt-0">
               <div className="flex flex-col items-center min-w-[220px] w-full max-w-xs">
                 {/* Hodnotit a Přidat do oblíbených vedle sebe */}
                 {session?.user && recipe && (
