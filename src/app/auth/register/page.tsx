@@ -12,6 +12,8 @@ export default function RegisterPage() {
   const [username, setUsername] = useState("");
   const [profilePic, setProfilePic] = useState<File | null>(null);
   const [selectedAvatar, setSelectedAvatar] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const defaultAvatars = [
     "/images/panda.png",
@@ -26,6 +28,10 @@ export default function RegisterPage() {
     e.preventDefault();
     setError("");
     setSuccess("");
+    if (password !== confirmPassword) {
+      setError("Hesla se neshodují.");
+      return;
+    }
     try {
       let profilePicUrl = selectedAvatar;
       if (profilePic) {
@@ -95,13 +101,30 @@ export default function RegisterPage() {
           className="px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 shadow-sm bg-white"
         />
         <input
-          type="password"
+          type={showPassword ? "text" : "password"}
           placeholder="Heslo"
           value={password}
           onChange={e => setPassword(e.target.value)}
           required
           className="px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 shadow-sm bg-white"
         />
+        <input
+          type={showPassword ? "text" : "password"}
+          placeholder="Heslo znovu"
+          value={confirmPassword}
+          onChange={e => setConfirmPassword(e.target.value)}
+          required
+          className="px-4 py-2 rounded-lg border border-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 shadow-sm bg-white"
+        />
+        <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={showPassword}
+            onChange={() => setShowPassword(v => !v)}
+            className="accent-blue-500"
+          />
+          Zobrazit heslo
+        </label>
         <div className="flex flex-col gap-2 bg-blue-50 rounded-lg p-3 border border-blue-100 mt-2">
           <label className="block text-sm text-blue-700 font-semibold mb-1 flex items-center gap-2">
             <svg xmlns='http://www.w3.org/2000/svg' className='w-5 h-5 text-blue-400' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15.232 5.232l3.536 3.536M9 13h3l8-8a2.828 2.828 0 00-4-4l-8 8v3zm-2 2h.01M7 17a4 4 0 108 0 4 4 0 00-8 0z' /></svg>

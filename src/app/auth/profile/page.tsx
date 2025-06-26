@@ -63,6 +63,16 @@ export default function ProfilePage() {
   });
   const [changingPassword, setChangingPassword] = useState(false);
 
+  // Výchozí avatary
+  const defaultAvatars = [
+    "/images/panda.png",
+    "/images/cat.png",
+    "/images/chicken.png",
+    "/images/man.png",
+    "/images/woman.png"
+  ];
+  const [profilePicFile, setProfilePicFile] = useState<File | null>(null);
+
   // Redirect if not authenticated
   useEffect(() => {
     if (status === "loading") return;
@@ -117,17 +127,21 @@ export default function ProfilePage() {
       setError("Uživatelské jméno je povinné");
       return;
     }
-
     try {
       setSaving(true);
       setError("");
-      
+      let profilePicUrl = formData.profilePic;
+      if (profilePicFile) {
+        // Nahraj obrázek na server nebo použij URL.createObjectURL (dočasně)
+        // Zde pouze simulujeme upload, v produkci by se měl obrázek uložit na server a získat URL
+        profilePicUrl = URL.createObjectURL(profilePicFile);
+      }
       const response = await fetch("/api/auth/profile", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, profilePic: profilePicUrl }),
       });
 
       if (!response.ok) {
@@ -361,20 +375,70 @@ export default function ProfilePage() {
 
               <div className="space-y-2">
                 <div className="flex items-center text-gray-600">
-                  <Image src="/favicon.ico" alt="Profile" width={16} height={16} className="mr-2" />
-                  <span className="text-sm font-medium">URL profilové fotky</span>
+                  <User className="w-4 h-4 mr-2" />
+                  <span className="text-sm font-medium">Profilová fotka</span>
                 </div>
                 {editing ? (
-                  <div className="ml-6">
-                    <Input
-                      value={formData.profilePic}
-                      onChange={(e) => handleInputChange("profilePic", e.target.value)}
-                      placeholder="https://example.com/moje-fotka.jpg"
-                      label=""
-                    />
+                  <div className="ml-6 flex flex-col gap-3">
+                    <div className="flex gap-2 flex-wrap mt-1">
+                      {defaultAvatars.map((avatar, idx) => (
+                        <button
+                          key={avatar}
+                          type="button"
+                          title={`Vybrat avatar ${idx + 1}`}
+                          className={`focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-full ${formData.profilePic === avatar ? 'ring-4 ring-blue-400' : ''}`}
+                          onClick={() => { setFormData(f => ({ ...f, profilePic: avatar })); setProfilePicFile(null); }}
+                        >
+                          <Image
+                            src={avatar}
+                            alt={`Avatar ${idx + 1}`}
+                            width={72}
+                            height={72}
+                            className={`w-20 h-20 rounded-full border-2 cursor-pointer transition-all duration-150 ${formData.profilePic === avatar ? 'border-blue-500 scale-110 shadow-lg' : 'border-gray-200 hover:border-blue-300'}`}
+                          />
+                        </button>
+                      ))}
+                    </div>
+                    <div className="flex flex-col gap-1 mt-4">
+                      <label className="text-base font-semibold text-blue-700">Nahrát vlastní profilovku</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-blue-200 file:text-blue-700 file:font-semibold file:cursor-pointer text-base"
+                        onChange={e => {
+                          const file = e.target.files?.[0] || null;
+                          setProfilePicFile(file);
+                          setFormData(f => ({ ...f, profilePic: file ? "" : f.profilePic }));
+                        }}
+                      />
+                      {profilePicFile && (
+                        <div className="flex items-center gap-2 mt-2">
+                          <Image
+                            src={URL.createObjectURL(profilePicFile)}
+                            alt="Náhled"
+                            width={72}
+                            height={72}
+                            className="w-20 h-20 rounded-full border-2 border-blue-400"
+                          />
+                          <span className="text-base text-gray-700">Náhled</span>
+                          <button
+                            type="button"
+                            className="ml-2 px-2 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200 text-xs"
+                            onClick={() => { setProfilePicFile(null); }}
+                          >Odebrat</button>
+                        </div>
+                      )}
+                      <span className="text-xs text-gray-500 mt-1">Podporované formáty: JPG, PNG, GIF. Max. velikost 2MB.</span>
+                    </div>
                   </div>
                 ) : (
-                  <p className="ml-6 text-gray-900">{profile.profilePic || "Není nastavena"}</p>
+                  <div className="ml-6">
+                    {profile.profilePic ? (
+                      <Image src={profile.profilePic} alt="Profilová fotka" width={72} height={72} className="inline w-20 h-20 rounded-full border-2 border-blue-400" />
+                    ) : (
+                      <span className="text-gray-500">Není nastavena</span>
+                    )}
+                  </div>
                 )}
               </div>
 
