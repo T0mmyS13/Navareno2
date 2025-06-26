@@ -13,6 +13,7 @@ import Rating from '@mui/material/Rating';
 import { useSession } from "next-auth/react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Head from "next/head";
 
 // Typy pro komponenty
 interface Ingredient {
@@ -266,8 +267,41 @@ export default function RecipeDetailPage() {
     );
   }
 
+  // SEO meta tags a strukturovaná data
+  const recipeUrl = `https://navareno.vercel.app/${category}/${recipeName}`;
+  const imageUrl = recipe.image?.startsWith('http') ? recipe.image : `https://navareno.vercel.app${recipe.image}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    "name": recipe.title,
+    "image": imageUrl,
+    "description": recipe.description,
+    "recipeCategory": category,
+    "recipeIngredient": recipe.ingredients.map(i => `${i.quantity} ${i.unit} ${i.name}`),
+    "recipeInstructions": recipe.instructions,
+    "aggregateRating": (typeof recipe.rating_count === 'number' && typeof recipe.rating_sum === 'number' && recipe.rating_count > 0) ? {
+      "@type": "AggregateRating",
+      "ratingValue": (recipe.rating_sum / recipe.rating_count).toFixed(1),
+      "reviewCount": recipe.rating_count
+    } : undefined
+  };
 
   return (
+    <>
+      <Head>
+        <title>{recipe.title} | Navařeno</title>
+        <meta name="description" content={recipe.description} />
+        <meta property="og:title" content={recipe.title + ' | Navařeno'} />
+        <meta property="og:description" content={recipe.description} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={recipeUrl} />
+        <meta property="og:image" content={imageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={recipe.title + ' | Navařeno'} />
+        <meta name="twitter:description" content={recipe.description} />
+        <meta name="twitter:image" content={imageUrl} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      </Head>
       <div className="max-w-4xl mx-auto p-2 sm:p-4 recipe-detail">
         {/* Hlavička receptu */}
         <div className="mb-6 relative h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden shadow-lg">
@@ -513,5 +547,6 @@ export default function RecipeDetailPage() {
           </button>
         )}
       </div>
+    </>
   );
 }
