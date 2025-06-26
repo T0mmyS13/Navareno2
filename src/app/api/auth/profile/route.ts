@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../authOptions";
 import { getPool } from "@/utils/db";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const session = await getServerSession(authOptions);
   if (!session || !session.user || !session.user.email) {
     return NextResponse.json({ error: "Nejste přihlášen/a." }, { status: 401 });

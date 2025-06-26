@@ -13,7 +13,7 @@ import {
     CardTitle,
     Alert
 } from "@/components/ui";
-import { Plus, Minus, Trash2, Upload, Image as ImageIcon } from "lucide-react";
+import { Plus, Trash2, Upload,} from "lucide-react";
 import { useToast } from "@/utils/ToastNotify";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
