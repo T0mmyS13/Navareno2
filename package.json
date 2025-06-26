@@ -7,18 +7,26 @@
     "seed-db": "node src/utils/seed-db.js",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "generate-api-docs": "node scripts/generate-api-docs.js",
+    "generate-component-docs": "node scripts/generate-component-docs.js",
+    "update-readme": "node scripts/update-readme.js",
+    "update-docs": "node scripts/update-all-docs.js",
+    "docs": "npm run update-docs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@hookform/resolvers": "^5.1.1",
     "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.1.2",
     "@mui/x-data-grid": "^8.5.3",
     "@neondatabase/serverless": "^1.0.1",
     "bcryptjs": "^3.0.2",
+    "clsx": "^2.1.1",
     "dotenv": "^16.5.0",
     "framer-motion": "^12.19.1",
+    "lucide-react": "^0.523.0",
     "next": "15.3.4",
     "next-auth": "^4.24.11",
     "nodemailer": "^6.10.1",
@@ -26,7 +34,10 @@
     "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-qr-code": "^2.0.16"
+    "react-hook-form": "^7.58.1",
+    "react-qr-code": "^2.0.16",
+    "tailwind-merge": "^3.3.1",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

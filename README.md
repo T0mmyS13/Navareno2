@@ -1,36 +1,214 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Navařeno 🍳
 
-## Getting Started
+**Navařeno** is a modern web application for sharing and managing recipes, built with Next.js 15 and TypeScript. The app offers an intuitive interface for browsing recipes by category, searching, user authentication, and managing favorite recipes.
 
-First, run the development server:
+## 📜 Main Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **📱 Responsive Design** - Optimized for all devices
+- **🔍 Advanced Search** - Search recipes with suggestions
+- **👤 User Accounts** - Registration and login via NextAuth.js
+- **❤️ Favorite Recipes** - Save favorite recipes
+- **⭐ Rate Recipes** - Rating and comments system
+- **📝 Add Recipes** - Add your own recipes
+- **🗂️ Categories** - Organized categories (Appetizers, Soups, Salads, Main Courses, Desserts, Drinks)
+- **🛒 Shopping List** - Generate shopping list from recipes
+
+
+## 📊 Project Statistics
+
+- **Version:** 0.1.0
+- **Dependencies:** 23
+- **Dev Dependencies:** 12
+- **Source Files:** 39
+- **Components:** 6
+- **API Endpoints:** 7
+- **Last Updated:** 26. 6. 2025
+
+## 🛠️ Technologies
+
+### Frontend
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type-safe JavaScript
+- **Tailwind CSS** - Utility-first CSS framework
+- **Material-UI (MUI)** - React UI components
+- **Framer Motion** - Animations and transitions
+- **React QR Code** - Generate QR codes
+
+### Backend & Database
+- **Neon Database** - Serverless PostgreSQL
+- **NextAuth.js** - Authentication
+- **bcryptjs** - Password hashing
+- **Nodemailer** - Email sending
+
+### Development Tools
+- **ESLint** - Linting
+- **PostCSS** - CSS preprocessing
+- **ts-node** - TypeScript execution
+
+## 📁 Project Structure
+
+```
+navareno2/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── api/               # API routes
+│   │   │   ├── auth/          # Authentication
+│   │   │   ├── recipes/       # Recipe API
+│   │   │   └── favorites/     # Favorite recipes
+│   │   ├── auth/              # Auth pages
+│   │   ├── [category]/        # Dynamic categories
+│   │   └── page.tsx           # Home page
+│   ├── components/            # React components
+│   └── utils/                 # Utility functions
+├── public/                    # Static files
+│   └── images/               # Images
+├── .env                      # Environment variables
+└── package.json              # Dependencies
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Installation & Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Requirements
+- Node.js 18+
+- npm, yarn, pnpm or bun
+- PostgreSQL database (Neon DB)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Clone Project
+```bash
+git clone <repository-url>
+cd navareno2
+```
 
-## Learn More
+### 2. Install Dependencies
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Environment Configuration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create a `.env.local` file and set the following variables:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+# Database
+DATABASE_URL="postgresql://username:password@host/database"
 
-## Deploy on Vercel
+# NextAuth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key"
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Email (Nodemailer)
+EMAIL_SERVER_USER="your-email@gmail.com"
+EMAIL_SERVER_PASSWORD="your-app-password"
+EMAIL_SERVER_HOST="smtp.gmail.com"
+EMAIL_SERVER_PORT=587
+EMAIL_FROM="your-email@gmail.com"
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Initialize Database
+```bash
+npm run seed-db
+```
+
+### 5. Run Development Server
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📋 NPM Scripts
+
+```bash
+npm run dev        # Run dev server
+npm run build      # Build for production
+npm run start      # Start production version
+npm run seed-db    # Initialize database with test data
+```
+
+## 🗄️ API Endpoints
+
+### Authentication
+- `POST /api/auth/register` - Register a new user
+- `GET /api/auth/profile` - Get user profile
+- `[...nextauth]` - NextAuth.js endpoints
+
+### Recipes
+- `GET /api/recipes` - List all recipes
+- `GET /api/recipes/[category]/[recipe]` - Recipe details
+- `POST /api/recipes/[category]/[recipe]/rating` - Rate a recipe
+
+### Favorites
+- `GET /api/favorites` - User's favorite recipes
+- `POST /api/favorites` - Add/remove favorite
+
+## 🎨 UI Components
+
+### Main Components
+- `Category.tsx` - Category component  
+- `Food.tsx` - Recipe component
+- `SearchWithSuggestions.tsx` - Search bar with suggestions
+- `HeaderLink.tsx` - Navigation header
+- `Footer.tsx` - Page footer
+
+### Utility Components
+- `SessionProviderWrapper.tsx` - NextAuth session provider
+- `ToastNotify.tsx` - Toast notifications
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+1. Connect project to Vercel
+2. Set environment variables
+3. Deploy automatically on push to main branch
+
+### Other Platforms
+1. `npm run build` - Create production build
+2. `npm run start` - Start production version
+3. Set environment variables on hosting platform
+
+## 🔧 Configuration
+
+### Environment Variables
+See "Environment Configuration" section above.
+
+### Database Schema
+Database schema is automatically created using `seed-db` script.
+
+## 🐛 Troubleshooting
+
+### Common Issues
+1. **Database Connection** - Check DATABASE_URL
+2. **NextAuth Errors** - Verify NEXTAUTH_SECRET and NEXTAUTH_URL
+3. **Email Not Sending** - Check SMTP settings
+
+### Logs
+```bash
+# Check logs in development mode
+npm run dev
+
+# For production, check logs on hosting platform
+```
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Create a Pull Request
+
+## 📄 License
+
+This project is private and not intended for public use.
+
+## 👨‍💻 Author
+
+Created for study purposes and personal use.
+
+---
+
+**Navařeno** - Cooking has never been easier! 🍳✨
