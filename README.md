@@ -14,6 +14,10 @@
 - **🛒 Shopping List** - Generate shopping list from recipes
 
 
+
+
+
+
 ## 📊 Project Statistics
 
 - **Version:** 0.1.0

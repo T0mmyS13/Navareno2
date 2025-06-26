@@ -2,7 +2,7 @@
 
 This document provides information about React components in the Navařeno application.
 
-*Last updated: 2025-06-26T05:54:16.989Z*
+*Last updated: 2025-06-26T12:27:09.350Z*
 
 ## Components Overview
 

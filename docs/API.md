@@ -2,7 +2,7 @@
 
 This document provides detailed information about all API endpoints in the Navařeno application.
 
-*Last updated: 2025-06-26T05:54:16.986Z*
+*Last updated: 2025-06-26T12:27:09.347Z*
 
 ## Base URL
 ```
