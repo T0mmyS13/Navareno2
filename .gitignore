@@ -40,3 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+docs.config.json
+scripts/update-readme.js
+scripts/update-all-docs.js
+scripts/generate-component-docs.js
+scripts/generate-api-docs.js
+.idea/inspectionProfiles/Project_Default.xml
+.github/workflows/update-docs.yml

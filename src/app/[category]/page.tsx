@@ -154,17 +154,18 @@ export default function CategoryPage() {
             </div>
 
             {/* Ovládací prvky (zpět, náhodný recept, řazení) */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
-                <div className="flex-1 flex justify-start">
+            <div className="mb-5">
+                {/* Mobil: vše na jednom řádku, desktop: tři tlačítka symetricky */}
+                <div className="flex flex-row items-center justify-between gap-2 w-full sm:hidden">
                     <Link
                         href="/"
-                        className="border border-gray-400 text-gray-700 hover:bg-gray-100 font-medium px-4 py-2 rounded-xl"
-                        style={{ whiteSpace: "nowrap", letterSpacing: 1 }}
+                        className="flex items-center justify-center border border-gray-400 text-gray-700 hover:bg-gray-100 rounded-xl p-2 w-10 h-10"
+                        aria-label="Zpět na hlavní stránku"
                     >
-                        ← Zpět na hlavní stránku
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
                     </Link>
-                </div>
-                <div className="flex-1 flex justify-center">
                     <motion.button
                         animate={{
                             scale: [1, 1.06, 1],
@@ -182,7 +183,7 @@ export default function CategoryPage() {
                         }}
                         whileHover={{ scale: 1.09, boxShadow: "0 0 0 10px #42a5f5, 0 0 40px 10px #1976d2" }}
                         whileTap={{ scale: 0.97 }}
-                        className="relative z-10 px-6 py-2 sm:px-10 sm:py-4 bg-gradient-to-r from-blue-100 via-white/80 to-blue-50 backdrop-blur-md text-blue-700 font-bold rounded-lg sm:rounded-full shadow-xl text-base sm:text-lg focus:outline-none border border-white/40 transition-all duration-300 overflow-hidden cursor-pointer min-w-[140px] sm:min-w-[200px] text-center"
+                        className="relative z-10 px-2 py-1 bg-gradient-to-r from-blue-100 via-white/80 to-blue-50 backdrop-blur-md text-blue-700 font-bold rounded-lg shadow-xl text-sm focus:outline-none border border-white/40 transition-all duration-300 overflow-hidden cursor-pointer min-w-[70px] text-center"
                         style={{ boxShadow: "0 2px 12px 0 rgba(31, 38, 135, 0.13)", WebkitBackdropFilter: "blur(8px)", backdropFilter: "blur(8px)" }}
                         onClick={handleRandomRecipe}
                         type="button"
@@ -196,20 +197,78 @@ export default function CategoryPage() {
                         </span>
                         <span className="relative z-10">Nevím co si dám</span>
                     </motion.button>
-                </div>
-                <div className="flex-1 flex justify-end">
                     <select
                         onChange={(e) => setSortCriteria(e.target.value)}
+                        className="border border-gray-400 rounded-xl p-2 text-gray-700 text-sm min-w-[70px]"
                         value={sortCriteria}
-                        className="py-2 px-4 text-base rounded-lg border border-gray-300 bg-white cursor-pointer w-full max-w-xs shadow focus:ring-2 focus:ring-amber-400 focus:border-amber-400 transition-all font-semibold text-gray-700"
-                        disabled={loading}
                     >
-                        <option value="">Seřadit podle…</option>
-                        <option value="difficulty">Obtížnost</option>
-                        <option value="time">Délka přípravy</option>
-                        <option value="rating">Hodnocení</option>
+                        <option value="">Seřadit podle</option>
                         <option value="title">Název</option>
+                        <option value="difficulty">Náročnost</option>
+                        <option value="time">Čas</option>
+                        <option value="rating">Hodnocení</option>
                     </select>
+                </div>
+                {/* Desktop: tři tlačítka symetricky rozložené */}
+                <div className="hidden sm:flex relative items-center w-full min-h-[48px]">
+                    <div className="flex-1 flex justify-start">
+                        <Link
+                            href="/"
+                            className="flex items-center border border-gray-400 text-gray-700 hover:bg-gray-100 rounded-xl px-3 py-2 min-w-[44px] max-w-[250px] text-base"
+                            aria-label="Zpět na hlavní stránku"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 mr-2">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                            </svg>
+                            <span className="hidden md:inline">Zpět na hlavní stránku</span>
+                        </Link>
+                    </div>
+                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center">
+                        <motion.button
+                            animate={{
+                                scale: [1, 1.06, 1],
+                                boxShadow: [
+                                    "0 0 0 0 #90caf9, 0 0 0 0 #42a5f5",
+                                    "0 0 0 8px #90caf9, 0 0 32px 8px #42a5f5",
+                                    "0 0 0 0 #90caf9, 0 0 0 0 #42a5f5"
+                                ],
+                                y: [0, -4, 0, 4, 0]
+                            }}
+                            transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                            }}
+                            whileHover={{ scale: 1.09, boxShadow: "0 0 0 10px #42a5f5, 0 0 40px 10px #1976d2" }}
+                            whileTap={{ scale: 0.97 }}
+                            className="relative z-10 px-6 py-2 bg-gradient-to-r from-blue-100 via-white/80 to-blue-50 backdrop-blur-md text-blue-700 font-bold rounded-lg shadow-xl text-base focus:outline-none border border-white/40 transition-all duration-300 overflow-hidden cursor-pointer min-w-[150px] text-center"
+                            style={{ boxShadow: "0 2px 12px 0 rgba(31, 38, 135, 0.13)", WebkitBackdropFilter: "blur(8px)", backdropFilter: "blur(8px)" }}
+                            onClick={handleRandomRecipe}
+                            type="button"
+                        >
+                            <span className="absolute left-0 top-0 w-full h-full pointer-events-none z-0">
+                                <motion.span
+                                    animate={{ opacity: [0.2, 0.5, 0.2], x: [0, 80, 0] }}
+                                    transition={{ duration: 1.5, repeat: Infinity }}
+                                    className="block w-1/4 h-full bg-gradient-to-r from-blue-300 via-blue-100 to-transparent blur-lg opacity-60 rotate-3"
+                                />
+                            </span>
+                            <span className="relative z-10">Nevím co si dám</span>
+                        </motion.button>
+                    </div>
+                    <div className="flex-1 flex justify-end">
+                        <select
+                            onChange={(e) => setSortCriteria(e.target.value)}
+                            className="border border-gray-400 rounded-xl px-3 py-2 text-gray-700 text-base min-w-[120px] max-w-[180px]"
+                            value={sortCriteria}
+                        >
+                            <option value="">Seřadit podle</option>
+                            <option value="title">Název</option>
+                            <option value="difficulty">Náročnost</option>
+                            <option value="time">Čas</option>
+                            <option value="rating">Hodnocení</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 

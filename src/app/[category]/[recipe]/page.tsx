@@ -321,9 +321,9 @@ export default function RecipeDetailPage() {
 
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent px-3 py-4 sm:p-6">
             <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 sm:mb-2">{recipe.title}</h1>
-            <p className="text-white text-sm sm:text-base">{recipe.description}</p>
+            <p className="hidden sm:block text-white text-sm sm:text-base">{recipe.description}</p>
 
-            <div className="flex flex-col sm:flex-row sm:items-center mt-2 text-white text-sm sm:text-base gap-1 sm:gap-4">
+            <div className="hidden sm:flex flex-col sm:flex-row sm:items-center mt-2 text-white text-sm sm:text-base gap-1 sm:gap-4">
               <span>Čas: {recipe.time} min</span>
               <span>Obtížnost: {renderDifficulty(recipe.difficulty)}</span>
               <span className="flex items-center gap-1 text-xs sm:text-sm opacity-80">
@@ -336,6 +336,51 @@ export default function RecipeDetailPage() {
                   sx={{ color: '#FFD700', fontSize: { xs: 16, sm: 18, md: 20 } }}
                 />
                 <span>({recipe.rating_count || 0}x)</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile-only recipe info - shown below header on mobile */}
+        <div className="sm:hidden bg-white rounded-lg shadow-md p-4 mb-4">
+          <p className="text-gray-700 mb-3">{recipe.description}</p>
+          <div className="flex justify-between items-start">
+            <div className="flex flex-col gap-2 text-sm text-gray-600">
+              <span>Čas: {recipe.time} min</span>
+              <span>Obtížnost: {renderDifficulty(recipe.difficulty)}</span>
+              <span className="flex items-center gap-1">
+                <Rating
+                  name="recipe-rating-mobile"
+                  value={averageRating}
+                  precision={0.5}
+                  readOnly
+                  size="small"
+                  sx={{ color: '#FFD700', fontSize: 16 }}
+                />
+                <span>({recipe.rating_count || 0}x)</span>
+              </span>
+            </div>
+            {/* Author info on the right side */}
+            <div className="flex items-center gap-2">
+              {typeof recipe.author_image === 'string' && recipe.author_image ? (
+                <Image
+                  src={recipe.author_image as string}
+                  alt={typeof recipe.author_name === 'string' ? recipe.author_name : 'Autor'}
+                  width={32}
+                  height={32}
+                  className="rounded-full border border-blue-300 object-cover"
+                />
+              ) : (
+                <Image
+                  src="/images/man.png"
+                  alt="Unknown"
+                  width={32}
+                  height={32}
+                  className="rounded-full border border-blue-300 object-cover"
+                />
+              )}
+              <span className="text-sm text-gray-600 font-medium">
+                {typeof recipe.author_name === 'string' && recipe.author_name ? recipe.author_name : 'Neznamý autor'}
               </span>
             </div>
           </div>
@@ -406,7 +451,7 @@ export default function RecipeDetailPage() {
               </div>
             </div>
             {/* Autor receptu */}
-            <div className="flex items-center gap-2 min-w-[120px] justify-end">
+            <div className="hidden sm:flex items-center gap-2 min-w-[120px] justify-end">
               {typeof recipe.author_image === 'string' && recipe.author_image ? (
                 <Image
                   src={recipe.author_image as string}

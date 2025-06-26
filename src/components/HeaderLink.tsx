@@ -70,9 +70,9 @@ const HeaderLink = () => {
     ];
 
     return (
-        <nav className="bg-gradient-to-r from-white via-blue-50 to-white shadow-lg px-4 sm:px-8 py-5 flex items-center gap-4 sm:gap-6 rounded-xl border border-blue-100">
+        <nav className="bg-gradient-to-r from-white via-blue-50 to-white shadow-lg px-4 [@media_(min-width:915px)]:px-8 py-5 flex items-center gap-4 [@media_(min-width:915px)]:gap-6 rounded-xl border border-blue-100">
             {/* Kategorie button always visible */}
-            <div className="flex flex-1 items-center gap-2 sm:gap-6 justify-center">
+            <div className="flex flex-1 items-center gap-2 [@media_(min-width:915px)]:gap-6 justify-start [@media_(min-width:915px)]:justify-center">
                 <div className="relative" ref={categoryMenuRef}>
                     <button
                         type="button"
@@ -97,12 +97,12 @@ const HeaderLink = () => {
                     )}
                 </div>
                 {/* Desktop: show extraLinks, Mobile: hide extraLinks */}
-                <div className="hidden sm:flex gap-2">
+                <div className="hidden [@media_(min-width:915px)]:flex gap-2">
                     {extraLinks.map((cat) => (
                         <Link
                             key={cat.title}
                             href={cat.link}
-                            className={`text-base sm:text-lg font-semibold px-4 sm:px-5 py-2 rounded-full transition-all duration-200 shadow-sm hover:scale-105 hover:bg-blue-100/60 ${cat.colorClass ? cat.colorClass : ''}`}
+                            className={`text-base [@media_(min-width:915px)]:text-lg font-semibold px-4 [@media_(min-width:915px)]:px-5 py-2 rounded-full transition-all duration-200 shadow-sm hover:scale-105 hover:bg-blue-100/60 ${cat.colorClass ? cat.colorClass : ''}`}
                         >
                             {cat.title}
                         </Link>
@@ -115,7 +115,7 @@ const HeaderLink = () => {
                     {/* Mobile: hamburger for extraLinks */}
                     <button
                         type="button"
-                        className="sm:hidden mr-2 p-2 rounded-full border border-blue-200 bg-blue-50 hover:bg-blue-100 transition-all"
+                        className="[@media_(min-width:915px)]:hidden mr-2 p-2 rounded-full border border-blue-200 bg-blue-50 hover:bg-blue-100 transition-all"
                         aria-label="Otevřít menu"
                         onClick={() => setMobileMenuOpen((v) => !v)}
                     >
@@ -143,7 +143,7 @@ const HeaderLink = () => {
                                 {session.user.name ? session.user.name.charAt(0).toUpperCase() : "?"}
                             </span>
                         )}
-                        <span className="hidden xs:inline">{session.user.name || session.user.email}</span>
+                        <span className="hidden xs:inline [@media_(min-width:1200px)]:inline">{session.user.name || session.user.email}</span>
                     </button>
                     {/* User dropdown */}
                     {userMenuOpen && (
@@ -168,7 +168,7 @@ const HeaderLink = () => {
                     {mobileMenuOpen && (
                         <div
                             ref={mobileMenuRef}
-                            className="absolute right-0 mt-2 w-max min-w-[220px] bg-white border border-blue-200 rounded-xl shadow-2xl z-50 p-4 flex flex-col gap-2 animate-fade-in"
+                            className="absolute right-0 mt-2 w-max min-w-[220px] bg-white border border-blue-200 rounded-xl shadow-2xl z-50 p-4 flex flex-col gap-2 animate-fade-in [@media_(min-width:915px)]:hidden"
                             style={{ top: '43px' }}
                         >
                             {extraLinks.map((cat) => (
