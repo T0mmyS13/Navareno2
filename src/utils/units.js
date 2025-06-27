@@ -8,11 +8,20 @@ const unitDeclensions = {
     "lístek": ["lístek", "lístky", "lístků"],
     "kulička": ["kulička", "kuličky", "kuliček"],
     "hrnek": ["hrnek", "hrnky", "hrnků"],
+    "špetka": ["špetka", "špetky", "špetek"],
 };
+
+// Jednotky, které nevyžadují množství
+const unitsWithoutQuantity = ["špetka"];
 
 export const getDeclinedUnit = (unit, quantity) => {
     const forms = unitDeclensions[unit];
     if (!forms) return unit;
+
+    // Pokud je jednotka v seznamu jednotek bez množství, vrátíme základní tvar
+    if (unitsWithoutQuantity.includes(unit)) {
+        return forms[0];
+    }
 
     if (quantity === 1) return forms[0];         // 1 kus
     if (quantity < 5) return forms[1];           // 2–4 kusy

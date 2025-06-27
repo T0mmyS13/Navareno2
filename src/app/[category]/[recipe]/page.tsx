@@ -404,7 +404,7 @@ export default function RecipeDetailPage() {
                   {/* Mobile back button icon - positioned on the left */}
                   <Link
                     href={`/${category}`}
-                    className="sm:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors flex items-center justify-center"
+                    className="sm:hidden border border-gray-400 text-gray-700 hover:bg-gray-100 font-medium px-4 py-2 rounded-xl transition-colors flex items-center justify-center flex-shrink-0"
                     title="Zpět na kategorii"
                   >
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -412,58 +412,61 @@ export default function RecipeDetailPage() {
                     </svg>
                   </Link>
                   
-                  {/* Rating button - shown to all users */}
-                  {!userRating && !hasVoted && (
+                  {/* Center container for rating and favorite buttons */}
+                  <div className="flex flex-row gap-2 justify-center flex-1">
+                    {/* Rating button - shown to all users */}
+                    {!userRating && !hasVoted && (
+                      <button
+                        onClick={() => {
+                          if (!session?.user) {
+                            showToast('Pro hodnocení receptu se musíte přihlásit.', 'warning');
+                            return;
+                          }
+                          setShowRatingBox((v) => !v);
+                        }}
+                        className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-4 py-2 rounded-xl"
+                        type="button"
+                        disabled={!!userRating || hasVoted}
+                      >
+                        Ohodnotit
+                      </button>
+                    )}
+                    {showRatingBox && (
+                      <div ref={ratingBoxRef} className="absolute z-50 mt-12 bg-white border border-gray-300 rounded-lg shadow-lg p-4 flex flex-col items-center">
+                        <span className="mb-2 text-gray-700">Vyberte počet hvězdiček:</span>
+                        <Rating
+                          name="user-rating"
+                          value={userRating}
+                          onChange={(_, value) => handleRate(value)}
+                          size="large"
+                          disabled={isRatingLoading}
+                        />
+                        <button
+                          className="mt-3 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-gray-700"
+                          onClick={() => setShowRatingBox(false)}
+                          type="button"
+                        >
+                          Zavřít
+                        </button>
+                      </div>
+                    )}
+                    {/* Přidat/odebrat z oblíbených - shown to all users */}
                     <button
                       onClick={() => {
                         if (!session?.user) {
-                          alert('Pro hodnocení receptu se musíte přihlásit.');
+                          showToast('Pro přidání do oblíbených se musíte přihlásit.', 'warning');
                           return;
                         }
-                        setShowRatingBox((v) => !v);
+                        handleToggleFavorite();
                       }}
-                      className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-4 py-2 rounded-xl"
+                      className={`flex items-center justify-center gap-2 px-4 py-2 rounded-lg border transition-colors duration-200 w-full sm:w-auto ${isFavorite ? 'bg-amber-100 border-amber-400 text-amber-700' : 'bg-gray-100 border-gray-300 text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700'}`}
+                      title={isFavorite ? 'Odebrat z oblíbených' : 'Přidat do oblíbených'}
                       type="button"
-                      disabled={!!userRating || hasVoted}
                     >
-                      Ohodnotit
+                      {isFavorite ? <FavoriteIcon sx={{ color: '#f59e42' }} /> : <FavoriteBorderIcon />}
+                      <span>{isFavorite ? 'V oblíbených' : 'Přidat do oblíbených'}</span>
                     </button>
-                  )}
-                  {showRatingBox && (
-                    <div ref={ratingBoxRef} className="absolute z-50 mt-12 bg-white border border-gray-300 rounded-lg shadow-lg p-4 flex flex-col items-center">
-                      <span className="mb-2 text-gray-700">Vyberte počet hvězdiček:</span>
-                      <Rating
-                        name="user-rating"
-                        value={userRating}
-                        onChange={(_, value) => handleRate(value)}
-                        size="large"
-                        disabled={isRatingLoading}
-                      />
-                      <button
-                        className="mt-3 px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-gray-700"
-                        onClick={() => setShowRatingBox(false)}
-                        type="button"
-                      >
-                        Zavřít
-                      </button>
-                    </div>
-                  )}
-                  {/* Přidat/odebrat z oblíbených - shown to all users */}
-                  <button
-                    onClick={() => {
-                      if (!session?.user) {
-                        alert('Pro přidání do oblíbených se musíte přihlásit.');
-                        return;
-                      }
-                      handleToggleFavorite();
-                    }}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors duration-200 ${isFavorite ? 'bg-amber-100 border-amber-400 text-amber-700' : 'bg-gray-100 border-gray-300 text-gray-500 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700'}`}
-                    title={isFavorite ? 'Odebrat z oblíbených' : 'Přidat do oblíbených'}
-                    type="button"
-                  >
-                    {isFavorite ? <FavoriteIcon sx={{ color: '#f59e42' }} /> : <FavoriteBorderIcon />}
-                    <span>{isFavorite ? 'V oblíbených' : 'Přidat do oblíbených'}</span>
-                  </button>
+                  </div>
                 </div>
                 {/* Info o hodnocení */}
                 {hasVoted && (

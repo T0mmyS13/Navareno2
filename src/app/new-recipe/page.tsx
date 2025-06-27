@@ -81,8 +81,11 @@ const AddRecipePage: React.FC = () => {
 
     // Unit options
     const unitOptions = [
-        "g", "kg", "ml", "l", "ks", "lžička", "lžíce", "hrst", "plátek", "stroužek", "konzerva"
+        "g", "kg", "ml", "l", "ks", "lžička", "lžíce", "hrst", "plátek", "stroužek", "konzerva", "špetka"
     ];
+
+    // Jednotky, které nevyžadují množství
+    const unitsWithoutQuantity = ["špetka"];
 
     // Load data from sessionStorage on mount
     useEffect(() => {
@@ -181,12 +184,14 @@ const AddRecipePage: React.FC = () => {
         }
         if (ingredients.some((ing) => 
             ing.name.trim() && (
-                isNaN(Number(ing.quantity)) ||
-                Number(ing.quantity) <= 0 ||
-                !ing.unit || ing.unit === ""
+                !ing.unit || ing.unit === "" ||
+                (!unitsWithoutQuantity.includes(ing.unit) && (
+                    isNaN(Number(ing.quantity)) ||
+                    Number(ing.quantity) <= 0
+                ))
             )
         )) {
-            setError("Množství u všech ingrediencí musí být platné číslo větší než 0 a musí být vyplněna jednotka");
+            setError("Množství u všech ingrediencí musí být platné číslo větší než 0 a musí být vyplněna jednotka (kromě jednotek jako 'špetka')");
             return false;
         }
         if (instructions.length === 0 || instructions.every((instr) => !instr.trim())) {
@@ -409,63 +414,76 @@ const AddRecipePage: React.FC = () => {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        {ingredients.map((ingredient, index) => (
-                            <div key={index} className="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
-                                <Input
-                                    label="Ingredience"
-                                    value={ingredient.name}
-                                    onChange={(e) =>
-                                        setIngredients((prev) =>
-                                            prev.map((ing, i) =>
-                                                i === index ? { ...ing, name: e.target.value } : ing
+                        {ingredients.map((ingredient, index) => {
+                            const showQuantity = !unitsWithoutQuantity.includes(ingredient.unit || "");
+                            const gridCols = showQuantity ? "grid-cols-1 md:grid-cols-4" : "grid-cols-1 md:grid-cols-3";
+                            
+                            return (
+                                <div key={index} className={`grid ${gridCols} gap-3 items-end`}>
+                                    <Input
+                                        label="Ingredience"
+                                        value={ingredient.name}
+                                        onChange={(e) =>
+                                            setIngredients((prev) =>
+                                                prev.map((ing, i) =>
+                                                    i === index ? { ...ing, name: e.target.value } : ing
+                                                )
                                             )
-                                        )
-                                    }
-                                    placeholder="Název ingredience"
-                                    disabled={isCopying}
-                                />
-                                <Input
-                                    label="Množství"
-                                    type="number"
-                                    value={ingredient.quantity}
-                                    onChange={(e) =>
-                                        setIngredients((prev) =>
-                                            prev.map((ing, i) =>
-                                                i === index ? { ...ing, quantity: e.target.value } : ing
-                                            )
-                                        )
-                                    }
-                                    placeholder="250"
-                                    disabled={isCopying}
-                                />
-                                <Select
-                                    label="Jednotka"
-                                    value={ingredient.unit || ""}
-                                    onChange={(e) =>
-                                        setIngredients((prev) =>
-                                            prev.map((ing, i) =>
-                                                i === index ? { ...ing, unit: e.target.value } : ing
-                                            )
-                                        )
-                                    }
-                                    options={[
-                                        { value: "", label: "Vyberte jednotku" },
-                                        ...unitOptions.map(unit => ({ value: unit, label: unit }))
-                                    ]}
-                                    disabled={isCopying}
-                                />
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => handleRemoveIngredient(index)}
-                                    disabled={ingredients.length <= 1 || isCopying}
-                                    className="h-10"
-                                >
-                                    <Trash2 className="w-4 h-4" />
-                                </Button>
-                            </div>
-                        ))}
+                                        }
+                                        placeholder="Název ingredience"
+                                        disabled={isCopying}
+                                    />
+                                    {showQuantity && (
+                                        <Input
+                                            label="Množství"
+                                            type="number"
+                                            value={ingredient.quantity}
+                                            onChange={(e) =>
+                                                setIngredients((prev) =>
+                                                    prev.map((ing, i) =>
+                                                        i === index ? { ...ing, quantity: e.target.value } : ing
+                                                    )
+                                                )
+                                            }
+                                            placeholder="250"
+                                            disabled={isCopying}
+                                        />
+                                    )}
+                                    <Select
+                                        label="Jednotka"
+                                        value={ingredient.unit || ""}
+                                        onChange={(e) => {
+                                            const newUnit = e.target.value;
+                                            setIngredients((prev) =>
+                                                prev.map((ing, i) =>
+                                                    i === index ? { 
+                                                        ...ing, 
+                                                        unit: newUnit,
+                                                        // Pokud se změní na jednotku bez množství, vymažeme množství
+                                                        quantity: unitsWithoutQuantity.includes(newUnit) ? "" : ing.quantity
+                                                    } : ing
+                                                )
+                                            );
+                                        }}
+                                        options={[
+                                            { value: "", label: "Vyberte jednotku" },
+                                            ...unitOptions.map(unit => ({ value: unit, label: unit }))
+                                        ]}
+                                        disabled={isCopying}
+                                    />
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => handleRemoveIngredient(index)}
+                                        disabled={ingredients.length <= 1 || isCopying}
+                                        className="h-10 flex items-center justify-center"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </Button>
+                                </div>
+                            );
+                        })}
                     </CardContent>
                 </Card>
 
