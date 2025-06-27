@@ -10,13 +10,9 @@
 - **❤️ Favorite Recipes** - Save favorite recipes
 - **⭐ Rate Recipes** - Rating and comments system
 - **📝 Add Recipes** - Add your own recipes
+- **🤖 AI Recipe Analysis** - Automatically fill recipe form from food photos (Google Gemini)
 - **🗂️ Categories** - Organized categories (Appetizers, Soups, Salads, Main Courses, Desserts, Drinks)
 - **🛒 Shopping List** - Generate shopping list from recipes
-
-
-
-
-
 
 ## 📊 Project Statistics
 
@@ -43,6 +39,7 @@
 - **NextAuth.js** - Authentication
 - **bcryptjs** - Password hashing
 - **Nodemailer** - Email sending
+- **Google Gemini AI** - AI image analysis for recipes (FREE)
 
 ### Development Tools
 - **ESLint** - Linting
@@ -110,6 +107,9 @@ EMAIL_SERVER_PASSWORD="your-app-password"
 EMAIL_SERVER_HOST="smtp.gmail.com"
 EMAIL_SERVER_PORT=587
 EMAIL_FROM="your-email@gmail.com"
+
+# Google Gemini (for AI image analysis - FREE)
+GOOGLE_GEMINI_API_KEY="AIzaSyC-your-gemini-api-key-here"
 ```
 
 ### 4. Initialize Database
@@ -144,6 +144,9 @@ npm run seed-db    # Initialize database with test data
 - `GET /api/recipes` - List all recipes
 - `GET /api/recipes/[category]/[recipe]` - Recipe details
 - `POST /api/recipes/[category]/[recipe]/rating` - Rate a recipe
+
+### AI Analysis
+- `POST /api/analyze-image-gemini` - Analyze food image and generate recipe data (FREE)
 
 ### Favorites
 - `GET /api/favorites` - User's favorite recipes
@@ -188,6 +191,7 @@ Database schema is automatically created using `seed-db` script.
 1. **Database Connection** - Check DATABASE_URL
 2. **NextAuth Errors** - Verify NEXTAUTH_SECRET and NEXTAUTH_URL
 3. **Email Not Sending** - Check SMTP settings
+4. **AI Analysis Not Working** - Check GOOGLE_GEMINI_API_KEY
 
 ### Logs
 ```bash
@@ -196,6 +200,10 @@ npm run dev
 
 # For production, check logs on hosting platform
 ```
+
+## 🤖 AI Features
+
+For detailed information about the AI image analysis feature, see [GEMINI_SETUP.md](docs/GEMINI_SETUP.md).
 
 ## 🤝 Contributing
 

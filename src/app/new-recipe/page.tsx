@@ -13,7 +13,7 @@ import {
     CardTitle,
     Alert
 } from "@/components/ui";
-import { Plus, Trash2, Upload,} from "lucide-react";
+import { Plus, Trash2, Upload, Sparkles } from "lucide-react";
 import { useToast } from "@/utils/ToastNotify";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -42,10 +42,12 @@ const AddRecipePage: React.FC = () => {
 
     const [isEditing, setIsEditing] = useState(false);
     const [isCopying, setIsCopying] = useState(false);
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
+    const [mainImage, setMainImage] = useState("");
     const [portion, setPortion] = useState("");
     const [time, setTime] = useState("");
     const [instructions, setInstructions] = useState<string[]>([""]);
@@ -98,6 +100,7 @@ const AddRecipePage: React.FC = () => {
             setTitle(editingRecipe.title);
             setDescription(editingRecipe.description);
             setImage(editingRecipe.image);
+            setMainImage(editingRecipe.image);
             setPortion(editingRecipe.portion);
             setTime(editingRecipe.time);
             setInstructions(editingRecipe.instructions);
@@ -116,6 +119,7 @@ const AddRecipePage: React.FC = () => {
             setTitle(""); // new recipe must have empty title
             setDescription(copyingRecipe.description);
             setImage(copyingRecipe.image);
+            setMainImage(copyingRecipe.image);
             setPortion(copyingRecipe.portion);
             setTime(copyingRecipe.time);
             setInstructions(copyingRecipe.instructions);
@@ -159,6 +163,95 @@ const AddRecipePage: React.FC = () => {
             }
         };
         reader.readAsDataURL(file);
+    };
+
+    const handleMainImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        
+        // Check for HEIC/HEIF
+        if (file.type === "image/heic" || file.type === "image/heif" || 
+            file.name.toLowerCase().endsWith(".heic") || file.name.toLowerCase().endsWith(".heif")) {
+            showToast("Obrázky ve formátu HEIC/HEIF nejsou podporovány. Prosím, převeďte obrázek na JPG nebo PNG.", "error");
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            if (typeof ev.target?.result === "string") {
+                setMainImage(ev.target.result);
+            }
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const handleRemoveImage = () => {
+        setImage("");
+    };
+
+    const handleRemoveMainImage = () => {
+        setMainImage("");
+    };
+
+    const handleAnalyzeImage = async () => {
+        if (!image) {
+            showToast("Nejdříve nahrajte obrázek", "error");
+            return;
+        }
+
+        try {
+            setIsAnalyzing(true);
+            showToast("Analyzuji obrázek...", "info");
+
+            const response = await fetch("/api/analyze-image-gemini", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ image }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Chyba při analýze obrázku");
+            }
+
+            const recipeData = await response.json();
+
+            // Fill form with AI data
+            setTitle(recipeData.title || "");
+            setDescription(recipeData.description || "");
+            setSelectedCategory(recipeData.category || "");
+            setDifficulty(recipeData.difficulty || "");
+            setTime(recipeData.time?.toString() || "");
+            setPortion(recipeData.portion?.toString() || "");
+
+            // Copy AI image to main image if analysis was successful
+            if (image) {
+                setMainImage(image);
+            }
+
+            // Set ingredients
+            if (recipeData.ingredients && Array.isArray(recipeData.ingredients)) {
+                const formattedIngredients = recipeData.ingredients.map((ing: { name: string; quantity: string | number; unit: string }) => ({
+                    name: ing.name || "",
+                    quantity: ing.quantity?.toString() || "",
+                    unit: ing.unit || null,
+                }));
+                setIngredients(formattedIngredients.length > 0 ? formattedIngredients : [{ name: "", quantity: "", unit: null }]);
+            }
+
+            // Set instructions
+            if (recipeData.instructions && Array.isArray(recipeData.instructions)) {
+                setInstructions(recipeData.instructions.length > 0 ? recipeData.instructions : [""]);
+            }
+
+            showToast("Obrázek úspěšně analyzován! Formulář byl předvyplněn.", "success");
+        } catch (error) {
+            console.error("Chyba při analýze:", error);
+            showToast("Chyba při analýze obrázku. Zkuste to prosím znovu.", "error");
+        } finally {
+            setIsAnalyzing(false);
+        }
     };
 
     const validateForm = () => {
@@ -231,7 +324,7 @@ const AddRecipePage: React.FC = () => {
             const newRecipe = {
                 title,
                 description,
-                image,
+                image: mainImage,
                 portion,
                 time,
                 instructions: instructions.filter(instr => instr.trim()),
@@ -303,6 +396,66 @@ const AddRecipePage: React.FC = () => {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
+                {/* AI Image Analysis */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Sparkles className="w-5 h-5 text-purple-600" />
+                            AI Tvorba receptu
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                            <label className="cursor-pointer bg-purple-50 hover:bg-purple-100 text-purple-700 font-semibold px-6 py-3 rounded-lg border border-purple-200 transition-colors duration-200 flex items-center gap-2">
+                                <Upload className="w-5 h-5" />
+                                <span>Nahrát obrázek pro AI analýzu</span>
+                                <input
+                                    accept="image/*"
+                                    type="file"
+                                    className="hidden"
+                                    onChange={handleImageUpload}
+                                    disabled={isCopying}
+                                />
+                            </label>
+                            
+                            {image && (
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={handleAnalyzeImage}
+                                    disabled={isAnalyzing || isCopying}
+                                    className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-purple-500 hover:from-purple-600 hover:to-pink-600"
+                                >
+                                    <Sparkles className="w-5 h-5" />
+                                    {isAnalyzing ? "Analyzuji..." : "AI Analýza"}
+                                </Button>
+                            )}
+                        </div>
+                        {image && (
+                            <div className="mt-4 flex justify-center relative">
+                                <Image
+                                    src={image}
+                                    alt="náhled pro analýzu"
+                                    className="rounded-lg shadow-lg object-cover border border-gray-200 max-h-32 w-auto"
+                                    width={200}
+                                    height={128}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={handleRemoveImage}
+                                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors"
+                                    title="Odebrat obrázek"
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        )}
+                        <p className="text-sm text-gray-600 text-center mt-2">
+                            💡 Nahrajte obrázek jídla a klikněte na &quot;AI Analýza&quot; pro automatické předvyplnění receptu
+                        </p>
+                    </CardContent>
+                </Card>
+
                 {/* Basic Information */}
                 <Card>
                     <CardHeader>
@@ -369,15 +522,23 @@ const AddRecipePage: React.FC = () => {
                         <CardTitle>Obrázek receptu</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        {image && (
-                            <div className="mb-4 flex justify-center">
+                        {mainImage && (
+                            <div className="mb-4 flex justify-center relative">
                                 <Image
-                                    src={image}
+                                    src={mainImage}
                                     alt="náhled"
                                     className="rounded-lg shadow-lg object-cover border border-gray-200 max-h-48 w-auto"
                                     width={320}
                                     height={192}
                                 />
+                                <button
+                                    type="button"
+                                    onClick={handleRemoveMainImage}
+                                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors"
+                                    title="Odebrat obrázek"
+                                >
+                                    ×
+                                </button>
                             </div>
                         )}
                         <div className="flex justify-center">
@@ -388,7 +549,7 @@ const AddRecipePage: React.FC = () => {
                                     accept="image/*"
                                     type="file"
                                     className="hidden"
-                                    onChange={handleImageUpload}
+                                    onChange={handleMainImageUpload}
                                     disabled={isCopying}
                                 />
                             </label>

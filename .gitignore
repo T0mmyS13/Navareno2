@@ -47,3 +47,4 @@ scripts/generate-component-docs.js
 scripts/generate-api-docs.js
 .idea/inspectionProfiles/Project_Default.xml
 .github/workflows/update-docs.yml
+package-lock.json
