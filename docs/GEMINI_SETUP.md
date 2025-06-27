@@ -8,7 +8,9 @@ Aplikace nyní používá Google Gemini AI pro analýzu obrázků jídla. Tato s
 - **15 požadavků za minutu** zdarma
 - **Neomezené použití** denně
 - **Žádná platební karta** potřeba
-- **Výborná analýza obrázků**
+- **Výborná analýza obrázků** s Gemini 2.5 Flash
+- **Přesnější identifikace ingrediencí**
+- **Lepší JSON výstup**
 
 ## 🔧 Nastavení
 

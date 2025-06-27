@@ -1,10 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_API_KEY || "");
+// Check if API key is available
+const apiKey = process.env.GOOGLE_GEMINI_API_KEY;
+if (!apiKey) {
+    console.error("GOOGLE_GEMINI_API_KEY is not set in environment variables");
+}
+
+const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
 
 export async function POST(request: NextRequest) {
     try {
+        // Check if API key is configured
+        if (!apiKey || !genAI) {
+            console.error("Google Gemini API key is not configured");
+            return NextResponse.json(
+                { error: "AI služba není správně nakonfigurována. Kontaktujte administrátora." },
+                { status: 500 }
+            );
+        }
+
         const { image } = await request.json();
 
         if (!image) {
@@ -17,7 +32,7 @@ export async function POST(request: NextRequest) {
         // Remove data:image/jpeg;base64, prefix if present
         const base64Image = image.replace(/^data:image\/[a-z]+;base64,/, "");
 
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
         const prompt = `Jsi expert na vaření a analýzu potravin. Analyzuj obrázek jídla a vytvoř detailní recept v JSON formátu. 
         
@@ -88,8 +103,26 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json(recipeData);
 
-    } catch (error) {
+    } catch (error: unknown) {
         console.error("Chyba při analýze obrázku:", error);
+        
+        // Handle specific API errors
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        
+        if (errorMessage.includes("API key")) {
+            return NextResponse.json(
+                { error: "Neplatný API klíč pro AI službu. Kontaktujte administrátora." },
+                { status: 401 }
+            );
+        }
+        
+        if (errorMessage.includes("quota") || errorMessage.includes("rate limit")) {
+            return NextResponse.json(
+                { error: "Překročen limit požadavků. Zkuste to prosím za minutu." },
+                { status: 429 }
+            );
+        }
+
         return NextResponse.json(
             { error: "Chyba při analýze obrázku. Zkuste to prosím znovu." },
             { status: 500 }

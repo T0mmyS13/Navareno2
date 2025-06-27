@@ -211,19 +211,19 @@ const AddRecipePage: React.FC = () => {
                 body: JSON.stringify({ image }),
             });
 
+            const data = await response.json();
+
             if (!response.ok) {
-                throw new Error("Chyba při analýze obrázku");
+                throw new Error(data.error || "Chyba při analýze obrázku");
             }
 
-            const recipeData = await response.json();
-
             // Fill form with AI data
-            setTitle(recipeData.title || "");
-            setDescription(recipeData.description || "");
-            setSelectedCategory(recipeData.category || "");
-            setDifficulty(recipeData.difficulty || "");
-            setTime(recipeData.time?.toString() || "");
-            setPortion(recipeData.portion?.toString() || "");
+            setTitle(data.title || "");
+            setDescription(data.description || "");
+            setSelectedCategory(data.category || "");
+            setDifficulty(data.difficulty || "");
+            setTime(data.time?.toString() || "");
+            setPortion(data.portion?.toString() || "");
 
             // Copy AI image to main image if analysis was successful
             if (image) {
@@ -231,8 +231,8 @@ const AddRecipePage: React.FC = () => {
             }
 
             // Set ingredients
-            if (recipeData.ingredients && Array.isArray(recipeData.ingredients)) {
-                const formattedIngredients = recipeData.ingredients.map((ing: { name: string; quantity: string | number; unit: string }) => ({
+            if (data.ingredients && Array.isArray(data.ingredients)) {
+                const formattedIngredients = data.ingredients.map((ing: { name: string; quantity: string | number; unit: string }) => ({
                     name: ing.name || "",
                     quantity: ing.quantity?.toString() || "",
                     unit: ing.unit || null,
@@ -241,14 +241,15 @@ const AddRecipePage: React.FC = () => {
             }
 
             // Set instructions
-            if (recipeData.instructions && Array.isArray(recipeData.instructions)) {
-                setInstructions(recipeData.instructions.length > 0 ? recipeData.instructions : [""]);
+            if (data.instructions && Array.isArray(data.instructions)) {
+                setInstructions(data.instructions.length > 0 ? data.instructions : [""]);
             }
 
             showToast("Obrázek úspěšně analyzován! Formulář byl předvyplněn.", "success");
         } catch (error) {
             console.error("Chyba při analýze:", error);
-            showToast("Chyba při analýze obrázku. Zkuste to prosím znovu.", "error");
+            const errorMessage = error instanceof Error ? error.message : "Chyba při analýze obrázku. Zkuste to prosím znovu.";
+            showToast(errorMessage, "error");
         } finally {
             setIsAnalyzing(false);
         }
