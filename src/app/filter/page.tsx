@@ -6,7 +6,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui";
-import { Search, Plus, X } from "lucide-react";
+import { Search, Plus, X, Utensils, Beef, Fish, Carrot, Leaf, Apple, Nut, Milk, Egg, Bean, Droplets, Coffee, Wine, Wheat, Flame } from "lucide-react";
 
 interface Recipe {
     title: string;
@@ -185,21 +185,134 @@ export default function FilterPage() {
     const [loading, setLoading] = useState(true);
     const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
     const [allIngredients, setAllIngredients] = useState<string[]>([]);
+    const [showAllIngredientsModal, setShowAllIngredientsModal] = useState(false);
+    const [vegetarianOnly, setVegetarianOnly] = useState(false);
+
+    // Kombinovaný systém ikonek - emoji + Lucide ikony pro lepší vizuální efekt
+    const ingredientIconMap = useMemo((): { [key: string]: React.ReactNode } => ({
+        // Těstoviny a obiloviny - kombinace emoji a ikon
+        'těstoviny': <span className="text-2xl">🍝</span>, 'spaghetti': <span className="text-2xl">🍝</span>, 'špagety': <span className="text-2xl">🍝</span>, 'penne': <span className="text-2xl">🍝</span>, 'farfalle': <span className="text-2xl">🍝</span>, 'fusilli': <span className="text-2xl">🍝</span>, 'rigatoni': <span className="text-2xl">🍝</span>, 'linguine': <span className="text-2xl">🍝</span>, 'tagliatelle': <span className="text-2xl">🍝</span>, 'lasagne': <span className="text-2xl">🍝</span>, 'ravioli': <span className="text-2xl">🍝</span>, 'tortellini': <span className="text-2xl">🍝</span>, 'gnocchi': <span className="text-2xl">🍝</span>, 'macaroni': <span className="text-2xl">🍝</span>, 'orecchiette': <span className="text-2xl">🍝</span>, 'pappardelle': <span className="text-2xl">🍝</span>, 'cannelloni': <span className="text-2xl">🍝</span>,
+        'rýže': <span className="text-2xl">🍚</span>, 'basmati': <span className="text-2xl">🍚</span>, 'jasmine': <span className="text-2xl">🍚</span>, 'arborio': <span className="text-2xl">🍚</span>, 'natural rýže': <span className="text-2xl">🍚</span>,
+        'chléb': <span className="text-2xl">🍞</span>, 'rohlík': <span className="text-2xl">🥖</span>, 'bageta': <span className="text-2xl">🥖</span>, 'toustový chléb': <span className="text-2xl">🍞</span>, 'celozrnný chléb': <span className="text-2xl">🍞</span>,
+        'mouka': <Wheat className="w-6 h-6 text-amber-600" />, 'pšeničná mouka': <Wheat className="w-6 h-6 text-amber-600" />, 'žitná mouka': <Wheat className="w-6 h-6 text-amber-600" />, 'špaldová mouka': <Wheat className="w-6 h-6 text-amber-600" />, 'kukuřičná mouka': <Wheat className="w-6 h-6 text-amber-600" />,
+        
+        // Maso - kombinace emoji a ikon
+        'maso': <Beef className="w-6 h-6 text-red-600" />, 'kuřecí': <span className="text-2xl">🍗</span>, 'kuře': <span className="text-2xl">🍗</span>, 'hovězí': <Beef className="w-6 h-6 text-red-600" />, 'vepřové': <Beef className="w-6 h-6 text-red-600" />, 'vepř': <Beef className="w-6 h-6 text-red-600" />, 'jehněčí': <Beef className="w-6 h-6 text-red-600" />, 'krůtí': <span className="text-2xl">🍗</span>, 'krůta': <span className="text-2xl">🍗</span>, 'králičí': <Beef className="w-6 h-6 text-red-600" />, 'telecí': <Beef className="w-6 h-6 text-red-600" />, 'skopové': <Beef className="w-6 h-6 text-red-600" />, 'steak': <Beef className="w-6 h-6 text-red-600" />, 'kotlety': <Beef className="w-6 h-6 text-red-600" />, 'mleté': <Beef className="w-6 h-6 text-red-600" />, 'klobása': <span className="text-2xl">🌭</span>, 'salám': <span className="text-2xl">🌭</span>, 'šunka': <span className="text-2xl">🥓</span>, 'slanina': <span className="text-2xl">🥓</span>, 'kachní': <span className="text-2xl">🦆</span>, 'kachna': <span className="text-2xl">🦆</span>, 'kachní maso': <span className="text-2xl">🦆</span>, 'kachní prsa': <span className="text-2xl">🦆</span>, 'kachní stehno': <span className="text-2xl">🦆</span>,
+        
+        // Ryby a mořské plody - kombinace emoji a ikon
+        'ryby': <Fish className="w-6 h-6 text-blue-600" />,'mořské plody': <Fish className="w-6 h-6 text-blue-600" />, 'losos': <Fish className="w-6 h-6 text-blue-600" />, 'tuňák': <Fish className="w-6 h-6 text-blue-600" />, 'treska': <Fish className="w-6 h-6 text-blue-600" />, 'platýs': <Fish className="w-6 h-6 text-blue-600" />, 'makrela': <Fish className="w-6 h-6 text-blue-600" />, 'sardinky': <Fish className="w-6 h-6 text-blue-600" />, 'ančovičky': <Fish className="w-6 h-6 text-blue-600" />, 'pstruh': <Fish className="w-6 h-6 text-blue-600" />, 'krevety': <span className="text-2xl">🦐</span>, 'mušle': <span className="text-2xl">🦪</span>, 'ústřice': <span className="text-2xl">🦪</span>, 'chobotnice': <span className="text-2xl">🐙</span>, 'kalamáry': <span className="text-2xl">🦑</span>,
+        
+        // Zelenina - kombinace emoji a ikon
+        'zelenina': <Carrot className="w-6 h-6 text-orange-500" />, 'mrkev': <Carrot className="w-6 h-6 text-orange-500" />, 'cibule': <span className="text-2xl">🧅</span>, 'česnek': <span className="text-2xl">🧄</span>, 'paprika': <span className="text-2xl">🫑</span>, 'rajčata': <span className="text-2xl">🍅</span>, 'rajče': <span className="text-2xl">🍅</span>, 'okurka': <span className="text-2xl">🥒</span>, 'salát': <Leaf className="w-6 h-6 text-green-600" />, 'špenát': <Leaf className="w-6 h-6 text-green-600" />, 'brokolice': <span className="text-2xl">🥦</span>, 'květák': <span className="text-2xl">🥦</span>, 'zelí': <Leaf className="w-6 h-6 text-green-600" />, 'brambory': <span className="text-2xl">🥔</span>, 'brambor': <span className="text-2xl">🥔</span>, 'cuketa': <span className="text-2xl">🥒</span>, 'lilek': <span className="text-2xl">🍆</span>, 'dýně': <span className="text-2xl">🎃</span>, 'řepa': <span className="text-2xl">🥕</span>, 'celer': <Leaf className="w-6 h-6 text-green-600" />, 'petržel': <Leaf className="w-6 h-6 text-green-600" />, 'koriandr': <Leaf className="w-6 h-6 text-green-600" />, 'kopr': <Leaf className="w-6 h-6 text-green-600" />, 'máta': <Leaf className="w-6 h-6 text-green-600" />, 'bazalka': <Leaf className="w-6 h-6 text-green-600" />,'oregano': <Leaf className="w-6 h-6 text-green-600" />, 'tymián': <Leaf className="w-6 h-6 text-green-600" />, 'rozmarýn': <Leaf className="w-6 h-6 text-green-600" />, 'šalvěj': <Leaf className="w-6 h-6 text-green-600" />, 'majoránka': <Leaf className="w-6 h-6 text-green-600" />, 'libeček': <Leaf className="w-6 h-6 text-green-600" />, 'meduňka': <Leaf className="w-6 h-6 text-green-600" />,
+        
+        // Sýry a mléčné výrobky - kombinace emoji a ikon
+        'sýr': <span className="text-2xl">🧀</span>, 'parmezán': <span className="text-2xl">🧀</span>, 'mozzarella': <span className="text-2xl">🧀</span>, 'cheddar': <span className="text-2xl">🧀</span>, 'gouda': <span className="text-2xl">🧀</span>, 'feta': <span className="text-2xl">🧀</span>, 'ricotta': <span className="text-2xl">🧀</span>, 'cottage': <span className="text-2xl">🧀</span>, 'balkánský': <span className="text-2xl">🧀</span>, 'eidam': <span className="text-2xl">🧀</span>, 'hermelín': <span className="text-2xl">🧀</span>, 'niva': <span className="text-2xl">🧀</span>, 'olomoucké tvarůžky': <span className="text-2xl">🧀</span>, 'camembert': <span className="text-2xl">🧀</span>, 'brie': <span className="text-2xl">🧀</span>, 'roquefort': <span className="text-2xl">🧀</span>, 'gorgonzola': <span className="text-2xl">🧀</span>,
+        'mléčné výrobky': <Milk className="w-6 h-6 text-blue-200" />, 'mléko': <Milk className="w-6 h-6 text-blue-200" />, 'smetana': <Milk className="w-6 h-6 text-blue-200" />, 'jogurt': <Milk className="w-6 h-6 text-blue-200" />, 'tvaroh': <span className="text-2xl">🧀</span>, 'kefír': <Milk className="w-6 h-6 text-blue-200" />, 'zakysaná smetana': <Milk className="w-6 h-6 text-blue-200" />, 'šlehačka': <Milk className="w-6 h-6 text-blue-200" />, 'máslo': <span className="text-2xl">🧈</span>, 'kysaná smetana': <Milk className="w-6 h-6 text-blue-200" />,
+        
+        // Koření a ochucovadla - kombinace emoji a ikon
+        'koření': <Flame className="w-6 h-6 text-red-500" />, 'pepř': <span className="text-2xl">🌶️</span>, 'sůl': <span className="text-2xl">🧂</span>, 'kurkuma': <span className="text-2xl">🟡</span>, 'kari': <span className="text-2xl">🟡</span>, 'kardamom': <span className="text-2xl">🟤</span>, 'skořice': <span className="text-2xl">🟤</span>, 'kmín': <span className="text-2xl">🟤</span>, 'fenykl': <span className="text-2xl">🌿</span>, 'anýz': <span className="text-2xl">🌿</span>, 'vanilka': <span className="text-2xl">🟤</span>, 'muškátový oříšek': <span className="text-2xl">🟤</span>, 'hřebíček': <span className="text-2xl">🟤</span>, 'bobkový list': <span className="text-2xl">🌿</span>, 'nové koření': <span className="text-2xl">🟤</span>, 'zázvor': <span className="text-2xl">🟡</span>, 'chilli': <Flame className="w-6 h-6 text-red-500" />, 'kajenský pepř': <Flame className="w-6 h-6 text-red-500" />,
+        
+        // Ovoce - kombinace emoji a ikon
+        'ovoce': <Apple className="w-6 h-6 text-red-500" />, 'jablka': <Apple className="w-6 h-6 text-red-500" />, 'jablko': <Apple className="w-6 h-6 text-red-500" />, 'hrušky': <span className="text-2xl">🍐</span>, 'hruška': <span className="text-2xl">🍐</span>, 'banány': <span className="text-2xl">🍌</span>, 'banán': <span className="text-2xl">🍌</span>, 'pomeranče': <span className="text-2xl">🍊</span>, 'pomeranč': <span className="text-2xl">🍊</span>, 'citrony': <span className="text-2xl">🍋</span>, 'citron': <span className="text-2xl">🍋</span>, 'limetky': <span className="text-2xl">🍋</span>, 'limetka': <span className="text-2xl">🍋</span>, 'jahody': <span className="text-2xl">🍓</span>, 'jahoda': <span className="text-2xl">🍓</span>, 'maliny': <span className="text-2xl">🫐</span>, 'malina': <span className="text-2xl">🍓</span>, 'borůvky': <span className="text-2xl">🫐</span>, 'borůvka': <span className="text-2xl">🫐</span>, 'hroznové víno': <span className="text-2xl">🍇</span>, 'hrozny': <span className="text-2xl">🍇</span>, 'kiwi': <span className="text-2xl">🥝</span>, 'mango': <span className="text-2xl">🥭</span>, 'ananas': <span className="text-2xl">🍍</span>, 'broskve': <span className="text-2xl">🍑</span>, 'broskvička': <span className="text-2xl">🍑</span>, 'meruňky': <span className="text-2xl">🍑</span>, 'meruňka': <span className="text-2xl">🍑</span>, 'švestky': <span className="text-2xl">🫐</span>, 'švestka': <span className="text-2xl">🫐</span>, 'třešně': <span className="text-2xl">🍒</span>, 'třešeň': <span className="text-2xl">🍒</span>, 'višně': <span className="text-2xl">🍒</span>, 'višeň': <span className="text-2xl">🍒</span>, 'rybíz': <span className="text-2xl">🫐</span>, 'angrešt': <span className="text-2xl">🫐</span>, 'brusinky': <span className="text-2xl">🫐</span>, 'brusinka': <span className="text-2xl">🫐</span>,
+        
+        // Ořechy a semínka - kombinace emoji a ikon
+        'ořechy': <Nut className="w-6 h-6 text-amber-700" />, 'vlašské ořechy': <Nut className="w-6 h-6 text-amber-700" />, 'mandle': <Nut className="w-6 h-6 text-amber-700" />, 'kešu': <Nut className="w-6 h-6 text-amber-700" />, 'lískové ořechy': <Nut className="w-6 h-6 text-amber-700" />, 'arašídy': <Nut className="w-6 h-6 text-amber-700" />, 'pistácie': <Nut className="w-6 h-6 text-amber-700" />, 'semínka': <span className="text-2xl">🌱</span>, 'semínko': <span className="text-2xl">🌱</span>, 'slunečnicová semínka': <span className="text-2xl">🌻</span>, 'dýňová semínka': <span className="text-2xl">🎃</span>, 'sezamová semínka': <span className="text-2xl">🌱</span>, 'lněná semínka': <span className="text-2xl">🌱</span>, 'chia semínka': <span className="text-2xl">🌱</span>, 'konopná semínka': <span className="text-2xl">🌱</span>,
+        
+        // Vejce - kombinace emoji a ikon
+        'vejce': <Egg className="w-6 h-6 text-yellow-500" />, 'vajíčka': <Egg className="w-6 h-6 text-yellow-500" />, 'vajíčko': <Egg className="w-6 h-6 text-yellow-500" />, 'bílky': <Egg className="w-6 h-6 text-yellow-500" />, 'bílek': <Egg className="w-6 h-6 text-yellow-500" />, 'žloutky': <Egg className="w-6 h-6 text-yellow-500" />, 'žloutek': <Egg className="w-6 h-6 text-yellow-500" />,
+        
+        // Oleje a tuky - kombinace emoji a ikon
+        'olej': <Droplets className="w-6 h-6 text-yellow-400" />, 'olivový olej': <Droplets className="w-6 h-6 text-yellow-400" />, 'slunečnicový olej': <Droplets className="w-6 h-6 text-yellow-400" />, 'řepkový olej': <Droplets className="w-6 h-6 text-yellow-400" />, 'kokosový olej': <Droplets className="w-6 h-6 text-yellow-400" />, 'sezamový olej': <Droplets className="w-6 h-6 text-yellow-400" />, 'tuk': <Droplets className="w-6 h-6 text-yellow-400" />, 'sádlo': <Droplets className="w-6 h-6 text-yellow-400" />, 'margarín': <span className="text-2xl">🧈</span>,
+        
+        // Cukry a sladidla - kombinace emoji a ikon
+        'cukr': <span className="text-2xl">🍯</span>, 'bílý cukr': <span className="text-2xl">🍯</span>, 'hnědý cukr': <span className="text-2xl">🍯</span>, 'třtinový cukr': <span className="text-2xl">🍯</span>, 'med': <span className="text-2xl">🍯</span>, 'javorový sirup': <span className="text-2xl">🍯</span>, 'agávový sirup': <span className="text-2xl">🍯</span>, 'stevia': <span className="text-2xl">🍯</span>, 'aspartam': <span className="text-2xl">🍯</span>, 'sacharin': <span className="text-2xl">🍯</span>,
+        
+        // Luštěniny - kombinace emoji a ikon
+        'čočka': <Bean className="w-6 h-6 text-green-700" />, 'fazole': <Bean className="w-6 h-6 text-green-700" />, 'hrách': <Bean className="w-6 h-6 text-green-700" />, 'cizrna': <Bean className="w-6 h-6 text-green-700" />, 'sója': <Bean className="w-6 h-6 text-green-700" />, 'sójové boby': <Bean className="w-6 h-6 text-green-700" />, 'edamame': <Bean className="w-6 h-6 text-green-700" />, 'černé fazole': <Bean className="w-6 h-6 text-green-700" />, 'bílé fazole': <Bean className="w-6 h-6 text-green-700" />, 'červené fazole': <Bean className="w-6 h-6 text-green-700" />, 'adzuki fazole': <Bean className="w-6 h-6 text-green-700" />,
+        
+        // Houby - kombinace emoji a ikon
+        'houby': <span className="text-2xl">🍄</span>, 'žampiony': <span className="text-2xl">🍄</span>, 'shiitake': <span className="text-2xl">🍄</span>, 'portobello': <span className="text-2xl">🍄</span>, 'hřib': <span className="text-2xl">🍄</span>, 'křemenáč': <span className="text-2xl">🍄</span>, 'kozák': <span className="text-2xl">🍄</span>, 'klouzek': <span className="text-2xl">🍄</span>, 'ryzec': <span className="text-2xl">🍄</span>, 'muchomůrka': <span className="text-2xl">🍄</span>, 'bedla': <span className="text-2xl">🍄</span>,
+        
+        // Nápoje a tekutiny - kombinace emoji a ikon
+        'voda': <Droplets className="w-6 h-6 text-blue-400" />, 'vývar': <span className="text-2xl">🍲</span>, 'kuřecí vývar': <span className="text-2xl">🍲</span>, 'hovězí vývar': <span className="text-2xl">🍲</span>, 'zeleninový vývar': <span className="text-2xl">🍲</span>, 'rybí vývar': <span className="text-2xl">🍲</span>, 'džus': <span className="text-2xl">🧃</span>, 'pomerančový džus': <span className="text-2xl">🧃</span>, 'jablečný džus': <span className="text-2xl">🧃</span>, 'limonáda': <span className="text-2xl">🧃</span>, 'cola': <span className="text-2xl">🥤</span>, 'káva': <Coffee className="w-6 h-6 text-brown-600" />, 'čaj': <span className="text-2xl">🫖</span>, 'zelený čaj': <span className="text-2xl">🫖</span>, 'černý čaj': <span className="text-2xl">🫖</span>, 'bylinný čaj': <span className="text-2xl">🫖</span>, 'pivo': <span className="text-2xl">🍺</span>, 'víno': <Wine className="w-6 h-6 text-purple-600" />, 'červené víno': <Wine className="w-6 h-6 text-purple-600" />, 'bílé víno': <Wine className="w-6 h-6 text-purple-600" />, 'šampaňské': <span className="text-2xl">🍾</span>,
+        
+        // Omáčky a dochucovadla - kombinace emoji a ikon
+        'kečup': <span className="text-2xl">🍅</span>, 'hořčice': <span className="text-2xl">🌶️</span>, 'majonéza': <span className="text-2xl">🥛</span>, 'tatarská omáčka': <span className="text-2xl">🥛</span>, 'barbecue omáčka': <span className="text-2xl">🌶️</span>, 'sojová omáčka': <span className="text-2xl">🫗</span>, 'worcestrová omáčka': <span className="text-2xl">🫗</span>, 'rybí omáčka': <span className="text-2xl">🫗</span>, 'ústřicová omáčka': <span className="text-2xl">🫗</span>, 'chilli omáčka': <span className="text-2xl">🌶️</span>, 'tabasco': <span className="text-2xl">🌶️</span>, 'sriracha': <span className="text-2xl">🌶️</span>, 'wasabi': <span className="text-2xl">🌶️</span>, 'křen': <span className="text-2xl">🌶️</span>, 'česneková pasta': <span className="text-2xl">🧄</span>, 'zázvorová pasta': <span className="text-2xl">🟡</span>,
+        
+        // Výchozí ikonka pro neznámé ingredience
+        'default': <Utensils className="w-6 h-6 text-gray-600" />
+    }), []);
+
+    // Funkce pro získání ikonky podle názvu ingredience - univerzální a efektivní
+    const getIngredientIcon = useCallback((name: string): React.ReactNode => {
+        const nameLower = name.toLowerCase();
+        
+        // Nejdříve zkusit přesnou shodu
+        if (ingredientIconMap[nameLower]) {
+            return ingredientIconMap[nameLower];
+        }
+        
+        // Pak zkusit částečnou shodu
+        for (const [ingredient, icon] of Object.entries(ingredientIconMap)) {
+            if (ingredient !== 'default' && (nameLower.includes(ingredient) || ingredient.includes(nameLower))) {
+                return icon;
+            }
+        }
+        
+        // Výchozí ikonka
+        return ingredientIconMap.default;
+    }, [ingredientIconMap]);
 
     // Definice kategorií ingrediencí pro rychlé filtrování
     const ingredientCategories = useMemo((): { [key: string]: string[] } => ({
-        'těstoviny': ['spaghetti', 'penne', 'farfalle', 'fusilli', 'rigatoni', 'linguine', 'tagliatelle', 'lasagne', 'ravioli', 'tortellini', 'gnocchi', 'macaroni', 'orecchiette', 'pappardelle', 'cannelloni', 'těstoviny', 'špagety', 'penne', 'farfalle', 'fusilli'],
-        'rýže': ['rýže', 'basmati', 'jasmine', 'arborio', 'wild rice', 'brown rice', 'white rice', 'natural', 'parboiled'],
-        'maso': ['kuřecí', 'hovězí', 'vepřové', 'jehněčí', 'krůtí', 'králičí', 'telecí', 'skopové', 'maso', 'prsa', 'steak', 'kotlety', 'mleté'],
-        'ryby': ['losos', 'tuňák', 'treska', 'platýs', 'makrela', 'sardinky', 'ančovičky', 'pstruh', 'ryba', 'mořské plody', 'krevety', 'mušle'],
-        'zelenina': ['mrkev', 'cibule', 'česnek', 'paprika', 'rajčata', 'okurka', 'salát', 'špenát', 'brokolice', 'květák', 'zelí', 'brambory', 'zelenina', 'cuketa', 'lilek', 'dýně', 'řepa', 'celer'],
-        'sýr': ['sýr', 'parmezán', 'mozzarella', 'cheddar', 'gouda', 'feta', 'ricotta', 'cottage', 'balkánský', 'eidam', 'hermelín', 'niva', 'olomoucké tvarůžky'],
-        'bylinky': ['bazalka', 'oregano', 'tymián', 'rozmarýn', 'šalvěj', 'petržel', 'kopr', 'máta', 'koriandr', 'bylinky', 'majoránka', 'libeček', 'meduňka'],
-        'koření': ['pepř', 'sůl', 'paprika', 'kurkuma', 'kari', 'kardamom', 'skořice', 'muškátový oříšek', 'hřebíček', 'koření', 'kmín', 'fenykl', 'anýz', 'vanilka'],
-        'ovoce': ['jablka', 'hrušky', 'banány', 'pomeranče', 'citrony', 'limetky', 'jahody', 'maliny', 'borůvky', 'ovoce', 'hroznové víno', 'kiwi', 'mango'],
-        'ořechy': ['vlašské ořechy', 'mandle', 'kešu', 'lískové ořechy', 'arašídy', 'pistácie', 'ořechy', 'semínka', 'slunečnicová semínka', 'dýňová semínka'],
-        'mléčné výrobky': ['mléko', 'smetana', 'jogurt', 'tvaroh', 'máslo', 'mléčné výrobky', 'kefír', 'zakysaná smetana', 'šlehačka'],
+        'těstoviny': ['spaghetti', 'penne', 'farfalle', 'fusilli', 'rigatoni', 'linguine', 'tagliatelle', 'lasagne', 'ravioli', 'tortellini', 'gnocchi', 'macaroni', 'orecchiette', 'pappardelle', 'cannelloni', 'špagety'],
+        'rýže': ['rýže', 'basmati', 'jasmine', 'arborio', 'natural rýže'],
+        'maso': ['kuřecí', 'hovězí', 'vepřové', 'jehněčí', 'krůtí', 'králičí', 'telecí', 'skopové', 'steak', 'kotlety', 'mleté', 'kachní'],
+        'ryby': ['losos', 'tuňák', 'treska', 'platýs', 'makrela', 'sardinky', 'ančovičky', 'pstruh', 'mořské plody', 'krevety', 'mušle'],
+        'zelenina': ['mrkev', 'cibule', 'česnek', 'paprika', 'rajčata', 'okurka', 'salát', 'špenát', 'brokolice', 'květák', 'zelí', 'brambory', 'cuketa', 'lilek', 'dýně', 'řepa', 'celer'],
+        'sýr': ['parmezán', 'mozzarella', 'cheddar', 'gouda', 'feta', 'ricotta', 'cottage', 'balkánský', 'eidam', 'hermelín', 'niva', 'olomoucké tvarůžky'],
+        'bylinky': ['bazalka', 'oregano', 'tymián', 'rozmarýn', 'šalvěj', 'petržel', 'kopr', 'máta', 'koriandr', 'majoránka', 'libeček', 'meduňka'],
+        'koření': ['pepř', 'sůl', 'kurkuma', 'kari', 'kardamom', 'skořice', 'muškátový oříšek', 'hřebíček', 'kmín', 'fenykl', 'anýz', 'vanilka'],
+        'ovoce': ['jablka', 'hrušky', 'banány', 'pomeranče', 'citrony', 'limetky', 'jahody', 'maliny', 'borůvky', 'hroznové víno', 'kiwi', 'mango'],
+        'ořechy': ['vlašské ořechy', 'mandle', 'kešu', 'lískové ořechy', 'arašídy', 'pistácie', 'slunečnicová semínka', 'dýňová semínka'],
+        'mléčné výrobky': ['mléko', 'smetana', 'jogurt', 'tvaroh', 'máslo', 'kefír', 'zakysaná smetana', 'šlehačka'],
         'vejce': ['vejce', 'vajíčka', 'bílky', 'žloutky']
+    }), []);
+
+    // Mapování mezi variantami názvů ingrediencí
+    const ingredientAliases = useMemo((): { [key: string]: string[] } => ({
+        'kachní': ['kachna', 'kachní maso', 'kachní prsa', 'kachní stehno'],
+        'kachna': ['kachní', 'kachní maso', 'kachní prsa', 'kachní stehno'],
+        'kuřecí': ['kuře', 'kuřecí maso', 'kuřecí prsa', 'kuřecí stehno'],
+        'kuře': ['kuřecí', 'kuřecí maso', 'kuřecí prsa', 'kuřecí stehno'],
+        'hovězí': ['hovězí maso', 'steak', 'hovězí svíčková'],
+        'vepřové': ['vepř', 'vepřové maso', 'vepřová kotleta'],
+        'vepř': ['vepřové', 'vepřové maso', 'vepřová kotleta'],
+        'losos': ['lososové maso', 'lososový filet'],
+        'tuňák': ['tuňákové maso', 'tuňákový filet'],
+        'mrkev': ['mrkve', 'mrkvový'],
+        'cibule': ['cibulka', 'cibulový'],
+        'česnek': ['česnekový'],
+        'rajčata': ['rajče', 'rajčatový'],
+        'rajče': ['rajčata', 'rajčatový'],
+        'brambory': ['brambor', 'bramborový'],
+        'brambor': ['brambory', 'bramborový'],
+        'vejce': ['vajíčka', 'vajíčko'],
+        'vajíčka': ['vejce', 'vajíčko'],
+        'mléko': ['mléčný'],
+        'smetana': ['smetanový'],
+        'máslo': ['máslový'],
+        'sýr': ['sýrový'],
+        'chléb': ['chlebový'],
+        'rýže': ['rýžový'],
+        'těstoviny': ['těstovinový'],
+        'zelenina': ['zeleninový'],
+        'ovoce': ['ovocný'],
+        'maso': ['masový'],
+        'ryby': ['rybí'],
+        'houby': ['houbový'],
+        'koření': ['kořeněný'],
+        'bylinky': ['bylinkový']
     }), []);
 
     // Načtení všech receptů
@@ -262,11 +375,38 @@ export default function FilterPage() {
 
     // Filtrování receptů podle vybraných ingrediencí - optimalizováno s useMemo
     const filteredRecipes = useMemo(() => {
-        if (selectedIngredients.length === 0) {
-            return recipes;
+        let filtered = recipes;
+
+        // Aplikace vegetariánského filtru
+        if (vegetarianOnly) {
+            const nonVegetarianIngredients = [
+                'maso', 'kuřecí', 'kuře', 'hovězí', 'vepřové', 'vepř', 'jehněčí', 'krůtí', 'krůta', 
+                'králičí', 'telecí', 'skopové', 'steak', 'kotlety', 'mleté', 'klobása', 'salám', 
+                'šunka', 'slanina', 'ryby', 'mořské plody', 'losos', 'tuňák', 'treska', 'platýs', 
+                'makrela', 'sardinky', 'ančovičky', 'pstruh', 'krevety', 'mušle', 'ústřice', 
+                'chobotnice', 'kalamáry', 'humr', 'krab', 'čtverzubec', 'tropická ryba', 'žralok', 'kachní', 'kachna'
+            ];
+
+            filtered = filtered.filter((recipe) => {
+                if (!recipe.ingredients || !Array.isArray(recipe.ingredients)) return true;
+                
+                const recipeIngredients = recipe.ingredients.map(ing => ing.name.toLowerCase().trim());
+                
+                // Kontrola, zda recept obsahuje nějaké nevegetariánské ingredience
+                return !recipeIngredients.some(ingredient => 
+                    nonVegetarianIngredients.some(nonVeg => 
+                        ingredient.includes(nonVeg) || nonVeg.includes(ingredient)
+                    )
+                );
+            });
         }
 
-        return recipes.filter((recipe) => {
+        // Aplikace filtru podle vybraných ingrediencí
+        if (selectedIngredients.length === 0) {
+            return filtered;
+        }
+
+        return filtered.filter((recipe) => {
             if (!recipe.ingredients || !Array.isArray(recipe.ingredients)) return false;
             
             const recipeIngredients = recipe.ingredients.map(ing => ing.name.toLowerCase().trim());
@@ -294,14 +434,29 @@ export default function FilterPage() {
                 
                 return recipeIngredients.some(recipeIng => {
                     const recipeIngWithoutDiacritics = removeDiacritics(recipeIng);
-                    return recipeIng.includes(selectedIngLower) || 
-                           selectedIngLower.includes(recipeIng) ||
-                           recipeIngWithoutDiacritics.includes(selectedIngWithoutDiacritics) ||
-                           selectedIngWithoutDiacritics.includes(recipeIngWithoutDiacritics);
+                    
+                    // Kontrola přímé shody
+                    if (recipeIng.includes(selectedIngLower) || 
+                        selectedIngLower.includes(recipeIng) ||
+                        recipeIngWithoutDiacritics.includes(selectedIngWithoutDiacritics) ||
+                        selectedIngWithoutDiacritics.includes(recipeIngWithoutDiacritics)) {
+                        return true;
+                    }
+                    
+                    // Kontrola aliasů
+                    const aliases = ingredientAliases[selectedIngLower] || [];
+                    return aliases.some(alias => {
+                        const aliasLower = alias.toLowerCase();
+                        const aliasWithoutDiacritics = removeDiacritics(aliasLower);
+                        return recipeIng.includes(aliasLower) || 
+                               aliasLower.includes(recipeIng) ||
+                               recipeIngWithoutDiacritics.includes(aliasWithoutDiacritics) ||
+                               aliasWithoutDiacritics.includes(recipeIngWithoutDiacritics);
+                    });
                 });
             });
         });
-    }, [recipes, selectedIngredients, ingredientCategories, removeDiacritics]);
+    }, [recipes, selectedIngredients, ingredientCategories, removeDiacritics, vegetarianOnly, ingredientAliases]);
 
     if (loading) {
         return (
@@ -332,6 +487,28 @@ export default function FilterPage() {
                 {/* Filtrovací sekce */}
                 <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-blue-100">
                     <h2 className="text-xl font-semibold text-blue-900 mb-4">Vyberte ingredience</h2>
+                    
+                    {/* Vegetariánský filtr */}
+                    <div className="mb-6">
+                        <button
+                            onClick={() => setVegetarianOnly(!vegetarianOnly)}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200 ${
+                                vegetarianOnly 
+                                    ? 'bg-green-100 border-green-300 text-green-800 shadow-md' 
+                                    : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-green-50 hover:border-green-200'
+                            }`}
+                        >
+                            <span className="text-xl">🥬</span>
+                            <span className="font-medium">
+                                {vegetarianOnly ? 'Pouze vegetariánská jídla' : 'Zobrazit vegetariánská jídla'}
+                            </span>
+                            {vegetarianOnly && (
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                            )}
+                        </button>
+                    </div>
                     
                     {/* Kategorie ingrediencí */}
                     <div className="mb-6">
@@ -381,6 +558,16 @@ export default function FilterPage() {
                                 />
                             </div>
                             <Button
+                                onClick={() => setShowAllIngredientsModal(true)}
+                                variant="outline"
+                                className="px-4 flex items-center gap-2 bg-green-50 border-green-200 text-green-700 hover:bg-green-100 hover:border-green-300 transition-all duration-200"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                                </svg>
+                                Všechny ingredience
+                            </Button>
+                            <Button
                                 onClick={handleClearAll}
                                 variant="outline"
                                 className="px-4 flex items-center gap-2 bg-red-50 border-red-200 text-red-700 hover:bg-red-100 hover:border-red-300 transition-all duration-200"
@@ -403,6 +590,7 @@ export default function FilterPage() {
                                         key={index}
                                         className="flex items-center gap-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
                                     >
+                                        <span className="text-lg">{getIngredientIcon(ingredient)}</span>
                                         <span>{ingredient}</span>
                                         <button
                                             onClick={() => handleRemoveIngredient(ingredient)}
@@ -420,11 +608,140 @@ export default function FilterPage() {
                     <div className="flex flex-wrap gap-4 text-sm text-gray-600">
                         <span>Celkem receptů: {recipes.length}</span>
                         <span>Filtrované recepty: {filteredRecipes.length}</span>
+                        {vegetarianOnly && (
+                            <span className="text-green-700 font-medium">🥬 Pouze vegetariánská</span>
+                        )}
                         {selectedIngredients.length > 0 && (
                             <span>Vybrané ingredience: {selectedIngredients.length}</span>
                         )}
                     </div>
                 </div>
+
+                {/* Modal pro všechny ingredience */}
+                {showAllIngredientsModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                        <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden flex flex-col">
+                            {/* Header */}
+                            <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
+                                <h2 className="text-2xl font-bold text-blue-900">Všechny dostupné ingredience</h2>
+                                <button
+                                    onClick={() => setShowAllIngredientsModal(false)}
+                                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                                >
+                                    <X className="w-6 h-6" />
+                                </button>
+                            </div>
+
+                            {/* Content */}
+                            <div className="p-6 overflow-y-auto flex-1">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {Object.entries(ingredientCategories).map(([category, ingredients]) => (
+                                        <div key={category} className="bg-gray-50 rounded-lg p-4">
+                                            <h3 className="text-lg font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                                                <span className="text-xl">{getIngredientIcon(category)}</span>
+                                                {category.charAt(0).toUpperCase() + category.slice(1)}
+                                            </h3>
+                                            <div className="space-y-2">
+                                                {ingredients.map((ingredient) => {
+                                                    const isSelected = selectedIngredients.includes(ingredient);
+                                                    return (
+                                                        <button
+                                                            key={`${category}-${ingredient}`}
+                                                            onClick={() => {
+                                                                if (isSelected) {
+                                                                    handleRemoveIngredient(ingredient);
+                                                                } else {
+                                                                    handleAddIngredient(ingredient);
+                                                                }
+                                                            }}
+                                                            className={`w-full text-left px-3 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 ${
+                                                                isSelected
+                                                                    ? 'bg-blue-100 text-blue-800 border border-blue-300'
+                                                                    : 'bg-white text-gray-700 border border-gray-200 hover:bg-blue-50 hover:border-blue-200'
+                                                            }`}
+                                                        >
+                                                            <span className="text-lg">{getIngredientIcon(ingredient)}</span>
+                                                            <span className="flex-1">{ingredient}</span>
+                                                            {isSelected && (
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-blue-600">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                                                </svg>
+                                                            )}
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Další ingredience, které nejsou v kategoriích */}
+                                <div className="mt-8">
+                                    <h3 className="text-lg font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                                        <span className="text-xl">🥄</span>
+                                        Ostatní ingredience
+                                    </h3>
+                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                                        {allIngredients
+                                            .filter(ingredient => 
+                                                !Object.values(ingredientCategories).flat().includes(ingredient)
+                                            )
+                                            .map((ingredient) => {
+                                                const isSelected = selectedIngredients.includes(ingredient);
+                                                return (
+                                                    <button
+                                                        key={`other-${ingredient}`}
+                                                        onClick={() => {
+                                                            if (isSelected) {
+                                                                handleRemoveIngredient(ingredient);
+                                                            } else {
+                                                                handleAddIngredient(ingredient);
+                                                            }
+                                                        }}
+                                                        className={`px-3 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm ${
+                                                            isSelected
+                                                                ? 'bg-blue-100 text-blue-800 border border-blue-300'
+                                                                : 'bg-white text-gray-700 border border-gray-200 hover:bg-blue-50 hover:border-blue-200'
+                                                        }`}
+                                                    >
+                                                        <span className="text-base">{getIngredientIcon(ingredient)}</span>
+                                                        <span className="flex-1 truncate">{ingredient}</span>
+                                                        {isSelected && (
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 text-blue-600 flex-shrink-0">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                                            </svg>
+                                                        )}
+                                                    </button>
+                                                );
+                                            })}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Footer */}
+                            <div className="flex items-center justify-between p-6 border-t border-gray-200 bg-gray-50 flex-shrink-0">
+                                <div className="text-sm text-gray-600">
+                                    Vybráno: {selectedIngredients.length} ingrediencí
+                                </div>
+                                <div className="flex gap-2">
+                                    <Button
+                                        onClick={handleClearAll}
+                                        variant="outline"
+                                        className="bg-red-50 border-red-200 text-red-700 hover:bg-red-100"
+                                    >
+                                        Vymazat vše
+                                    </Button>
+                                    <Button
+                                        onClick={() => setShowAllIngredientsModal(false)}
+                                        className="bg-blue-600 hover:bg-blue-700"
+                                    >
+                                        Vyhledat
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* Výsledky */}
                 <div className="mb-8">
