@@ -1,20 +1,20 @@
 # Project Overview
 
-*Auto-generated on 2025-06-26T12:27:09.355Z*
+*Auto-generated on 2025-07-01T08:56:43.618Z*
 
 ## Summary
 
-**navareno2** is a Next.js application with 6 React components and 7 API endpoints.
+**navareno2** is a Next.js application with 7 React components and 8 API endpoints.
 
 ### Quick Stats
 
 | Metric | Count |
 |--------|-------|
 | Version | 0.1.0 |
-| Total Dependencies | 35 |
-| Source Files | 39 |
-| React Components | 6 |
-| API Routes | 7 |
+| Total Dependencies | 38 |
+| Source Files | 43 |
+| React Components | 7 |
+| API Routes | 8 |
 
 ### Component Overview
 
@@ -24,6 +24,7 @@
 | Food | React | src/components/Food.tsx |
 | Footer | React | React component |
 | HeaderLink | React | React component |
+| RecipeCard | React | React component |
 | SearchWithSuggestions | React | React component |
 | SessionProviderWrapper | React | React component |
 
@@ -31,6 +32,7 @@
 
 | Endpoint | Methods | Description |
 |----------|---------|-------------|
+| /api/analyze-image-gemini | POST | Check if API key is available |
 | /api/auth\change-password | POST | API endpoint |
 | /api/auth\profile | GET, POST | API endpoint |
 | /api/auth\register | POST | API endpoint |

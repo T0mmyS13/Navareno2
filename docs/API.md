@@ -2,7 +2,7 @@
 
 This document provides detailed information about all API endpoints in the Navařeno application.
 
-*Last updated: 2025-06-26T12:27:09.347Z*
+*Last updated: 2025-07-01T08:56:43.608Z*
 
 ## Base URL
 ```
@@ -10,6 +10,33 @@ http://localhost:3000
 ```
 
 ## Endpoints
+
+### /api/analyze-image-gemini
+
+**Description:** Check if API key is available
+
+#### POST /api/analyze-image-gemini
+
+**Responses:**
+- `200`: Success response
+- `200`: Success response
+- `200`: Success response
+- `200`: Success response
+- `200`: Success response
+- `200`: Success response
+- `200`: Success response
+- `200`: Success response
+- `200`: Success response
+- `200`: Success response
+- `200`: Success response
+- `200`: Success response
+- `500`: Error response: 500
+- `400`: Error response: 400
+- `401`: Error response: 401
+- `429`: Error response: 429
+- `500`: Error response: 500
+
+---
 
 ### /api/auth\change-password
 

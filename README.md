@@ -2,7 +2,7 @@
 
 **Navařeno** is a modern web application for sharing and managing recipes, built with Next.js 15 and TypeScript. The app offers an intuitive interface for browsing recipes by category, searching, user authentication, and managing favorite recipes.
 
-## 📜 Main Features
+## 📄 Main Features
 
 - **📱 Responsive Design** - Optimized for all devices
 - **🔍 Advanced Search** - Search recipes with suggestions
@@ -14,15 +14,16 @@
 - **🗂️ Categories** - Organized categories (Appetizers, Soups, Salads, Main Courses, Desserts, Drinks)
 - **🛒 Shopping List** - Generate shopping list from recipes
 
+
 ## 📊 Project Statistics
 
 - **Version:** 0.1.0
-- **Dependencies:** 23
+- **Dependencies:** 26
 - **Dev Dependencies:** 12
-- **Source Files:** 39
-- **Components:** 6
-- **API Endpoints:** 7
-- **Last Updated:** 26. 6. 2025
+- **Source Files:** 43
+- **Components:** 7
+- **API Endpoints:** 8
+- **Last Updated:** 1. 7. 2025
 
 ## 🛠️ Technologies
 
@@ -60,11 +61,12 @@ navareno2/
 │   │   ├── [category]/        # Dynamic categories
 │   │   └── page.tsx           # Home page
 │   ├── components/            # React components
+│   │   └── ui/                # UI components
 │   └── utils/                 # Utility functions
 ├── public/                    # Static files
-│   └── images/               # Images
-├── .env                      # Environment variables
-└── package.json              # Dependencies
+│   └── images/                # Images
+├── .env                       # Environment variables
+└── package.json               # Dependencies
 ```
 
 ## 🚀 Installation & Setup
@@ -133,11 +135,13 @@ npm run start      # Start production version
 npm run seed-db    # Initialize database with test data
 ```
 
-## 🗄️ API Endpoints
+## 📄 API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - Register a new user
 - `GET /api/auth/profile` - Get user profile
+- `POST /api/auth/profile` - Update user profile
+- `POST /api/auth/change-password` - Change password
 - `[...nextauth]` - NextAuth.js endpoints
 
 ### Recipes
@@ -155,14 +159,18 @@ npm run seed-db    # Initialize database with test data
 ## 🎨 UI Components
 
 ### Main Components
-- `Category.tsx` - Category component  
+- `Category.tsx` - Category component
 - `Food.tsx` - Recipe component
+- `RecipeCard.tsx` - Card for recipe preview
 - `SearchWithSuggestions.tsx` - Search bar with suggestions
 - `HeaderLink.tsx` - Navigation header
 - `Footer.tsx` - Page footer
+- `SessionProviderWrapper.tsx` - NextAuth session provider
+
+### UI Components (src/components/ui)
+- `Button.tsx`, `Select.tsx`, `Input.tsx`, `Alert.tsx`, `Card.tsx`, `Textarea.tsx`
 
 ### Utility Components
-- `SessionProviderWrapper.tsx` - NextAuth session provider
 - `ToastNotify.tsx` - Toast notifications
 
 ## 🚀 Deployment
@@ -185,7 +193,7 @@ See "Environment Configuration" section above.
 ### Database Schema
 Database schema is automatically created using `seed-db` script.
 
-## 🐛 Troubleshooting
+## 🐞 Troubleshooting
 
 ### Common Issues
 1. **Database Connection** - Check DATABASE_URL
@@ -197,8 +205,6 @@ Database schema is automatically created using `seed-db` script.
 ```bash
 # Check logs in development mode
 npm run dev
-
-# For production, check logs on hosting platform
 ```
 
 ## 🤖 AI Features
