@@ -1,12 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { Card, CardContent, CardMedia, Typography, Rating, Box, Chip, Stack, CardActionArea } from "@mui/material";
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui";
 import { Search, Plus, X, Utensils, Beef, Fish, Carrot, Leaf, Apple, Nut, Milk, Egg, Bean, Droplets, Coffee, Wine, Wheat, Flame } from "lucide-react";
+import RecipeCard from "@/components/RecipeCard";
 
 interface Recipe {
     title: string;
@@ -183,10 +180,11 @@ SearchInput.displayName = 'SearchInput';
 export default function FilterPage() {
     const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [loading, setLoading] = useState(true);
-    const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+    const [selectedIngredients, setSelectedIngredients] = useState<{ name: string; mode: 'include' | 'exclude' }[]>([]);
     const [allIngredients, setAllIngredients] = useState<string[]>([]);
     const [showAllIngredientsModal, setShowAllIngredientsModal] = useState(false);
     const [vegetarianOnly, setVegetarianOnly] = useState(false);
+    const [defaultMode, setDefaultMode] = useState<'include' | 'exclude'>('include');
 
     // Kombinovaný systém ikonek - emoji + Lucide ikony pro lepší vizuální efekt
     const ingredientIconMap = useMemo((): { [key: string]: React.ReactNode } => ({
@@ -346,26 +344,23 @@ export default function FilterPage() {
     }, []);
 
     const handleAddIngredient = useCallback((ingredient: string) => {
-        if (!selectedIngredients.includes(ingredient)) {
-            setSelectedIngredients(prev => [...prev, ingredient]);
+        if (!selectedIngredients.some(ing => ing.name === ingredient)) {
+            setSelectedIngredients(prev => [...prev, { name: ingredient, mode: defaultMode }]);
         }
-    }, [selectedIngredients]);
+    }, [selectedIngredients, defaultMode]);
+
+    const handleToggleIngredientMode = useCallback((ingredient: string) => {
+        setSelectedIngredients(prev => prev.map(ing =>
+            ing.name === ingredient ? { ...ing, mode: ing.mode === 'include' ? 'exclude' : 'include' } : ing
+        ));
+    }, []);
 
     const handleRemoveIngredient = useCallback((ingredient: string) => {
-        setSelectedIngredients(prev => prev.filter(ing => ing !== ingredient));
+        setSelectedIngredients(prev => prev.filter(ing => ing.name !== ingredient));
     }, []);
 
     const handleClearAll = useCallback(() => {
         setSelectedIngredients([]);
-    }, []);
-
-    const getDifficultyText = useCallback((difficulty: number) => {
-        switch (difficulty) {
-            case 1: return "Snadné";
-            case 2: return "Střední";
-            case 3: return "Obtížné";
-            default: return "Neznámé";
-        }
     }, []);
 
     // Funkce pro odstranění diakritiky
@@ -412,48 +407,83 @@ export default function FilterPage() {
             const recipeIngredients = recipe.ingredients.map(ing => ing.name.toLowerCase().trim());
             
             return selectedIngredients.every(selectedIng => {
+                const selectedIngLower = selectedIng.name.toLowerCase();
+                const selectedIngWithoutDiacritics = removeDiacritics(selectedIngLower);
                 // Pokud je vybraná ingredience kategorie, hledej všechny ingredience z této kategorie
-                if (ingredientCategories[selectedIng]) {
-                    const categoryIngredients = ingredientCategories[selectedIng];
-                    return categoryIngredients.some(categoryIng => {
-                        const categoryIngLower = categoryIng.toLowerCase();
-                        const categoryIngWithoutDiacritics = removeDiacritics(categoryIngLower);
-                        
-                        return recipeIngredients.some(recipeIng => {
-                            const recipeIngWithoutDiacritics = removeDiacritics(recipeIng);
-                            return recipeIng.includes(categoryIngLower) || 
-                                   categoryIngLower.includes(recipeIng) ||
-                                   recipeIngWithoutDiacritics.includes(categoryIngWithoutDiacritics) ||
-                                   categoryIngWithoutDiacritics.includes(recipeIngWithoutDiacritics);
+                if (ingredientCategories[selectedIngLower]) {
+                    const categoryIngredients = ingredientCategories[selectedIngLower];
+                    if (selectedIng.mode === 'include') {
+                        // alespoň jedna z kategorie musí být v receptu
+                        return categoryIngredients.some(categoryIng => {
+                            const categoryIngLower = categoryIng.toLowerCase();
+                            const categoryIngWithoutDiacritics = removeDiacritics(categoryIngLower);
+                            return recipeIngredients.some(recipeIng => {
+                                const recipeIngWithoutDiacritics = removeDiacritics(recipeIng);
+                                return recipeIng.includes(categoryIngLower) ||
+                                    categoryIngLower.includes(recipeIng) ||
+                                    recipeIngWithoutDiacritics.includes(categoryIngWithoutDiacritics) ||
+                                    categoryIngWithoutDiacritics.includes(recipeIngWithoutDiacritics);
+                            });
+                        });
+                    } else {
+                        // žádná z kategorie nesmí být v receptu
+                        return categoryIngredients.every(categoryIng => {
+                            const categoryIngLower = categoryIng.toLowerCase();
+                            const categoryIngWithoutDiacritics = removeDiacritics(categoryIngLower);
+                            return recipeIngredients.every(recipeIng => {
+                                const recipeIngWithoutDiacritics = removeDiacritics(recipeIng);
+                                return !(
+                                    recipeIng.includes(categoryIngLower) ||
+                                    categoryIngLower.includes(recipeIng) ||
+                                    recipeIngWithoutDiacritics.includes(categoryIngWithoutDiacritics) ||
+                                    categoryIngWithoutDiacritics.includes(recipeIngWithoutDiacritics)
+                                );
+                            });
+                        });
+                    }
+                }
+                // Jinak hledej konkrétní ingredienci (původní logika)
+                if (selectedIng.mode === 'include') {
+                    // ... původní logika pro zahrnutí ...
+                    return recipeIngredients.some(recipeIng => {
+                        const recipeIngWithoutDiacritics = removeDiacritics(recipeIng);
+                        if (recipeIng.includes(selectedIngLower) || 
+                            selectedIngLower.includes(recipeIng) ||
+                            recipeIngWithoutDiacritics.includes(selectedIngWithoutDiacritics) ||
+                            selectedIngWithoutDiacritics.includes(recipeIngWithoutDiacritics)) {
+                            return true;
+                        }
+                        const aliases = ingredientAliases[selectedIngLower] || [];
+                        return aliases.some(alias => {
+                            const aliasLower = alias.toLowerCase();
+                            const aliasWithoutDiacritics = removeDiacritics(aliasLower);
+                            return recipeIng.includes(aliasLower) || 
+                                   aliasLower.includes(recipeIng) ||
+                                   recipeIngWithoutDiacritics.includes(aliasWithoutDiacritics) ||
+                                   aliasWithoutDiacritics.includes(recipeIngWithoutDiacritics);
+                        });
+                    });
+                } else {
+                    // exclude (nemám) – recept ji nesmí obsahovat
+                    return recipeIngredients.every(recipeIng => {
+                        const recipeIngWithoutDiacritics = removeDiacritics(recipeIng);
+                        if (recipeIng.includes(selectedIngLower) || 
+                            selectedIngLower.includes(recipeIng) ||
+                            recipeIngWithoutDiacritics.includes(selectedIngWithoutDiacritics) ||
+                            selectedIngWithoutDiacritics.includes(recipeIngWithoutDiacritics)) {
+                            return false;
+                        }
+                        const aliases = ingredientAliases[selectedIngLower] || [];
+                        return !aliases.some(alias => {
+                            const aliasLower = alias.toLowerCase();
+                            const aliasWithoutDiacritics = removeDiacritics(aliasLower);
+                            return recipeIng.includes(aliasLower) || 
+                                   aliasLower.includes(recipeIng) ||
+                                   recipeIngWithoutDiacritics.includes(aliasWithoutDiacritics) ||
+                                   aliasWithoutDiacritics.includes(recipeIngWithoutDiacritics);
                         });
                     });
                 }
-                // Jinak hledej konkrétní ingredienci
-                const selectedIngLower = selectedIng.toLowerCase();
-                const selectedIngWithoutDiacritics = removeDiacritics(selectedIngLower);
-                
-                return recipeIngredients.some(recipeIng => {
-                    const recipeIngWithoutDiacritics = removeDiacritics(recipeIng);
-                    
-                    // Kontrola přímé shody
-                    if (recipeIng.includes(selectedIngLower) || 
-                        selectedIngLower.includes(recipeIng) ||
-                        recipeIngWithoutDiacritics.includes(selectedIngWithoutDiacritics) ||
-                        selectedIngWithoutDiacritics.includes(recipeIngWithoutDiacritics)) {
-                        return true;
-                    }
-                    
-                    // Kontrola aliasů
-                    const aliases = ingredientAliases[selectedIngLower] || [];
-                    return aliases.some(alias => {
-                        const aliasLower = alias.toLowerCase();
-                        const aliasWithoutDiacritics = removeDiacritics(aliasLower);
-                        return recipeIng.includes(aliasLower) || 
-                               aliasLower.includes(recipeIng) ||
-                               recipeIngWithoutDiacritics.includes(aliasWithoutDiacritics) ||
-                               aliasWithoutDiacritics.includes(recipeIngWithoutDiacritics);
-                    });
-                });
             });
         });
     }, [recipes, selectedIngredients, ingredientCategories, removeDiacritics, vegetarianOnly, ingredientAliases]);
@@ -472,27 +502,27 @@ export default function FilterPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 p-4">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 p-2 sm:p-4">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="text-center mb-8">
-                    <h1 className="text-3xl sm:text-4xl font-bold text-blue-900 mb-4">
+                <div className="text-center mb-6 sm:mb-8 px-2">
+                    <h1 className="text-2xl sm:text-4xl font-bold text-blue-900 mb-2 sm:mb-4">
                         Filtrování receptů podle ingrediencí
                     </h1>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
                         Vyberte ingredience, které máte doma, a najdeme recepty, které můžete připravit
                     </p>
                 </div>
 
                 {/* Filtrovací sekce */}
-                <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-blue-100">
-                    <h2 className="text-xl font-semibold text-blue-900 mb-4">Vyberte ingredience</h2>
+                <div className="bg-white rounded-2xl shadow-lg p-3 sm:p-6 mb-6 sm:mb-8 border border-blue-100">
+                    <h2 className="text-lg sm:text-xl font-semibold text-blue-900 mb-3 sm:mb-4">Vyberte ingredience</h2>
                     
                     {/* Vegetariánský filtr */}
-                    <div className="mb-6">
+                    <div className="mb-4 sm:mb-6">
                         <button
                             onClick={() => setVegetarianOnly(!vegetarianOnly)}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200 ${
+                            className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg border transition-all duration-200 w-full sm:w-auto justify-center sm:justify-start text-sm sm:text-base ${
                                 vegetarianOnly 
                                     ? 'bg-green-100 border-green-300 text-green-800 shadow-md' 
                                     : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-green-50 hover:border-green-200'
@@ -511,9 +541,9 @@ export default function FilterPage() {
                     </div>
                     
                     {/* Kategorie ingrediencí */}
-                    <div className="mb-6">
-                        <h3 className="text-sm font-medium text-gray-700 mb-3">Rychlé kategorie:</h3>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                    <div className="mb-4 sm:mb-6">
+                        <h3 className="text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">Rychlé kategorie:</h3>
+                        <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 gap-2 sm:gap-3">
                             {[
                                 { name: 'Těstoviny', icon: '🍝', category: 'těstoviny' },
                                 { name: 'Maso', icon: '🥩', category: 'maso' },
@@ -532,8 +562,8 @@ export default function FilterPage() {
                                     key={cat.category}
                                     onClick={() => {
                                         // Přidat obecný název kategorie jako ingredienci
-                                        if (!selectedIngredients.includes(cat.category)) {
-                                            setSelectedIngredients(prev => [...prev, cat.category]);
+                                        if (!selectedIngredients.some(ing => ing.name === cat.category)) {
+                                            setSelectedIngredients(prev => [...prev, { name: cat.category, mode: defaultMode }]);
                                         }
                                     }}
                                     className="flex flex-col items-center p-3 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-all duration-200 hover:scale-105"
@@ -546,55 +576,77 @@ export default function FilterPage() {
                     </div>
                     
                     {/* Vyhledávání ingrediencí */}
-                    <div className="mb-4">
-                        <h3 className="text-sm font-medium text-gray-700 mb-3">Nebo vyhledejte konkrétní ingredienci:</h3>
-                        <div className="flex gap-2">
+                    <div className="mb-3 sm:mb-4">
+                        <h3 className="text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">Nebo vyhledejte konkrétní ingredienci:</h3>
+                        <div className="flex gap-1 sm:gap-2 items-center mb-1 sm:mb-2">
+                            <span className={`px-2 sm:px-3 py-1 rounded-full cursor-pointer font-medium text-xs sm:text-base ${defaultMode === 'include' ? 'bg-green-100 text-green-800 border border-green-300' : 'bg-gray-100 text-gray-600 border border-gray-200'}`}
+                                onClick={() => setDefaultMode('include')}
+                            >
+                                Mám
+                            </span>
+                            <span className={`px-2 sm:px-3 py-1 rounded-full cursor-pointer font-medium text-xs sm:text-base ${defaultMode === 'exclude' ? 'bg-red-100 text-red-800 border border-red-300' : 'bg-gray-100 text-gray-600 border border-gray-200'}`}
+                                onClick={() => setDefaultMode('exclude')}
+                            >
+                                Nemám
+                            </span>
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-2 w-full">
                             <div className="flex-1">
                                 <SearchInput 
                                     onAddIngredient={handleAddIngredient}
                                     allIngredients={allIngredients}
-                                    selectedIngredients={selectedIngredients}
+                                    selectedIngredients={selectedIngredients.map(ing => ing.name)}
                                     ingredientCategories={ingredientCategories}
                                 />
                             </div>
-                            <Button
-                                onClick={() => setShowAllIngredientsModal(true)}
-                                variant="outline"
-                                className="px-4 flex items-center gap-2 bg-green-50 border-green-200 text-green-700 hover:bg-green-100 hover:border-green-300 transition-all duration-200"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                </svg>
-                                Všechny ingredience
-                            </Button>
-                            <Button
-                                onClick={handleClearAll}
-                                variant="outline"
-                                className="px-4 flex items-center gap-2 bg-red-50 border-red-200 text-red-700 hover:bg-red-100 hover:border-red-300 transition-all duration-200"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                </svg>
-                                Vymazat vše
-                            </Button>
+                            <div className="flex flex-row gap-2 mt-2 sm:mt-0">
+                                <Button
+                                    onClick={() => setShowAllIngredientsModal(true)}
+                                    variant="outline"
+                                    className="px-3 sm:px-4 flex items-center gap-2 bg-green-50 border-green-200 text-green-700 hover:bg-green-100 hover:border-green-300 transition-all duration-200 text-xs sm:text-base"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                                    </svg>
+                                    Všechny ingredience
+                                </Button>
+                                <Button
+                                    onClick={handleClearAll}
+                                    variant="outline"
+                                    className="px-3 sm:px-4 flex items-center gap-2 bg-red-50 border-red-200 text-red-700 hover:bg-red-100 hover:border-red-300 transition-all duration-200 text-xs sm:text-base"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                    </svg>
+                                    Vymazat vše
+                                </Button>
+                            </div>
                         </div>
                     </div>
-
+                    
                     {/* Vybrané ingredience */}
                     {selectedIngredients.length > 0 && (
-                        <div className="mb-4">
-                            <h3 className="text-sm font-medium text-gray-700 mb-2">Vybrané ingredience:</h3>
+                        <div className="mb-3 sm:mb-4">
+                            <h3 className="text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">Vybrané ingredience:</h3>
                             <div className="flex flex-wrap gap-2">
                                 {selectedIngredients.map((ingredient, index) => (
                                     <div
                                         key={index}
-                                        className="flex items-center gap-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+                                        className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium border ${ingredient.mode === 'include' ? 'bg-green-100 text-green-800 border-green-300' : 'bg-red-100 text-red-800 border-red-300'}`}
                                     >
-                                        <span className="text-lg">{getIngredientIcon(ingredient)}</span>
-                                        <span>{ingredient}</span>
+                                        <span className="text-lg">{getIngredientIcon(ingredient.name)}</span>
+                                        <span>{ingredient.name}</span>
                                         <button
-                                            onClick={() => handleRemoveIngredient(ingredient)}
-                                            className="hover:bg-blue-200 rounded-full p-1"
+                                            onClick={() => handleToggleIngredientMode(ingredient.name)}
+                                            className="hover:bg-gray-200 rounded-full p-1"
+                                            title={ingredient.mode === 'include' ? 'Přepnout na "nemám"' : 'Přepnout na "mám"'}
+                                        >
+                
+                                        </button>
+                                        <button
+                                            onClick={() => handleRemoveIngredient(ingredient.name)}
+                                            className="hover:bg-gray-200 rounded-full p-1"
+                                            title="Odebrat ingredienci"
                                         >
                                             <X className="w-3 h-3" />
                                         </button>
@@ -619,22 +671,23 @@ export default function FilterPage() {
 
                 {/* Modal pro všechny ingredience */}
                 {showAllIngredientsModal && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                        <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden flex flex-col">
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-0 sm:p-4 overflow-y-auto">
+                        <div className="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full sm:max-w-4xl max-h-[98vh] sm:max-h-[95vh] overflow-hidden flex flex-col mx-0 sm:mx-auto">
                             {/* Header */}
-                            <div className="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
-                                <h2 className="text-2xl font-bold text-blue-900">Všechny dostupné ingredience</h2>
+                            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 flex-shrink-0 sticky top-0 bg-white z-10">
+                                <h2 className="text-lg sm:text-2xl font-bold text-blue-900">Všechny dostupné ingredience</h2>
                                 <button
                                     onClick={() => setShowAllIngredientsModal(false)}
                                     className="text-gray-400 hover:text-gray-600 transition-colors"
+                                    style={{ minWidth: 44, minHeight: 44 }}
                                 >
                                     <X className="w-6 h-6" />
                                 </button>
                             </div>
 
                             {/* Content */}
-                            <div className="p-6 overflow-y-auto flex-1">
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="p-3 sm:p-6 overflow-y-auto flex-1">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
                                     {Object.entries(ingredientCategories).map(([category, ingredients]) => (
                                         <div key={category} className="bg-gray-50 rounded-lg p-4">
                                             <h3 className="text-lg font-semibold text-blue-900 mb-3 flex items-center gap-2">
@@ -643,7 +696,7 @@ export default function FilterPage() {
                                             </h3>
                                             <div className="space-y-2">
                                                 {ingredients.map((ingredient) => {
-                                                    const isSelected = selectedIngredients.includes(ingredient);
+                                                    const isSelected = selectedIngredients.some(ing => ing.name === ingredient);
                                                     return (
                                                         <button
                                                             key={`${category}-${ingredient}`}
@@ -656,7 +709,9 @@ export default function FilterPage() {
                                                             }}
                                                             className={`w-full text-left px-3 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 ${
                                                                 isSelected
-                                                                    ? 'bg-blue-100 text-blue-800 border border-blue-300'
+                                                                    ? selectedIngredients.find(ing => ing.name === ingredient)?.mode === 'include'
+                                                                        ? 'bg-green-100 text-green-800 border border-green-300'
+                                                                        : 'bg-red-100 text-red-800 border border-red-300'
                                                                     : 'bg-white text-gray-700 border border-gray-200 hover:bg-blue-50 hover:border-blue-200'
                                                             }`}
                                                         >
@@ -676,18 +731,16 @@ export default function FilterPage() {
                                 </div>
 
                                 {/* Další ingredience, které nejsou v kategoriích */}
-                                <div className="mt-8">
-                                    <h3 className="text-lg font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                                <div className="mt-6 sm:mt-8">
+                                    <h3 className="text-base sm:text-lg font-semibold text-blue-900 mb-2 sm:mb-3 flex items-center gap-2">
                                         <span className="text-xl">🥄</span>
                                         Ostatní ingredience
                                     </h3>
-                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1 sm:gap-2">
                                         {allIngredients
-                                            .filter(ingredient => 
-                                                !Object.values(ingredientCategories).flat().includes(ingredient)
-                                            )
+                                            .filter(ingredient => !Object.values(ingredientCategories).flat().includes(ingredient))
                                             .map((ingredient) => {
-                                                const isSelected = selectedIngredients.includes(ingredient);
+                                                const isSelected = selectedIngredients.some(ing => ing.name === ingredient);
                                                 return (
                                                     <button
                                                         key={`other-${ingredient}`}
@@ -700,7 +753,9 @@ export default function FilterPage() {
                                                         }}
                                                         className={`px-3 py-2 rounded-lg transition-all duration-200 flex items-center gap-2 text-sm ${
                                                             isSelected
-                                                                ? 'bg-blue-100 text-blue-800 border border-blue-300'
+                                                                ? selectedIngredients.find(ing => ing.name === ingredient)?.mode === 'include'
+                                                                    ? 'bg-green-100 text-green-800 border border-green-300'
+                                                                    : 'bg-red-100 text-red-800 border border-red-300'
                                                                 : 'bg-white text-gray-700 border border-gray-200 hover:bg-blue-50 hover:border-blue-200'
                                                         }`}
                                                     >
@@ -719,21 +774,21 @@ export default function FilterPage() {
                             </div>
 
                             {/* Footer */}
-                            <div className="flex items-center justify-between p-6 border-t border-gray-200 bg-gray-50 flex-shrink-0">
-                                <div className="text-sm text-gray-600">
+                            <div className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6 border-t border-gray-200 bg-gray-50 flex-shrink-0 gap-2 sm:gap-0">
+                                <div className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-0">
                                     Vybráno: {selectedIngredients.length} ingrediencí
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 w-full sm:w-auto">
                                     <Button
                                         onClick={handleClearAll}
                                         variant="outline"
-                                        className="bg-red-50 border-red-200 text-red-700 hover:bg-red-100"
+                                        className="bg-red-50 border-red-200 text-red-700 hover:bg-red-100 w-1/2 sm:w-auto"
                                     >
                                         Vymazat vše
                                     </Button>
                                     <Button
                                         onClick={() => setShowAllIngredientsModal(false)}
-                                        className="bg-blue-600 hover:bg-blue-700"
+                                        className="bg-blue-600 hover:bg-blue-700 w-1/2 sm:w-auto"
                                     >
                                         Vyhledat
                                     </Button>
@@ -744,8 +799,8 @@ export default function FilterPage() {
                 )}
 
                 {/* Výsledky */}
-                <div className="mb-8">
-                    <h2 className="text-2xl font-bold text-blue-900 mb-6">
+                <div className="mb-6 sm:mb-8">
+                    <h2 className="text-xl sm:text-2xl font-bold text-blue-900 mb-4 sm:mb-6">
                         {selectedIngredients.length > 0 
                             ? `Recepty s ingrediencemi (${filteredRecipes.length})`
                             : `Všechny recepty (${filteredRecipes.length})`
@@ -753,16 +808,16 @@ export default function FilterPage() {
                     </h2>
 
                     {filteredRecipes.length === 0 ? (
-                        <div className="text-center py-12">
-                            <div className="text-gray-400 mb-4">
-                                <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="text-center py-8 sm:py-12">
+                            <div className="text-gray-400 mb-2 sm:mb-4">
+                                <svg className="w-12 h-12 sm:w-16 sm:h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47-.881-6.08-2.33" />
                                 </svg>
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                            <h3 className="text-lg sm:text-xl font-semibold text-gray-600 mb-1 sm:mb-2">
                                 Nebyly nalezeny žádné recepty
                             </h3>
-                            <p className="text-gray-500">
+                            <p className="text-xs sm:text-base text-gray-500">
                                 {selectedIngredients.length > 0 
                                     ? "Zkuste vybrat méně ingrediencí nebo jiné ingredience."
                                     : "Zkuste vybrat nějaké ingredience pro filtrování."
@@ -770,104 +825,13 @@ export default function FilterPage() {
                             </p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                            {filteredRecipes.map((recipe, index) => (
-                                <motion.div
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+                            {filteredRecipes.map((recipe) => (
+                                <RecipeCard
                                     key={`${recipe.category}-${recipe.slug}`}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                                >
-                                    <Card
-                                        sx={{ 
-                                            maxWidth: '100%', 
-                                            height: '100%', 
-                                            display: 'flex', 
-                                            flexDirection: 'column', 
-                                            borderRadius: '1.5rem', 
-                                            boxShadow: '0 4px 24px 0 rgba(33,150,243,0.08)' 
-                                        }}
-                                        elevation={0}
-                                        className="overflow-hidden bg-gradient-to-br from-white via-blue-50 to-blue-100 border border-blue-100 hover:border-blue-300 group"
-                                    >
-                                        <CardActionArea
-                                            onClick={() => window.location.href = `/${recipe.category}/${recipe.slug}`}
-                                            sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch', p: 0 }}
-                                        >
-                                            <div className="relative">
-                                                <CardMedia
-                                                    component="img"
-                                                    image={recipe.image}
-                                                    alt={recipe.title}
-                                                    sx={{ 
-                                                        width: '100%', 
-                                                        height: '200px', 
-                                                        objectFit: 'cover', 
-                                                        transition: 'transform 0.4s', 
-                                                        borderTopLeftRadius: '1.5rem', 
-                                                        borderTopRightRadius: '1.5rem' 
-                                                    }}
-                                                    className="group-hover:scale-105"
-                                                />
-                                                <div className="absolute top-2 right-2 bg-white/80 rounded-full px-3 py-1 text-xs font-semibold text-blue-700 shadow-sm backdrop-blur-md flex items-center gap-1">
-                                                    <AccessTimeIcon sx={{ color: '#1976d2', fontSize: 18 }} />
-                                                    <span>{recipe.time} min</span>
-                                                </div>
-                                            </div>
-                                            <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 3 }}>
-                                                <Typography 
-                                                    gutterBottom 
-                                                    variant="h6" 
-                                                    component="div" 
-                                                    sx={{ 
-                                                        fontWeight: 'bold', 
-                                                        fontSize: { xs: '1.1rem', sm: '1.25rem' }, 
-                                                        color: '#1565c0' 
-                                                    }}
-                                                >
-                                                    {recipe.title}
-                                                </Typography>
-                                                <Typography 
-                                                    variant="body2" 
-                                                    color="text.secondary" 
-                                                    sx={{ 
-                                                        mb: 2, 
-                                                        flexGrow: 1, 
-                                                        display: '-webkit-box', 
-                                                        WebkitBoxOrient: 'vertical', 
-                                                        WebkitLineClamp: 3, 
-                                                        overflow: 'hidden', 
-                                                        textOverflow: 'ellipsis', 
-                                                        fontSize: { xs: '0.95rem', sm: '1.05rem' } 
-                                                    }}
-                                                >
-                                                    {recipe.description}
-                                                </Typography>
-                                                <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
-                                                    <Chip
-                                                        icon={<FitnessCenterIcon sx={{ color: '#1976d2' }} />}
-                                                        label={getDifficultyText(recipe.difficulty)}
-                                                        variant="outlined"
-                                                        size="small"
-                                                        sx={{ borderColor: '#90caf9', color: '#1976d2', background: '#e3f2fd' }}
-                                                    />
-                                                    <Box display="flex" alignItems="center" ml={0.5}>
-                                                        <Rating
-                                                            value={Number(recipe.rating_count) && Number(recipe.rating_sum) ? Number(recipe.rating_sum) / Number(recipe.rating_count) : 0}
-                                                            precision={0.5}
-                                                            readOnly
-                                                            size="small"
-                                                            sx={{ color: '#ffd600', fontSize: { xs: 18, sm: 20 } }}
-                                                        />
-                                                        <Typography variant="body2" color="text.secondary" sx={{ ml: 0.5, minWidth: 32 }}>
-                                                            ({recipe.rating_count || 0}x)
-                                                        </Typography>
-                                                    </Box>
-                                                </Stack>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>
-                                </motion.div>
+                                    recipe={recipe}
+                                    onClick={() => window.location.href = `/${recipe.category}/${recipe.slug}`}
+                                />
                             ))}
                         </div>
                     )}
