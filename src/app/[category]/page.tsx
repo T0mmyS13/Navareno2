@@ -311,7 +311,7 @@ export default function CategoryPage() {
                                                 component="img"
                                                 image={recipe.image}
                                                 alt={recipe.title}
-                                                sx={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s', borderTopLeftRadius: '1.5rem', borderTopRightRadius: '1.5rem' }}
+                                                sx={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: ' center', transition: 'transform 0.4s', borderTopLeftRadius: '1.5rem', borderTopRightRadius: '1.5rem' }}
                                                 className="group-hover:scale-105"
                                             />
                                             <div className="absolute top-2 right-2 bg-white/80 rounded-full px-3 py-1 text-xs font-semibold text-blue-700 shadow-sm backdrop-blur-md flex items-center gap-1">

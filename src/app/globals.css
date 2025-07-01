@@ -49,3 +49,14 @@ body {
 .toast.error { background: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
 .toast.info { background: #e0e7ff; color: #3730a3; border: 1px solid #818cf8; }
 .toast.warning { background: #fef9c3; color: #92400e; border: 1px solid #facc15; }
+
+@keyframes blink {
+  0% { background-color: #fbbf24; }
+  25% { background-color: #fff; }
+  50% { background-color: #fbbf24; }
+  75% { background-color: #fff; }
+  100% { background-color: #fbbf24; }
+}
+.animate-blink {
+  animation: blink 1.2s linear infinite;
+}

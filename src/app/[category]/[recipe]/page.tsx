@@ -1,7 +1,7 @@
 // src/app/[category]/[recipe]/page.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import { Checkbox } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useToast } from "@/utils/ToastNotify";
 import { getDeclinedUnit, convertUnits } from "@/utils/units";
+import { analyzeInstructionsForTimer, startTimer, formatTimerDisplay } from "@/utils/timerUtils";
 import Rating from '@mui/material/Rating';
 import { useSession } from "next-auth/react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -49,6 +50,13 @@ export default function RecipeDetailPage() {
   const [portionCount, setPortionCount] = useState(2);
   const [adjustedIngredients, setAdjustedIngredients] = useState<Ingredient[]>([]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [instructionsWithTimers, setInstructionsWithTimers] = useState<Array<{text: string, timer?: number}>>([]);
+  const [activeTimer, setActiveTimer] = useState<{stepIndex: number, remainingSeconds: number} | null>(null);
+  const [paused, setPaused] = useState(false);
+  const [pausedSeconds, setPausedSeconds] = useState<number | null>(null);
+  const timerStopRef = useRef<(() => void) | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [timerDoneStepIndex, setTimerDoneStepIndex] = useState<number | null>(null);
 
   // Uložení zaškrtnutých řádků
   const storageKey = `checkedRows_${category}_${recipeName}`;
@@ -71,6 +79,11 @@ export default function RecipeDetailPage() {
         setRecipe(data);
         setAdjustedIngredients(data.ingredients);
         setPortionCount(data.portion || 2);
+        // Analyzovat instrukce pro časovače
+        if (data.instructions) {
+          const analyzed = analyzeInstructionsForTimer(data.instructions);
+          setInstructionsWithTimers(analyzed);
+        }
       } catch {
         setRecipe(null);
       } finally {
@@ -245,6 +258,65 @@ export default function RecipeDetailPage() {
       });
       setIsFavorite(true);
     }
+  };
+
+  // Funkce pro spuštění časovače (s možností startu od určitého času)
+  const handleStartTimer = (stepIndex: number, minutes: number, resumeFromSeconds?: number) => {
+    // Zastavit aktivní časovač, pokud existuje
+    if (timerStopRef.current) {
+      timerStopRef.current();
+      timerStopRef.current = null;
+    }
+    setPaused(false);
+    setPausedSeconds(null);
+    const totalSeconds = resumeFromSeconds !== undefined ? resumeFromSeconds : Math.round(minutes * 60);
+    const stopTimer = startTimer(
+      totalSeconds / 60,
+      (remainingSeconds) => {
+        setActiveTimer({ stepIndex, remainingSeconds });
+      },
+      () => {
+        setActiveTimer(null);
+        showToast(`Časovač pro krok ${stepIndex + 1} vypršel!`, 'success');
+        timerStopRef.current = null;
+        if (audioRef.current) {
+          audioRef.current.currentTime = 0;
+          audioRef.current.loop = true;
+          audioRef.current.play();
+        }
+        setTimerDoneStepIndex(stepIndex);
+      }
+    );
+    timerStopRef.current = stopTimer;
+  };
+
+  // Pozastavit časovač
+  const handlePauseTimer = () => {
+    if (timerStopRef.current && activeTimer) {
+      timerStopRef.current();
+      timerStopRef.current = null;
+      setPaused(true);
+      setPausedSeconds(activeTimer.remainingSeconds);
+    }
+  };
+
+  // Pokračovat v časovači
+  const handleResumeTimer = (stepIndex: number, minutes: number) => {
+    if (paused && pausedSeconds !== null) {
+      handleStartTimer(stepIndex, minutes, pausedSeconds);
+    }
+  };
+
+  // Resetovat časovač
+  const handleResetTimer = (stepIndex: number, minutes: number) => {
+    if (timerStopRef.current) {
+      timerStopRef.current();
+      timerStopRef.current = null;
+    }
+    setPaused(false);
+    setPausedSeconds(null);
+    setActiveTimer(null);
+    handleStartTimer(stepIndex, minutes);
   };
 
   if (loading) {
@@ -569,14 +641,84 @@ export default function RecipeDetailPage() {
             {/* Hodnocení */}
             {/* (přesunuto nahoru) */}
 
-            {recipe.instructions && recipe.instructions.length > 0 ? (
+            {instructionsWithTimers && instructionsWithTimers.length > 0 ? (
                 <ol className="space-y-4 mb-8">
-                  {recipe.instructions.map((step, index) => (
-                      <li key={index} className="flex">
-                  <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-amber-500 text-white rounded-full mr-3">
-                    {index + 1}
-                  </span>
-                        <div className="mt-1">{step}</div>
+                  {instructionsWithTimers.map((instruction, index) => (
+                      <li key={index} className={`flex ${(timerDoneStepIndex === index) ? 'animate-blink' : ''}`}>
+                        <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-amber-500 text-white rounded-full mr-3">
+                          {index + 1}
+                        </span>
+                        <div className="mt-1 flex-1">
+                          <div className="flex items-start justify-between gap-2">
+                            <span>{instruction.text}</span>
+                            {instruction.timer && (
+                              <div className="flex items-center gap-2 flex-shrink-0">
+                                {activeTimer && activeTimer.stepIndex === index ? (
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-sm text-gray-600">
+                                      {formatTimerDisplay(activeTimer.remainingSeconds / 60)}
+                                    </span>
+                                    {paused ? (
+                                      <button
+                                        onClick={() => handleResumeTimer(index, instruction.timer!)}
+                                        className="px-2 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600"
+                                        type="button"
+                                      >
+                                        Pokračovat
+                                      </button>
+                                    ) : (
+                                      <button
+                                        onClick={handlePauseTimer}
+                                        className="px-2 py-1 text-xs bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                                        type="button"
+                                      >
+                                        Pozastavit
+                                      </button>
+                                    )}
+                                    {paused ? (
+                                      <button
+                                        onClick={() => handleResetTimer(index, instruction.timer!)}
+                                        className="px-2 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600"
+                                        type="button"
+                                      >
+                                        Resetovat
+                                      </button>
+                                    ) : null}
+                                  </div>
+                                ) : (
+                                  <button
+                                    onClick={() => instruction.timer !== undefined && handleStartTimer(index, instruction.timer)}
+                                    className="px-3 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600 flex items-center gap-1"
+                                    type="button"
+                                    title={instruction.timer !== undefined ? `Spustit časovač na ${formatTimerDisplay(instruction.timer)}` : ''}
+                                  >
+                                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                                    </svg>
+                                    {instruction.timer !== undefined ? formatTimerDisplay(instruction.timer) : ''}
+                                  </button>
+                                )}
+                                {/* Pokud je timerDoneStepIndex, zobrazit tlačítko pro vypnutí alarmu */}
+                                {timerDoneStepIndex === index && (
+                                  <button
+                                    onClick={() => {
+                                      setTimerDoneStepIndex(null);
+                                      if (audioRef.current) {
+                                        audioRef.current.pause();
+                                        audioRef.current.currentTime = 0;
+                                        audioRef.current.loop = false;
+                                      }
+                                    }}
+                                    className="ml-2 px-3 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700"
+                                    type="button"
+                                  >
+                                    Vypnout
+                                  </button>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </li>
                   ))}
                 </ol>
@@ -616,6 +758,8 @@ export default function RecipeDetailPage() {
           </button>
         )}
       </div>
+      {/* Zvuk pro dokončení časovače */}
+      <audio ref={audioRef} src="/timer-done.mp3" preload="auto" />
     </>
   );
 }
