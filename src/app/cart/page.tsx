@@ -66,7 +66,8 @@ const CartPage: React.FC = () => {
 
   // Generate text for QR code (without diacritics)
   const generateShoppingListText = () => {
-    return mergedIngredients
+    const date = new Date().toLocaleDateString('cs-CZ');
+    return `Nákupní seznam - ${date}\n\n` + mergedIngredients
       .map(item =>
         `${removeDiacritics(item.name)} ${item.quantity} ${removeDiacritics(getDeclinedUnit(item.unit, item.quantity))}`
       )

@@ -2,7 +2,7 @@
   {
     "title": "Bábovka",
     "description": "Tradiční česká mramorová bábovka, vláčná a voňavá.",
-    "image": "https://img-new.mimibazar.cz/h/bc/c/babovka-recept-peceni-moucnik-1.jpg",
+    "image": "https://cdn.pixabay.com/photo/2018/08/30/20/47/gugelhupf-3643259_1280.jpg",
     "link": "/dezert/babovka",
     "ingredients": [
       { "name": "hladká mouka", "quantity": 300, "unit": "g" },
@@ -14,11 +14,15 @@
       { "name": "kakao", "quantity": 2, "unit": "lžíce" }
     ],
     "instructions": [
-      "Vyšlehejte vejce s cukrem do pěny.",
-      "Přidejte rozpuštěné máslo a mléko, promíchejte.",
-      "Postupně přidejte mouku smíchanou s práškem do pečiva.",
-      "Část těsta obarvěte kakaem a vlijte střídavě do formy.",
-      "Pečte na 180 °C asi 40–50 minut."
+      "Předehřejte troubu na 180 °C. Formu na bábovku vymažte máslem a vysypte moukou.",
+      "Vejce rozklepněte do mísy a přidejte cukr. Šlehejte elektrickým šlehačem na vysoké otáčky asi 5 minut, dokud nevznikne světlá hustá pěna.",
+      "Máslo rozpusťte a nechte mírně zchladnout. Přilijte ho k vyšlehaným vejcím s cukrem a krátce promíchejte.",
+      "Přilijte mléko a znovu promíchejte, aby se vše spojilo.",
+      "Mouku smíchejte s práškem do pečiva a postupně ji po částech přisypávejte do tekuté směsi. Míchejte metličkou nebo na nízké otáčky, aby těsto zůstalo nadýchané.",
+      "Asi třetinu těsta oddělte do menší misky a přimíchejte do ní kakao, aby vzniklo tmavé těsto.",
+      "Do připravené formy nalijte střídavě světlé a tmavé těsto, můžete je lehce promíchat špejlí pro mramorový efekt.",
+      "Vložte do trouby a pečte 40–50 minut. Po 40 minutách zkuste špejlí, zda je bábovka hotová – špejle musí vyjít suchá.",
+      "Po upečení nechte bábovku 10 minut chladnout ve formě, poté ji opatrně vyklopte na mřížku a nechte zcela vychladnout."
     ],
     "time": 60,
     "rating": 4.7,
@@ -28,7 +32,7 @@
   {
     "title": "Jablečný závin",
     "description": "Klasický štrůdl plněný jablky, skořicí a ořechy.",
-    "image": "https://media.istockphoto.com/id/482134685/cs/fotografie/v%C3%ADde%C5%88sk%C3%BD-jable%C4%8Dn%C3%BD-z%C3%A1vin.jpg?s=612x612&w=0&k=20&c=Zci3Bn4f7IXL64wDfO-jepubXF1cLkoZJF9LTnGbEyo=",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQefd45D4Pt_EuVIkoU8rO-79lL7f877Uympg&s",
     "link": "/dezert/jablecny-zavin",
     "ingredients": [
       { "name": "listové těsto", "quantity": 1, "unit": "balení" },
@@ -39,10 +43,14 @@
       { "name": "vejce", "quantity": 1, "unit": "ks" }
     ],
     "instructions": [
-      "Jablka oloupejte a nastrouhejte.",
-      "Smíchejte s cukrem, skořicí a ořechy.",
-      "Rozválejte těsto, naplňte směsí a zaviňte.",
-      "Pomažte vejcem a pečte na 180 °C asi 30 minut."
+      "Předehřejte troubu na 180 °C. Plech vyložte pečicím papírem.",
+      "Jablka oloupejte, zbavte jádřinců a nastrouhejte je nahrubo do větší mísy.",
+      "K nastrouhaným jablkům přidejte cukr, skořici a nasekané ořechy. Vše důkladně promíchejte, aby se chutě spojily.",
+      "Listové těsto rozválejte na pomoučeném vále na obdélník silný asi 3 mm.",
+      "Na těsto rovnoměrně rozprostřete jablečnou směs, nechte okraje volné (asi 2 cm).",
+      "Pomocí válečku nebo rukou těsto opatrně zarolujte do závinu. Konce závinu přitiskněte, aby náplň nevytékala.",
+      "Přesuňte závin na připravený plech spojem dolů. Povrch potřete rozšlehaným vejcem pro zlatavou barvu.",
+      "Pečte v předehřáté troubě asi 30 minut, dokud závin nezezlátne. Po upečení nechte mírně vychladnout a krájejte ostrým nožem na plátky."
     ],
     "time": 45,
     "rating": 4.8,
@@ -51,27 +59,31 @@
   },
   {
     "title": "Tiramisu",
-    "description": "Italský dezert s mascarpone, kávou a piškoty.",
-    "image": "https://plus.unsplash.com/premium_photo-1695028378225-97fbe39df62a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8VGlyYW1pc3V8ZW58MHx8MHx8fDA%3D",
+    "description": "Italský dezert s mascarpone, kávou a kakaem.",
+    "image": "https://images.unsplash.com/photo-1714385905983-6f8e06fffae1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "link": "/dezert/tiramisu",
     "ingredients": [
-      { "name": "mascarpone", "quantity": 250, "unit": "g" },
-      { "name": "vejce", "quantity": 2, "unit": "ks" },
-      { "name": "cukr", "quantity": 60, "unit": "g" },
-      { "name": "piškoty", "quantity": 150, "unit": "g" },
+      { "name": "mascarpone", "quantity": 500, "unit": "g" },
+      { "name": "vejce", "quantity": 4, "unit": "ks" },
+      { "name": "cukr", "quantity": 100, "unit": "g" },
       { "name": "káva", "quantity": 200, "unit": "ml" },
-      { "name": "kakao", "quantity": 1, "unit": "lžíce" }
+      { "name": "piškoty", "quantity": 200, "unit": "g" },
+      { "name": "kakao", "quantity": 2, "unit": "lžíce" }
     ],
     "instructions": [
-      "Ušlehejte žloutky s cukrem a přidejte mascarpone.",
-      "Zvlášť ušlehejte bílky a vmíchejte do krému.",
-      "Piškoty namáčejte v kávě a vrstvěte s krémem.",
-      "Dezert nechte chladit v lednici a před podáváním posypte kakaem."
+      "Oddělte žloutky od bílků. Žloutky dejte do větší mísy, bílky do jiné čisté mísy.",
+      "K žloutkům přidejte cukr a šlehejte do světlé husté pěny (cca 5 minut).",
+      "Přidejte mascarpone a opatrně vmíchejte do žloutkové pěny, dokud nevznikne hladký krém.",
+      "Bílky vyšlehejte do tuhého sněhu. Sníh opatrně po částech vmíchejte stěrkou do mascarpone krému, aby zůstal nadýchaný.",
+      "Připravte si silnou kávu a nechte ji vychladnout. Piškoty krátce namáčejte v kávě (nesmí se rozmočit) a pokládejte je vedle sebe do formy.",
+      "Na vrstvu piškotů rozetřete polovinu krému. Poté opět poklaďte namočené piškoty a navrch rozetřete zbytek krému.",
+      "Povrch posypte kakaem přes jemné sítko.",
+      "Tiramisu zakryjte fólií a nechte alespoň 4 hodiny (ideálně přes noc) chladit v lednici, aby ztuhlo a chutě se propojily."
     ],
     "time": 30,
     "rating": 4.9,
-    "difficulty": 2,
-    "portion": 2
+    "difficulty": 3,
+    "portion": 6
   },
   {
     "title": "Palačinky",
@@ -84,9 +96,14 @@
       { "name": "vejce", "quantity": 2, "unit": "ks" }
     ],
     "instructions": [
-      "Smíchejte všechny ingredience do hladkého těsta.",
-      "Nechte těsto odpočinout a poté smažte na pánvi.",
-      "Podávejte s marmeládou, čokoládou nebo tvarohem."
+      "Do větší mísy prosejte mouku. Přidejte vejce a asi polovinu mléka.",
+      "Metličkou nebo ručním šlehačem začněte míchat od středu, aby vzniklo hladké těsto bez hrudek.",
+      "Postupně přilévejte zbytek mléka a stále míchejte, dokud není těsto tekuté a hladké.",
+      "Nechte těsto 10–15 minut odpočinout, aby se z mouky uvolnil lepek a palačinky byly pružné.",
+      "Pánev potřete trochou oleje nebo másla a dobře ji rozpalte.",
+      "Nalijte naběračku těsta na pánev a krouživým pohybem ho rozlijte do tenké vrstvy.",
+      "Smažte na středním plameni asi 1–2 minuty, dokud okraje nezačnou zlátnout. Opatrně otočte a smažte i z druhé strany.",
+      "Hotové palačinky skládejte na talíř a přikrývejte utěrkou, aby nevychladly. Podávejte s marmeládou, čokoládou nebo tvarohem."
     ],
     "time": 20,
     "rating": 4.6,
@@ -95,27 +112,323 @@
   },
   {
     "title": "Čokoládový dort",
-    "description": "Bohatý čokoládový dort pro milovníky sladkého.",
-    "image": "https://images.unsplash.com/photo-1607257882338-70f7dd2ae344?q=80&w=1933&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Vlhký čokoládový dort s čokoládovou polevou a jahodami.",
+    "image": "https://images.unsplash.com/photo-1607257882338-70f7dd2ae344?q=80&w=1033&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "link": "/dezert/cokoladovy-dort",
     "ingredients": [
-      { "name": "hladká mouka", "quantity": 200, "unit": "g" },
-      { "name": "cukr", "quantity": 150, "unit": "g" },
+      { "name": "mouka", "quantity": 200, "unit": "g" },
+      { "name": "cukr", "quantity": 200, "unit": "g" },
       { "name": "kakao", "quantity": 50, "unit": "g" },
       { "name": "vejce", "quantity": 3, "unit": "ks" },
-      { "name": "máslo", "quantity": 100, "unit": "g" },
-      { "name": "prášek do pečiva", "quantity": 1, "unit": "lžička" },
-      { "name": "mléko", "quantity": 150, "unit": "ml" }
+      { "name": "mléko", "quantity": 200, "unit": "ml" },
+      { "name": "olej", "quantity": 100, "unit": "ml" },
+      { "name": "čokoláda", "quantity": 100, "unit": "g" }
     ],
     "instructions": [
-      "Vyšlehejte vejce s cukrem, přidejte rozpuštěné máslo.",
-      "Vmíchejte sypké suroviny a nakonec mléko.",
-      "Těsto nalijte do formy a pečte na 180 °C asi 40 minut.",
-      "Ozdobte dle chuti polevou nebo ovocem."
+      "Předehřejte troubu na 180 °C. Dortovou formu vymažte máslem a vysypte moukou nebo vyložte pečicím papírem.",
+      "V míse smíchejte mouku, kakao a cukr. Dobře promíchejte, aby se kakao rovnoměrně rozptýlilo.",
+      "V jiné míse rozšlehejte vejce, přilijte mléko a olej. Promíchejte dohladka.",
+      "Tekutou směs postupně přilévejte k suchým ingrediencím a míchejte metličkou, dokud nevznikne hladké těsto.",
+      "Nalijte těsto do připravené formy a uhlaďte povrch stěrkou.",
+      "Pečte v předehřáté troubě asi 30 minut. Pro kontrolu zapíchněte špejli doprostřed dortu – pokud vyjde čistá, je dort hotový.",
+      "Mezitím si připravte polevu: čokoládu nalámejte do misky a rozpusťte ji ve vodní lázni nebo v mikrovlnce. Nechte mírně zchladnout.",
+      "Upečený dort nechte 10 minut chladnout ve formě, poté ho vyjměte a přelijte čokoládovou polevou. Ozdobte čerstvými jahodami dle chuti."
     ],
-    "time": 60,
+    "time": 45,
     "rating": 4.9,
     "difficulty": 2,
+    "portion": 8
+  },
+  {
+    "title": "Cheesecake",
+    "description": "Krémový cheesecake s jahodovou omáčkou.",
+    "image": "https://images.unsplash.com/photo-1676300185983-d5f242babe34?q=80&w=695&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/dezert/cheesecake",
+    "ingredients": [
+      { "name": "tvaroh", "quantity": 500, "unit": "g" },
+      { "name": "smetana", "quantity": 200, "unit": "ml" },
+      { "name": "cukr", "quantity": 150, "unit": "g" },
+      { "name": "vejce", "quantity": 3, "unit": "ks" },
+      { "name": "sušenky", "quantity": 200, "unit": "g" },
+      { "name": "máslo", "quantity": 100, "unit": "g" }
+    ],
+    "instructions": [
+      "Předehřejte troubu na 170 °C. Kulatou dortovou formu vyložte pečicím papírem.",
+      "Sušenky rozdrťte najemno v mixéru nebo válečkem. Máslo rozpusťte a smíchejte se sušenkami, až vznikne vlhká drobenka.",
+      "Sušenkovou směs rovnoměrně natlačte na dno formy a dobře upěchujte lžící nebo dnem skleničky. Vložte na 10 minut do trouby předpéct.",
+      "Mezitím v míse vyšlehejte tvaroh s cukrem dohladka. Přidejte vejce a šlehejte, dokud se vše nespojí.",
+      "Přilijte smetanu a krátce promíchejte, aby vznikl hladký krém.",
+      "Krém nalijte na předpečený sušenkový základ a povrch uhlaďte stěrkou.",
+      "Pečte v troubě asi 45 minut. Střed dortu by měl být na dotek ještě lehce rosolovitý, dopeče se při chladnutí.",
+      "Po upečení nechte cheesecake zcela vychladnout, poté ho dejte alespoň na 4 hodiny (ideálně přes noc) do lednice. Podávejte s jahodovou omáčkou nebo čerstvým ovocem."
+    ],
+    "time": 90,
+    "rating": 4.8,
+    "difficulty": 3,
+    "portion": 8
+  },
+  {
+    "title": "Brownies",
+    "description": "Vlhký čokoládový brownie s ořechy.",
+    "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnJvd25pZXN8ZW58MHx8MHx8fDA%3D",
+    "link": "/dezert/brownies",
+    "ingredients": [
+      { "name": "čokoláda", "quantity": 200, "unit": "g" },
+      { "name": "máslo", "quantity": 150, "unit": "g" },
+      { "name": "cukr", "quantity": 200, "unit": "g" },
+      { "name": "vejce", "quantity": 3, "unit": "ks" },
+      { "name": "mouka", "quantity": 100, "unit": "g" },
+      { "name": "vlašské ořechy", "quantity": 100, "unit": "g" }
+    ],
+    "instructions": [
+      "Předehřejte troubu na 180 °C. Menší pekáček vyložte pečicím papírem.",
+      "Čokoládu nalámejte na kousky a spolu s máslem ji rozpusťte ve vodní lázni nebo v mikrovlnce. Nechte mírně zchladnout.",
+      "Vejce rozklepněte do mísy, přidejte cukr a šlehejte do světlé pěny (cca 3 minuty).",
+      "Do vaječné směsi přilijte rozpuštěnou čokoládu s máslem a dobře promíchejte.",
+      "Přisypte mouku a nasekané vlašské ořechy. Opatrně promíchejte stěrkou, aby těsto zůstalo vláčné.",
+      "Těsto nalijte do připraveného pekáčku a uhlaďte povrch.",
+      "Pečte v troubě asi 25 minut. Brownies by měly být uvnitř vláčné, ne zcela propečené. Po upečení nechte vychladnout a nakrájejte na kostky."
+    ],
+    "time": 40,
+    "rating": 4.8,
+    "difficulty": 2,
+    "portion": 9
+  },
+  {
+    "title": "Jablečný koláč",
+    "description": "Tradiční jablečný koláč s drobenkou a skořicí.",
+    "image": "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/dezert/jablecny-kolac",
+    "ingredients": [
+      { "name": "mouka", "quantity": 300, "unit": "g" },
+      { "name": "máslo", "quantity": 150, "unit": "g" },
+      { "name": "cukr", "quantity": 100, "unit": "g" },
+      { "name": "jablka", "quantity": 6, "unit": "ks" },
+      { "name": "skořice", "quantity": 2, "unit": "lžička" },
+      { "name": "vejce", "quantity": 1, "unit": "ks" }
+    ],
+    "instructions": [
+      "Předehřejte troubu na 180 °C. Kulatou formu na koláč vymažte máslem a vysypte moukou.",
+      "V míse smíchejte mouku, máslo a cukr. Prsty vypracujte drobenku, část si odložte stranou na posypání.",
+      "Z větší části drobenky vytvořte na dně formy rovnoměrnou vrstvu a lehce ji přitlačte.",
+      "Jablka oloupejte, zbavte jádřinců a nakrájejte na tenké plátky. Rozložte je na těsto ve formě.",
+      "Jablka posypte skořicí a případně trochou cukru dle chuti.",
+      "Zbylou drobenkou posypte povrch koláče. Pokud chcete, můžete povrch potřít rozšlehaným vejcem pro lesk.",
+      "Pečte v troubě asi 40 minut, dokud koláč nezezlátne a jablka nezměknou. Nechte vychladnout a podávejte."
+    ],
+    "time": 60,
+    "rating": 4.8,
+    "difficulty": 2,
+    "portion": 8
+  },
+  {
+    "title": "Panna cotta s malinami",
+    "description": "Italský dezert z vanilkové smetany s čerstvými malinami.",
+    "image": "https://cdn.pixabay.com/photo/2017/09/20/16/45/panna-cotta-2769177_1280.jpg",
+    "link": "/dezert/panna-cotta-maliny",
+    "ingredients": [
+      { "name": "smetana", "quantity": 400, "unit": "ml" },
+      { "name": "cukr", "quantity": 80, "unit": "g" },
+      { "name": "vanilkový lusk", "quantity": 1, "unit": "ks" },
+      { "name": "želatina", "quantity": 8, "unit": "g" },
+      { "name": "maliny", "quantity": 200, "unit": "g" },
+      { "name": "med", "quantity": 2, "unit": "lžíce" }
+    ],
+    "instructions": [
+      "Želatinu namočte do studené vody a nechte 5 minut nabobtnat.",
+      "Smetanu nalijte do kastrůlku, přidejte cukr a rozříznutý vanilkový lusk (seškrábněte semínka dovnitř). Pomalu zahřívejte téměř k varu, ale nevařte.",
+      "Odstraňte vanilkový lusk. Nabobtnalou želatinu vymačkejte a vmíchejte do horké smetany, dokud se zcela nerozpustí.",
+      "Směs nalijte do malých formiček nebo skleniček. Nechte vychladnout a poté dejte alespoň na 3 hodiny do lednice ztuhnout.",
+      "Před podáváním vyklopte panna cottu na talířek (pomůže ponořit formičku na pár vteřin do horké vody). Ozdobte čerstvými malinami a pokapejte medem."
+    ],
+    "time": 30,
+    "rating": 4.8,
+    "difficulty": 2,
     "portion": 2
+  },
+  {
+    "title": "Muffiny s borůvkami",
+    "description": "Nadýchané muffiny plné čerstvých borůvek a vanilky.",
+    "image": "https://images.unsplash.com/photo-1722251172903-cc8774501df7?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/dezert/muffiny-boruvky",
+    "ingredients": [
+      { "name": "hladká mouka", "quantity": 250, "unit": "g" },
+      { "name": "cukr", "quantity": 150, "unit": "g" },
+      { "name": "vejce", "quantity": 2, "unit": "ks" },
+      { "name": "mléko", "quantity": 200, "unit": "ml" },
+      { "name": "máslo", "quantity": 100, "unit": "g" },
+      { "name": "borůvky", "quantity": 200, "unit": "g" },
+      { "name": "prášek do pečiva", "quantity": 2, "unit": "lžička" }
+    ],
+    "instructions": [
+      "Předehřejte troubu na 180 °C. Formu na muffiny vyložte papírovými košíčky.",
+      "V míse smíchejte mouku, cukr a prášek do pečiva.",
+      "V jiné míse rozšlehejte vejce, přilijte mléko a rozpuštěné máslo. Promíchejte.",
+      "Tekutou směs přilijte k suchým ingrediencím a krátce promíchejte, jen aby se vše spojilo (těsto nemíchejte příliš dlouho, muffiny budou nadýchanější).",
+      "Borůvky opatrně vmíchejte do těsta stěrkou.",
+      "Těsto rozdělte do připravených košíčků asi do 2/3 výšky.",
+      "Pečte v troubě asi 20 minut, dokud nejsou muffiny zlatavé a špejle zapíchnutá do středu vyjde čistá. Nechte vychladnout."
+    ],
+    "time": 35,
+    "rating": 4.6,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Crème brûlée",
+    "description": "Francouzský dezert s vanilkovým krémem a karamelovou krustou.",
+    "image": "https://images.unsplash.com/photo-1676300184943-09b2a08319a3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/dezert/creme-brulee",
+    "ingredients": [
+      { "name": "smetana", "quantity": 400, "unit": "ml" },
+      { "name": "žloutky", "quantity": 4, "unit": "ks" },
+      { "name": "cukr", "quantity": 80, "unit": "g" },
+      { "name": "vanilkový lusk", "quantity": 1, "unit": "ks" },
+      { "name": "hnědý cukr", "quantity": 50, "unit": "g" }
+    ],
+    "instructions": [
+      "Předehřejte troubu na 150 °C. Připravte si 4 malé zapékací mističky.",
+      "Smetanu nalijte do kastrůlku, přidejte rozříznutý vanilkový lusk a jeho semínka. Pomalu zahřívejte téměř k varu, ale nevařte. Poté lusk vyjměte.",
+      "Žloutky dejte do mísy, přidejte cukr a šlehejte do světlé pěny.",
+      "Za stálého míchání pomalu přilévejte horkou smetanu ke žloutkům, aby se žloutky nesrazily.",
+      "Směs nalijte do mističek. Ty vložte do hlubokého pekáče a zalijte horkou vodou do poloviny výšky mističek.",
+      "Pečte ve vodní lázni asi 40 minut, dokud krém neztuhne, ale uprostřed je ještě lehce rosolovitý. Nechte vychladnout a poté dejte na několik hodin do lednice.",
+      "Před podáváním posypte povrch každého krému hnědým cukrem a pomocí flambovací pistole nebo pod grilem cukr zkaramelizujte do křupavé krusty."
+    ],
+    "time": 45,
+    "rating": 4.9,
+    "difficulty": 3,
+    "portion": 2
+  },
+  {
+    "title": "Limonádový koláč",
+    "description": "Svěží limonádový koláč s citronovou polevou.",
+    "image": "https://cdn.pixabay.com/photo/2017/03/15/19/18/tartlet-2147173_1280.jpg",
+    "link": "/dezert/limonadovy-kolac",
+    "ingredients": [
+      { "name": "mouka", "quantity": 200, "unit": "g" },
+      { "name": "cukr", "quantity": 150, "unit": "g" },
+      { "name": "citrony", "quantity": 3, "unit": "ks" },
+      { "name": "vejce", "quantity": 3, "unit": "ks" },
+      { "name": "máslo", "quantity": 100, "unit": "g" },
+      { "name": "prášek do pečiva", "quantity": 1, "unit": "lžička" }
+    ],
+    "instructions": [
+      "Předehřejte troubu na 180 °C. Formu na koláč vymažte máslem a vysypte moukou.",
+      "V míse smíchejte mouku, cukr a prášek do pečiva.",
+      "Citrony omyjte, nastrouhejte kůru a vymačkejte šťávu. Přidejte k suchým ingrediencím.",
+      "Přidejte vejce a rozpuštěné máslo. Vše dobře promíchejte, aby vzniklo hladké těsto.",
+      "Těsto nalijte do připravené formy a povrch uhlaďte stěrkou.",
+      "Pečte v troubě asi 30 minut, dokud koláč nezezlátne a špejle zapíchnutá do středu vyjde čistá.",
+      "Po vychladnutí můžete koláč polít citronovou polevou (smíchejte moučkový cukr s trochou citronové šťávy) a nechte ztuhnout."
+    ],
+    "time": 45,
+    "rating": 4.7,
+    "difficulty": 2,
+    "portion": 8
+  },
+  {
+    "title": "Čokoládové fondue",
+    "description": "Rozpuštěná čokoláda s čerstvým ovocem a marshmallows.",
+    "image": "https://images.unsplash.com/photo-1571586616199-4b93617e0175?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/dezert/cokoladove-fondue",
+    "ingredients": [
+      { "name": "hořká čokoláda", "quantity": 300, "unit": "g" },
+      { "name": "smetana", "quantity": 100, "unit": "ml" },
+      { "name": "máslo", "quantity": 50, "unit": "g" },
+      { "name": "jahody", "quantity": 200, "unit": "g" },
+      { "name": "banán", "quantity": 2, "unit": "ks" },
+      { "name": "marshmallows", "quantity": 100, "unit": "g" }
+    ],
+    "instructions": [
+      "Čokoládu nalámejte na kousky a dejte do žáruvzdorné misky. Přidejte smetanu a máslo.",
+      "Misku postavte nad hrnec s mírně vroucí vodou (vodní lázeň) a za stálého míchání nechte čokoládu zcela rozpustit a spojit se smetanou a máslem.",
+      "Ovoce omyjte, jahody nakrájejte na poloviny, banány na kolečka.",
+      "Čokoládovou směs přelijte do fondue nádoby nebo menší misky a udržujte v teple.",
+      "Na stůl připravte ovoce a marshmallows. Každý si napichuje kousky na vidličku a namáčí do teplé čokolády."
+    ],
+    "time": 20,
+    "rating": 4.8,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Jahodový dort",
+    "description": "Svěží jahodový dort se šlehačkou.",
+    "image": "https://images.unsplash.com/photo-1651482144016-5eeef0cba147?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/dezert/jahodovy-dort",
+    "ingredients": [
+      { "name": "mouka", "quantity": 200, "unit": "g" },
+      { "name": "cukr", "quantity": 150, "unit": "g" },
+      { "name": "vejce", "quantity": 3, "unit": "ks" },
+      { "name": "šlehačka", "quantity": 300, "unit": "ml" },
+      { "name": "jahody", "quantity": 400, "unit": "g" },
+      { "name": "vanilkový cukr", "quantity": 1, "unit": "sáček" }
+    ],
+    "instructions": [
+      "Předehřejte troubu na 180 °C. Dortovou formu vymažte máslem a vysypte moukou nebo vyložte pečicím papírem.",
+      "Vejce s cukrem vyšlehejte do husté světlé pěny (cca 5 minut).",
+      "Postupně přisypávejte mouku a opatrně vmíchejte stěrkou, aby těsto zůstalo nadýchané.",
+      "Těsto nalijte do formy a pečte asi 25 minut. Po upečení nechte korpus vychladnout.",
+      "Šlehačku vyšlehejte s vanilkovým cukrem do tuha.",
+      "Jahody omyjte, osušte a nakrájejte na plátky.",
+      "Vychladlý korpus rozkrojte na dvě části. Spodní část potřete polovinou šlehačky, poklaďte polovinou jahod, přiklopte druhou částí korpusu.",
+      "Povrch dortu potřete zbylou šlehačkou a ozdobte zbylými jahodami. Nechte chvíli vychladit v lednici."
+    ],
+    "time": 60,
+    "rating": 4.7,
+    "difficulty": 2,
+    "portion": 8
+  },
+  {
+    "title": "Čokoládové muffiny",
+    "description": "Nadýchané čokoládové muffiny s čokoládovými kousky.",
+    "image": "https://images.unsplash.com/photo-1637861004877-98aebeb0ecfc?q=80&w=671&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/dezert/cokoladove-muffiny",
+    "ingredients": [
+      { "name": "mouka", "quantity": 200, "unit": "g" },
+      { "name": "cukr", "quantity": 150, "unit": "g" },
+      { "name": "kakao", "quantity": 50, "unit": "g" },
+      { "name": "vejce", "quantity": 2, "unit": "ks" },
+      { "name": "mléko", "quantity": 200, "unit": "ml" },
+      { "name": "čokoládové kousky", "quantity": 100, "unit": "g" }
+    ],
+    "instructions": [
+      "Předehřejte troubu na 180 °C. Formu na muffiny vyložte papírovými košíčky.",
+      "V míse smíchejte mouku, cukr a kakao.",
+      "V jiné míse rozšlehejte vejce s mlékem.",
+      "Tekutou směs přilijte k suchým ingrediencím a krátce promíchejte, jen aby se vše spojilo.",
+      "Vmíchejte čokoládové kousky stěrkou.",
+      "Těsto rozdělte do košíčků asi do 2/3 výšky.",
+      "Pečte v troubě asi 20 minut, dokud nejsou muffiny zlatavé a špejle zapíchnutá do středu vyjde čistá. Nechte vychladnout."
+    ],
+    "time": 35,
+    "rating": 4.6,
+    "difficulty": 1,
+    "portion": 12
+  },
+  {
+    "title": "Vanilková zmrzlina",
+    "description": "Domácí vanilková zmrzlina s jahodami.",
+    "image": "https://c.pxhere.com/photos/7b/5c/strawberries_ice_cream_sweet_dish_strawberry_cold_delicious_red-1106796.jpg!d",
+    "link": "/dezert/vanilkova-zmrzlina",
+    "ingredients": [
+      { "name": "smetana", "quantity": 500, "unit": "ml" },
+      { "name": "mléko", "quantity": 200, "unit": "ml" },
+      { "name": "cukr", "quantity": 150, "unit": "g" },
+      { "name": "vanilkový extrakt", "quantity": 2, "unit": "lžička" },
+      { "name": "žloutky", "quantity": 4, "unit": "ks" },
+      { "name": "jahody", "quantity": 200, "unit": "g" }
+    ],
+    "instructions": [
+      "Rozšlehejte žloutky s cukrem.",
+      "Přidejte smetanu a vanilku.",
+      "Zahřívejte do zhoustnutí.",
+      "Zmrazte v zmrzlinovači."
+    ],
+    "time": 120,
+    "rating": 4.8,
+    "difficulty": 3,
+    "portion": 6
   }
 ]

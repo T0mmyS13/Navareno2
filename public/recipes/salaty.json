@@ -1,28 +1,27 @@
 [
   {
     "title": "Řecký salát",
-    "description": "Osvěžující salát s okurkou, rajčaty, olivami a fetou.",
-    "image": "https://cdn.administrace.tv/2022/08/07/small_169/fcd385bc69ae78716fc13ccc6cf3b345.jpg",
+    "description": "Klasický řecký salát s fetou, olivami a červenou cibulí.",
+    "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JlZWslMjBzYWxhZHxlbnwwfHwwfHx8MA%3D%3D",
     "link": "/salat/recky-salat",
     "ingredients": [
-      { "name": "rajče", "quantity": 2, "unit": "ks" },
       { "name": "okurka", "quantity": 1, "unit": "ks" },
-      { "name": "červená cibule", "quantity": 0.5, "unit": "ks" },
-      { "name": "černé olivy", "quantity": 10, "unit": "ks" },
-      { "name": "sýr feta", "quantity": 100, "unit": "g" },
-      { "name": "olivový olej", "quantity": 2, "unit": "lžíce" }
+      { "name": "rajčata", "quantity": 4, "unit": "ks" },
+      { "name": "červená cibule", "quantity": 1, "unit": "ks" },
+      { "name": "feta", "quantity": 150, "unit": "g" },
+      { "name": "olivy", "quantity": 100, "unit": "g" },
+      { "name": "olivový olej", "quantity": 3, "unit": "lžíce" }
     ],
     "instructions": [
-      "Rajčata a okurku nakrájejte na kousky.",
-      "Cibuli nakrájejte na tenké proužky.",
-      "Vše vložte do mísy a přidejte olivy.",
-      "Přidejte na kostičky nakrájenou fetu.",
-      "Zakápněte olivovým olejem, posypte oreganem a dochuťte solí a pepřem."
+      "Zeleninu nakrájejte na kostičky.",
+      "Smíchejte s fetou a olivami.",
+      "Pokapejte olivovým olejem.",
+      "Dochuťte solí a pepřem."
     ],
     "time": 15,
-    "rating": 4.7,
+    "rating": 4.8,
     "difficulty": 1,
-    "portion": 2
+    "portion": 4
   },
   {
     "title": "Cizrnový salát",
@@ -119,5 +118,29 @@
     "rating": 4.6,
     "difficulty": 1,
     "portion": 2
+  },
+  {
+    "title": "Caesar salát",
+    "description": "Klasický Caesar salát s kuřecím masem a krutony.",
+    "image": "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2Flc2FyJTIwc2FsYWR8ZW58MHx8MHx8fDA%3D",
+    "link": "/salat/caesar-salat",
+    "ingredients": [
+      { "name": "salát", "quantity": 1, "unit": "ks" },
+      { "name": "kuřecí prsa", "quantity": 200, "unit": "g" },
+      { "name": "parmazán", "quantity": 50, "unit": "g" },
+      { "name": "krutony", "quantity": 100, "unit": "g" },
+      { "name": "caesar dressing", "quantity": 100, "unit": "ml" },
+      { "name": "ančovičky", "quantity": 4, "unit": "ks" }
+    ],
+    "instructions": [
+      "Kuřecí maso opečte a nakrájejte.",
+      "Salát natrhejte na kousky.",
+      "Smíchejte s krutony a parmazánem.",
+      "Polejte dressingem a ozdobte ančovičkami."
+    ],
+    "time": 25,
+    "rating": 4.7,
+    "difficulty": 2,
+    "portion": 4
   }
 ]

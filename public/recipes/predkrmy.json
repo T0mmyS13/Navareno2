@@ -5,113 +5,189 @@
     "image": "https://images.unsplash.com/photo-1558679582-4d81ce75993a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fEJydXNjaGV0dGElMjJ8ZW58MHx8MHx8fDA%3D",
     "link": "/predkrm/bruschetta",
     "ingredients": [
-      {"name": "chléb", "quantity": 1, "unit": "plátek"},
-      {"name": "rajče", "quantity": 1, "unit": "ks"},
-      {"name": "bazalka", "quantity": 5, "unit": "lístek"},
-      {"name": "olivový olej", "quantity": 1, "unit": "lžička"}
+      { "name": "bageta", "quantity": 1, "unit": "ks" },
+      { "name": "rajčata", "quantity": 4, "unit": "ks" },
+      { "name": "bazalka", "quantity": 1, "unit": "hrst" },
+      { "name": "olivový olej", "quantity": 3, "unit": "lžíce" },
+      { "name": "česnek", "quantity": 2, "unit": "stroužek" },
+      { "name": "sůl", "quantity": 1, "unit": "špetka" }
     ],
     "instructions": [
-      "Opečte chléb na pánvi nebo v troubě do zlatova.",
-      "Rajče nakrájejte na malé kostičky.",
-      "Smíchejte rajčata s nasekanou bazalkou, osolte a opepřete.",
-      "Na opečený chléb naneste směs a zakápněte olivovým olejem."
+      "Bagetu nakrájejte na plátky a opečte.",
+      "Rajčata nakrájejte na kostičky.",
+      "Smíchejte s bazalkou, olejem a česnekem.",
+      "Namažte na opečený chléb."
     ],
     "time": 15,
-    "rating": 4.6,
+    "rating": 4.7,
     "difficulty": 1,
-    "portion": 2
+    "portion": 4
+  },
+  {
+    "title": "Caprese salát",
+    "description": "Klasický italský salát s mozzarellou, rajčaty a bazalkou.",
+    "image": "https://images.unsplash.com/photo-1551248429-40975aa4de74?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FwcmVzZSUyMHNhbGFkfGVufDB8fDB8fHww",
+    "link": "/predkrm/caprese",
+    "ingredients": [
+      { "name": "mozzarella", "quantity": 200, "unit": "g" },
+      { "name": "rajčata", "quantity": 4, "unit": "ks" },
+      { "name": "bazalka", "quantity": 1, "unit": "hrst" },
+      { "name": "olivový olej", "quantity": 2, "unit": "lžíce" },
+      { "name": "balzamikový ocet", "quantity": 1, "unit": "lžíce" },
+      { "name": "sůl", "quantity": 1, "unit": "špetka" }
+    ],
+    "instructions": [
+      "Rajčata a mozzarellu nakrájejte na plátky.",
+      "Střídavě vrstvěte na talíř.",
+      "Posypte bazalkou a pokapejte olejem a octem.",
+      "Osolte a podávejte."
+    ],
+    "time": 10,
+    "rating": 4.8,
+    "difficulty": 1,
+    "portion": 4
   },
   {
     "title": "Hummus s pita chlebem",
-    "description": "Krémový hummus podávaný s teplým pita chlebem, ideální předkrm plný chuti.",
-    "image": "https://media.istockphoto.com/id/1244880683/cs/fotografie/hummus-tal%C3%AD%C5%99-s-pita-chlebem-autentick%C3%A1-arabsk%C3%A1-kuchyn%C4%9B.jpg?s=612x612&w=0&k=20&c=bdHaQfulq8xjlJdhN_TPmkPY7wMChnSpXsMBCXEcFWo=",
-    "link": "/predkrm/hummus-s-pita",
+    "description": "Středomořský předkrm z cizrny s tahini a kořením.",
+    "image": "https://images.unsplash.com/photo-1683725519288-eab9fa352335?q=80&w=950&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/predkrm/hummus",
     "ingredients": [
-      {"name": "cizrna", "quantity": 0.25, "unit": "konzervy"},
-      {"name": "tahini", "quantity": 0.5, "unit": "lžíce"},
-      {"name": "citronová šťáva", "quantity": 0.25, "unit": "ks"},
-      {"name": "česnek", "quantity": 0.25, "unit": "stroužku"},
-      {"name": "extra panenský olivový olej", "quantity": 1, "unit": "lžička"},
-      {"name": "pita chléb", "quantity": 1, "unit": "plátek"}
+      { "name": "cizrna", "quantity": 400, "unit": "g" },
+      { "name": "tahini", "quantity": 3, "unit": "lžíce" },
+      { "name": "citron", "quantity": 1, "unit": "ks" },
+      { "name": "česnek", "quantity": 2, "unit": "stroužek" },
+      { "name": "olivový olej", "quantity": 2, "unit": "lžíce" },
+      { "name": "pita chléb", "quantity": 2, "unit": "ks" }
     ],
     "instructions": [
-      "Cizrnu slijte a propláchněte.",
-      "V mixéru rozmixujte cizrnu, tahini, citronovou šťávu, česnek, olivový olej, sůl a kmín do hladké konzistence.",
-      "Pokud je hummus příliš hustý, přidejte trochu vody.",
-      "Přeneste do misky, posypte paprikou a podávejte s teplým pita chlebem."
+      "Cizrnu rozmixujte s tahini a citronovou šťávou.",
+      "Přidejte česnek a olej.",
+      "Dochuťte solí a pepřem.",
+      "Podávejte s opečeným pita chlebem."
     ],
     "time": 20,
-    "rating": 4.9,
-    "difficulty": 2,
-    "portion": 2
-  },
-  {
-    "title": "Rajčatová salsa s nachos",
-    "description": "Osvěžující rajčatová salsa s křupavými kukuřičnými chipsy.",
-    "image": "https://st2.depositphotos.com/1007298/44144/i/1600/depositphotos_441440226-stock-photo-tortilla-chips-red-tomato-salsa.jpg",
-    "link": "/predkrm/salsa-nachos",
-    "ingredients": [
-      {"name": "rajčata", "quantity": 2, "unit": "ks"},
-      {"name": "cibule", "quantity": 0.5, "unit": "ks"},
-      {"name": "česnek", "quantity": 1, "unit": "stroužek"},
-      {"name": "limetková šťáva", "quantity": 1, "unit": "lžička"},
-      {"name": "koriandr", "quantity": 1, "unit": "lžíce"},
-      {"name": "nachos", "quantity": 1, "unit": "hrst"}
-    ],
-    "instructions": [
-      "Rajčata spařte a oloupejte, poté nakrájejte na malé kousky.",
-      "Cibuli nasekejte nadrobno, česnek prolisujte.",
-      "Smíchejte všechny ingredience, přidejte limetkovou šťávu a koriandr.",
-      "Podávejte s nachos."
-    ],
-    "time": 10,
-    "rating": 4.4,
+    "rating": 4.6,
     "difficulty": 1,
-    "portion": 2
+    "portion": 4
   },
   {
-    "title": "Tatarák z červené řepy",
-    "description": "Zdravý a chutný vegetariánský předkrm inspirovaný klasickým tatarákem.",
-    "image": "https://cdn.administrace.tv/2023/06/16/small_169/9354c0d9f6f7c9033686bc32c7c7aa82.jpg",
-    "link": "/predkrm/tatarak-repa",
+    "title": "Krevety na česneku",
+    "description": "Krevety opečené na česneku s chilli a petrželí.",
+    "image": "https://images.unsplash.com/photo-1669385185718-7487c89c850a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/predkrm/krevety-cesnek",
     "ingredients": [
-      {"name": "červená řepa", "quantity": 1, "unit": "ks"},
-      {"name": "kyselá okurka", "quantity": 1, "unit": "ks"},
-      {"name": "červená cibule", "quantity": 0.25, "unit": "ks"},
-      {"name": "hořčice", "quantity": 1, "unit": "lžička"},
-      {"name": "chléb", "quantity": 2, "unit": "plátek"}
+      { "name": "krevety", "quantity": 300, "unit": "g" },
+      { "name": "česnek", "quantity": 4, "unit": "stroužek" },
+      { "name": "chilli", "quantity": 1, "unit": "ks" },
+      { "name": "petržel", "quantity": 1, "unit": "hrst" },
+      { "name": "olivový olej", "quantity": 3, "unit": "lžíce" },
+      { "name": "citron", "quantity": 1, "unit": "ks" }
     ],
     "instructions": [
-      "Řepu upečte nebo uvařte do měkka a nastrouhejte.",
-      "Přidejte nakrájenou okurku, cibuli, hořčici, osolte a opepřete.",
-      "Podávejte na opečeném chlebu."
+      "Na oleji osmahněte česnek a chilli.",
+      "Přidejte krevety a opečte 3 minuty.",
+      "Posypte petrželí a pokapejte citronem.",
+      "Podávejte teplé."
+    ],
+    "time": 15,
+    "rating": 4.8,
+    "difficulty": 2,
+    "portion": 4
+  },
+  {
+    "title": "Sýrové koule",
+    "description": "Smažené sýrové koule s bylinkami a dipem.",
+    "image": "https://images.unsplash.com/photo-1714256635057-2a831a5c7e8d?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/predkrm/syrove-koule",
+    "ingredients": [
+      { "name": "eidam", "quantity": 200, "unit": "g" },
+      { "name": "mouka", "quantity": 100, "unit": "g" },
+      { "name": "vejce", "quantity": 2, "unit": "ks" },
+      { "name": "strouhanka", "quantity": 100, "unit": "g" },
+      { "name": "petržel", "quantity": 1, "unit": "hrst" },
+      { "name": "olej", "quantity": 200, "unit": "ml" }
+    ],
+    "instructions": [
+      "Sýr nakrájejte na kostičky.",
+      "Obalte v mouce, vejcích a strouhance.",
+      "Smažte dozlatova.",
+      "Posypte petrželí a podávejte."
     ],
     "time": 25,
-    "rating": 4.2,
-    "difficulty": 2,
-    "portion": 2
-  },
-  {
-    "title": "Pečené papriky plněné fetou",
-    "description": "Lehké pečené papriky s bylinkovou fetou, ideální pro hosty.",
-    "image": "https://cdn.administrace.tv/2022/08/06/small_169/21c4e245348cd03addab0949795769ff.jpg",
-    "link": "/predkrm/pecene-papriky-feta",
-    "ingredients": [
-      {"name": "malé papriky", "quantity": 3, "unit": "ks"},
-      {"name": "feta sýr", "quantity": 100, "unit": "g"},
-      {"name": "olivový olej", "quantity": 1, "unit": "lžíce"},
-      {"name": "česnek", "quantity": 1, "unit": "stroužek"},
-      {"name": "bylinky (např. tymián, oregano)", "quantity": 1, "unit": "lžička"}
-    ],
-    "instructions": [
-      "Papriky omyjte, odkrojte vršky a očistěte vnitřek.",
-      "Fetu smíchejte s nasekaným česnekem, bylinkami a olivovým olejem.",
-      "Papriky naplňte směsí a pečte 15 minut na 180 °C.",
-      "Podávejte teplé nebo vlažné."
-    ],
-    "time": 20,
     "rating": 4.5,
     "difficulty": 2,
-    "portion": 2
+    "portion": 4
+  },
+  {
+    "title": "Avokádový dip",
+    "description": "Krémový dip z avokáda s limetkou a koriandrem.",
+    "image": "https://images.unsplash.com/photo-1600728256404-aaa448921ad9?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/predkrm/avokadovy-dip",
+    "ingredients": [
+      { "name": "avokádo", "quantity": 2, "unit": "ks" },
+      { "name": "limetka", "quantity": 1, "unit": "ks" },
+      { "name": "koriandr", "quantity": 1, "unit": "hrst" },
+      { "name": "česnek", "quantity": 1, "unit": "stroužek" },
+      { "name": "chilli", "quantity": 1, "unit": "ks" },
+      { "name": "tortilla chips", "quantity": 200, "unit": "g" }
+    ],
+    "instructions": [
+      "Avokádo rozmačkejte vidličkou.",
+      "Přidejte limetkovou šťávu a nasekaný koriandr.",
+      "Dochuťte česnekem a chilli.",
+      "Podávejte s tortilla chips."
+    ],
+    "time": 10,
+    "rating": 4.7,
+    "difficulty": 1,
+    "portion": 4
+  },
+  {
+    "title": "Šunkové rolky",
+    "description": "Šunkové rolky plněné sýrem a zeleninou.",
+    "image": "https://images.unsplash.com/photo-1707322540591-51712eb524fe?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/predkrm/sunkove-rolky",
+    "ingredients": [
+      { "name": "šunka", "quantity": 200, "unit": "g" },
+      { "name": "sýr", "quantity": 150, "unit": "g" },
+      { "name": "okurka", "quantity": 1, "unit": "ks" },
+      { "name": "paprika", "quantity": 1, "unit": "ks" },
+      { "name": "majonéza", "quantity": 2, "unit": "lžíce" },
+      { "name": "párátka", "quantity": 8, "unit": "ks" }
+    ],
+    "instructions": [
+      "Šunku rozložte na plátky.",
+      "Naplňte sýrem a zeleninou.",
+      "Srolujte a zajistěte párátkem.",
+      "Podávejte s majonézou."
+    ],
+    "time": 15,
+    "rating": 4.4,
+    "difficulty": 1,
+    "portion": 4
+  },
+  {
+    "title": "Bramborové lupínky",
+    "description": "Domácí bramborové lupínky s bylinkami a solí.",
+    "image": "https://images.unsplash.com/photo-1658078367419-11c2cf639094?q=80&w=1252&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/predkrm/bramborove-lupinky",
+    "ingredients": [
+      { "name": "brambory", "quantity": 500, "unit": "g" },
+      { "name": "olej", "quantity": 500, "unit": "ml" },
+      { "name": "sůl", "quantity": 2, "unit": "lžička" },
+      { "name": "rozmarýn", "quantity": 2, "unit": "větvička" },
+      { "name": "pepř", "quantity": 1, "unit": "lžička" }
+    ],
+    "instructions": [
+      "Brambory nakrájejte na tenké plátky.",
+      "Osolte a nechte odležet 30 minut.",
+      "Smažte v horkém oleji dozlatova.",
+      "Posypte bylinkami a podávejte."
+    ],
+    "time": 45,
+    "rating": 4.6,
+    "difficulty": 2,
+    "portion": 4
   }
 ]

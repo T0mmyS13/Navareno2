@@ -12,10 +12,14 @@
       { "name": "led", "quantity": 1, "unit": "hrst" }
     ],
     "instructions": [
-      "Vymačkejte šťávu z citronů do nádoby.",
-      "Přidejte cukr, mátu a trochu vody, aby se cukr rozpustil.",
-      "Doplníte vodou a přidejte led.",
-      "Podávejte s několika plátky citronu a mátou na ozdobu."
+      "Omyj citrony pod tekoucí vodou a osuš je papírovou utěrkou.",
+      "Rozkroj citrony na poloviny a vymačkej z nich šťávu do větší nádoby (můžeš použít citrusový lis nebo vymačkávač).",
+      "Do nádoby s citronovou šťávou přidej cukr a několik lístků máty.",
+      "Přidej trochu teplé vody (asi 100 ml) a míchej, dokud se cukr úplně nerozpustí.",
+      "Doplň nádobu studenou vodou až do 1 litru celkového objemu.",
+      "Přidej kostky ledu a jemně zamíchej.",
+      "Nech limonádu chvíli odpočinout, aby se chutě propojily.",
+      "Podávej ve sklenicích s několika plátky citronu a čerstvou mátou na ozdobu."
     ],
     "time": 10,
     "rating": 4.5,
@@ -36,11 +40,16 @@
       { "name": "led", "quantity": 1, "unit": "hrst" }
     ],
     "instructions": [
-      "V mističce smíchejte cukr a mátu.",
-      "Přidejte šťávu z limetky a jemně promíchejte.",
-      "Do sklenice přidejte led a nalijte rum.",
-      "Doplníte perlivou vodou a zamíchejte.",
-      "Podávejte s většími lístky máty na ozdobu."
+      "Omyj limetku pod tekoucí vodou a osuš ji papírovou utěrkou.",
+      "Rozkroj limetku na poloviny a vymačkej z ní šťávu do malé mističky.",
+      "Omyj mátu pod tekoucí vodou a osuš ji papírovou utěrkou.",
+      "Do vysoké sklenice vlož 6-8 lístků máty a přidej cukr.",
+      "Pomocí dřevěné lžíce nebo paličky jemně rozmačkej mátu s cukrem (tím se uvolní aroma máty).",
+      "Přidej vymačkanou limetkovou šťávu a jemně promíchej.",
+      "Do sklenice přidej kostky ledu až po okraj.",
+      "Nalij bílý rum přes led.",
+      "Doplň perlivou vodou a jemně zamíchej lžící.",
+      "Podávej s většími lístky máty a plátkem limetky na ozdobu."
     ],
     "time": 5,
     "rating": 4.8,
@@ -59,9 +68,14 @@
       { "name": "led", "quantity": 1, "unit": "hrst" }
     ],
     "instructions": [
-      "Do mixéru přidejte rum, ananasový džus a kokosový krém.",
-      "Přidejte led a mixujte do hladka.",
-      "Nalijte do sklenice a podávejte s plátkem ananasu."
+      "Připrav si mixér a ujisti se, že je čistý a suchý.",
+      "Do mixéru nalij bílý rum (50 ml).",
+      "Přidej ananasový džus (100 ml).",
+      "Přidej kokosový krém (50 ml).",
+      "Vlož kostky ledu do mixéru (asi hrst).",
+      "Zapni mixér na střední rychlost a mixuj všechny ingredience do hladké konzistence (asi 30-60 sekund).",
+      "Vypni mixér a nalij koktejl do vysoké sklenice.",
+      "Podávej s plátkem čerstvého ananasu na okraji sklenice."
     ],
     "time": 5,
     "rating": 4.7,
@@ -81,10 +95,16 @@
       { "name": "led", "quantity": 1, "unit": "hrst" }
     ],
     "instructions": [
-      "V mističce smíchejte mátu a cukr.",
-      "Přidejte šťávu z limetky a jemně promíchejte.",
-      "Do sklenice dejte led a nalijte perlivou vodu.",
-      "Podávejte s většími lístky máty na ozdobu."
+      "Omyj limetku pod tekoucí vodou a osuš ji papírovou utěrkou.",
+      "Rozkroj limetku na poloviny a vymačkej z ní šťávu do malé mističky.",
+      "Omyj mátu pod tekoucí vodou a osuš ji papírovou utěrkou.",
+      "Do vysoké sklenice vlož 6-8 lístků máty a přidej cukr.",
+      "Pomocí dřevěné lžíce nebo paličky jemně rozmačkej mátu s cukrem (tím se uvolní aroma máty).",
+      "Přidej vymačkanou limetkovou šťávu a jemně promíchej.",
+      "Do sklenice přidej kostky ledu až po okraj.",
+      "Nalij perlivou vodu přes led.",
+      "Jemně zamíchej lžící, aby se všechny chutě propojily.",
+      "Podávej s většími lístky máty a plátkem limetky na ozdobu."
     ],
     "time": 5,
     "rating": 4.3,
@@ -104,14 +124,310 @@
       { "name": "mléko", "quantity": 100, "unit": "ml" }
     ],
     "instructions": [
-      "V malé nádobě smíchejte instantní kávu, cukr a vodu.",
-      "Přidejte led a důkladně promíchejte.",
-      "Nalijte do sklenice a dolijte mlékem.",
-      "Podávejte se strouhanou čokoládou na ozdobu."
+      "Připrav si malou nádobu nebo šálek.",
+      "Do nádoby nasypte 1 lžičku instantní kávy.",
+      "Přidej 1 lžičku cukru.",
+      "Nalij 50 ml horké vody (ne vroucí, ale dostatečně teplé, aby se káva rozpustila).",
+      "Důkladně promíchej lžičkou, dokud se káva a cukr úplně nerozpustí.",
+      "Přidej kostky ledu do nádoby a znovu promíchej, aby se nápoj ochladil.",
+      "Nalij směs do vysoké sklenice.",
+      "Dolij studeným mlékem (100 ml) a jemně zamíchej.",
+      "Podávej se strouhanou čokoládou nebo kakaem na ozdobu."
     ],
     "time": 5,
     "rating": 4.4,
     "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Smoothie s jahodami",
+    "description": "Osvěžující smoothie s jahodami, banánem a jogurtem.",
+    "image": "https://cdn.pixabay.com/photo/2023/05/31/11/14/smoothie-8031132_1280.jpg",
+    "link": "/napoj/smoothie-jahody",
+    "ingredients": [
+      { "name": "jahody", "quantity": 200, "unit": "g" },
+      { "name": "banán", "quantity": 1, "unit": "ks" },
+      { "name": "jogurt", "quantity": 200, "unit": "ml" },
+      { "name": "med", "quantity": 2, "unit": "lžíce" },
+      { "name": "mléko", "quantity": 100, "unit": "ml" }
+    ],
+    "instructions": [
+      "Omyj jahody pod tekoucí vodou a odstraň zelené stopky.",
+      "Oloupej banán a nakrájej ho na menší kousky.",
+      "Připrav si mixér a ujisti se, že je čistý a suchý.",
+      "Do mixéru vlož omyté jahody.",
+      "Přidej nakrájený banán.",
+      "Nalij jogurt (200 ml) do mixéru.",
+      "Přidej 2 lžíce medu.",
+      "Nalij mléko (100 ml) do mixéru.",
+      "Zapni mixér na střední rychlost a mixuj všechny ingredience do hladké konzistence (asi 1-2 minuty).",
+      "Vypni mixér a nalij smoothie do sklenic.",
+      "Podávej ihned s několika kostkami ledu."
+    ],
+    "time": 5,
+    "rating": 4.7,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Citronová limonáda",
+    "description": "Domácí citronová limonáda s mátou a medem.",
+    "image": "https://images.unsplash.com/photo-1650490412446-1d3dc56c9478?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/napoj/citronova-limonada",
+    "ingredients": [
+      { "name": "citrony", "quantity": 4, "unit": "ks" },
+      { "name": "med", "quantity": 100, "unit": "g" },
+      { "name": "voda", "quantity": 1, "unit": "l" },
+      { "name": "máta", "quantity": 1, "unit": "hrst" },
+      { "name": "led", "quantity": 200, "unit": "g" }
+    ],
+    "instructions": [
+      "Omyj všechny citrony pod tekoucí vodou a osuš je papírovou utěrkou.",
+      "Rozkroj citrony na poloviny a vymačkej z nich šťávu do větší nádoby (můžeš použít citrusový lis nebo vymačkávač).",
+      "Do nádoby s citronovou šťávou přidej med (100 g).",
+      "Přidej trochu teplé vody (asi 200 ml) a míchej, dokud se med úplně nerozpustí.",
+      "Doplň nádobu studenou vodou až do 1 litru celkového objemu.",
+      "Omyj mátu pod tekoucí vodou a osuš ji papírovou utěrkou.",
+      "Přidej omytou mátu do limonády.",
+      "Přidej kostky ledu a jemně zamíchej.",
+      "Nech limonádu chvíli odpočinout v lednici, aby se chutě propojily.",
+      "Podávej chlazené ve sklenicích s plátky citronu a mátou na ozdobu."
+    ],
+    "time": 10,
+    "rating": 4.8,
+    "difficulty": 1,
+    "portion": 4
+  },
+  {
+    "title": "Mango lassi",
+    "description": "Indický nápoj z manga s jogurtem a kardamomem.",
+    "image": "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/napoj/mango-lassi",
+    "ingredients": [
+      { "name": "mango", "quantity": 2, "unit": "ks" },
+      { "name": "jogurt", "quantity": 300, "unit": "ml" },
+      { "name": "mléko", "quantity": 100, "unit": "ml" },
+      { "name": "kardamom", "quantity": 1, "unit": "lžička" },
+      { "name": "med", "quantity": 2, "unit": "lžíce" }
+    ],
+    "instructions": [
+      "Omyj manga pod tekoucí vodou a osuš je papírovou utěrkou.",
+      "Oloupej manga nožem (můžeš použít škrabku na brambory nebo nůž).",
+      "Nakrájej mango na menší kousky a odstraň pecku.",
+      "Připrav si mixér a ujisti se, že je čistý a suchý.",
+      "Do mixéru vlož nakrájené mango.",
+      "Nalij jogurt (300 ml) do mixéru.",
+      "Přidej mléko (100 ml).",
+      "Přidej kardamom (1 lžička) - můžeš použít mletý kardamom nebo rozdrtit kardamomová semínka.",
+      "Přidej med (2 lžíce).",
+      "Zapni mixér na střední rychlost a mixuj všechny ingredience do hladké konzistence (asi 1-2 minuty).",
+      "Vypni mixér a nalij lassi do sklenic.",
+      "Podávej chlazené s několika kostkami ledu."
+    ],
+    "time": 10,
+    "rating": 4.6,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Zelený čaj s medem",
+    "description": "Osvěžující zelený čaj s medem a citronem.",
+    "image": "https://images.unsplash.com/photo-1664038082843-8e7053cd2288?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/napoj/zeleny-caj",
+    "ingredients": [
+      { "name": "zelený čaj", "quantity": 2, "unit": "lžička" },
+      { "name": "voda", "quantity": 500, "unit": "ml" },
+      { "name": "med", "quantity": 2, "unit": "lžíce" },
+      { "name": "citron", "quantity": 1, "unit": "ks" }
+    ],
+    "instructions": [
+      "Připrav si konvici nebo hrnec a ujisti se, že je čistý.",
+      "Nalij vodu (500 ml) do konvice a uvař ji (voda by měla být horká, ale ne vroucí - asi 80°C).",
+      "Do čajové konvice nebo sítka vlož 2 lžičky zeleného čaje.",
+      "Zalij čaj horkou vodou a nech ho louhovat 3-5 minut (ne déle, aby nebyl hořký).",
+      "Omyj citron pod tekoucí vodou a osuš ho papírovou utěrkou.",
+      "Rozkroj citron na poloviny a vymačkej z něj šťávu.",
+      "Přidej med (2 lžíce) do čaje a míchej, dokud se nerozpustí.",
+      "Přidej citronovou šťávu podle chuti.",
+      "Nech čaj vychladnout na pokojovou teplotu.",
+      "Přidej kostky ledu a podávej studené."
+    ],
+    "time": 15,
+    "rating": 4.5,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Kokosové mléko s ananasem",
+    "description": "Tropický nápoj z kokosového mléka a čerstvého ananasu.",
+    "image": "https://images.unsplash.com/photo-1665582513044-376da77ebec0?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/napoj/kokosove-mleko",
+    "ingredients": [
+      { "name": "kokosové mléko", "quantity": 400, "unit": "ml" },
+      { "name": "ananas", "quantity": 200, "unit": "g" },
+      { "name": "med", "quantity": 2, "unit": "lžíce" },
+      { "name": "led", "quantity": 100, "unit": "g" }
+    ],
+    "instructions": [
+      "Omyj ananas pod tekoucí vodou a osuš ho papírovou utěrkou.",
+      "Oloupej ananas nožem a odstraň tvrdou slupku.",
+      "Nakrájej ananas na menší kousky a odstraň tvrdé jádro.",
+      "Připrav si mixér a ujisti se, že je čistý a suchý.",
+      "Do mixéru vlož nakrájený ananas.",
+      "Nalij kokosové mléko (400 ml) do mixéru.",
+      "Přidej med (2 lžíce).",
+      "Přidej kostky ledu (100 g).",
+      "Zapni mixér na střední rychlost a mixuj všechny ingredience do hladké konzistence (asi 1-2 minuty).",
+      "Vypni mixér a nalij nápoj do sklenic.",
+      "Podávej ihned s plátkem ananasu na ozdobu."
+    ],
+    "time": 8,
+    "rating": 4.7,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Borůvkový koktejl",
+    "description": "Zdravý koktejl z borůvek s banánem a ovesnými vločkami.",
+    "image": "https://images.unsplash.com/photo-1606153346927-7a351d4903a5?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/napoj/boruvkovy-koktejl",
+    "ingredients": [
+      { "name": "borůvky", "quantity": 200, "unit": "g" },
+      { "name": "banán", "quantity": 1, "unit": "ks" },
+      { "name": "ovesné vločky", "quantity": 50, "unit": "g" },
+      { "name": "mléko", "quantity": 300, "unit": "ml" },
+      { "name": "med", "quantity": 2, "unit": "lžíce" }
+    ],
+    "instructions": [
+      "Omyj borůvky pod tekoucí vodou a osuš je papírovou utěrkou.",
+      "Oloupej banán a nakrájej ho na menší kousky.",
+      "Připrav si mixér a ujisti se, že je čistý a suchý.",
+      "Do mixéru vlož omyté borůvky.",
+      "Přidej nakrájený banán.",
+      "Přidej ovesné vločky (50 g).",
+      "Nalij mléko (300 ml) do mixéru.",
+      "Přidej med (2 lžíce).",
+      "Zapni mixér na střední rychlost a mixuj všechny ingredience do hladké konzistence (asi 1-2 minuty).",
+      "Vypni mixér a nalij koktejl do sklenic.",
+      "Podávej ihned s několika borůvkami na ozdobu."
+    ],
+    "time": 5,
+    "rating": 4.6,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Mátový čaj",
+    "description": "Osvěžující mátový čaj s medem a citronem.",
+    "image": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWludCUyMHRlYXxlbnwwfHwwfHx8MA%3D%3D",
+    "link": "/napoj/matovy-caj",
+    "ingredients": [
+      { "name": "čerstvá máta", "quantity": 1, "unit": "hrst" },
+      { "name": "voda", "quantity": 500, "unit": "ml" },
+      { "name": "med", "quantity": 2, "unit": "lžíce" },
+      { "name": "citron", "quantity": 1, "unit": "ks" }
+    ],
+    "instructions": [
+      "Omyj mátu pod tekoucí vodou a osuš ji papírovou utěrkou.",
+      "Připrav si konvici nebo hrnec a ujisti se, že je čistý.",
+      "Nalij vodu (500 ml) do konvice a uvař ji (voda by měla být horká, ale ne vroucí).",
+      "Do čajové konvice nebo sítka vlož omytou mátu.",
+      "Zalij mátu horkou vodou a nech ji louhovat 5-7 minut.",
+      "Omyj citron pod tekoucí vodou a osuš ho papírovou utěrkou.",
+      "Rozkroj citron na poloviny a vymačkej z něj šťávu.",
+      "Přidej med (2 lžíce) do čaje a míchej, dokud se nerozpustí.",
+      "Přidej citronovou šťávu podle chuti.",
+      "Podávej teplé nebo nech vychladnout a podávej studené s ledem."
+    ],
+    "time": 10,
+    "rating": 4.5,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Banánové mléko",
+    "description": "Krémové banánové mléko s medem a skořicí.",
+    "image": "https://images.unsplash.com/photo-1740637372899-e27569049917?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/napoj/bananove-mleko",
+    "ingredients": [
+      { "name": "banány", "quantity": 2, "unit": "ks" },
+      { "name": "mléko", "quantity": 400, "unit": "ml" },
+      { "name": "med", "quantity": 2, "unit": "lžíce" },
+      { "name": "skořice", "quantity": 1, "unit": "lžička" }
+    ],
+    "instructions": [
+      "Oloupej banány a nakrájej je na menší kousky.",
+      "Připrav si mixér a ujisti se, že je čistý a suchý.",
+      "Do mixéru vlož nakrájené banány.",
+      "Nalij mléko (400 ml) do mixéru.",
+      "Přidej med (2 lžíce).",
+      "Přidej skořici (1 lžička).",
+      "Zapni mixér na střední rychlost a mixuj všechny ingredience do hladké konzistence (asi 1-2 minuty).",
+      "Vypni mixér a nalij banánové mléko do sklenic.",
+      "Posypte navrch trochou skořice na ozdobu.",
+      "Podávej ihned chlazené."
+    ],
+    "time": 5,
+    "rating": 4.4,
+    "difficulty": 1,
+    "portion": 2
+  },
+  {
+    "title": "Jablečný džus",
+    "description": "Čerstvý jablečný džus s mrkví a zázvorem.",
+    "image": "https://images.unsplash.com/photo-1605199910378-edb0c0709ab4?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "link": "/napoj/jablecny-dzus",
+    "ingredients": [
+      { "name": "jablka", "quantity": 4, "unit": "ks" },
+      { "name": "mrkev", "quantity": 2, "unit": "ks" },
+      { "name": "zázvor", "quantity": 2, "unit": "cm" },
+      { "name": "citron", "quantity": 1, "unit": "ks" }
+    ],
+    "instructions": [
+      "Omyj jablka pod tekoucí vodou a osuš je papírovou utěrkou.",
+      "Rozkroj jablka na čtvrtiny a odstraň jádřince.",
+      "Omyj mrkev pod tekoucí vodou a osuš ji papírovou utěrkou.",
+      "Oloupej mrkev škrabkou na brambory nebo nožem.",
+      "Nakrájej mrkev na menší kousky.",
+      "Oloupej zázvor nožem a nakrájej ho na tenké plátky.",
+      "Omyj citron pod tekoucí vodou a osuš ho papírovou utěrkou.",
+      "Rozkroj citron na poloviny a vymačkej z něj šťávu.",
+      "Připrav si odšťavňovač a ujisti se, že je čistý.",
+      "Postupně odšťavni jablka, mrkev a zázvor.",
+      "Přidej citronovou šťávu do odšťavněné směsi.",
+      "Důkladně promíchej a podávej ihned."
+    ],
+    "time": 15,
+    "rating": 4.6,
+    "difficulty": 2,
+    "portion": 2
+  },
+  {
+    "title": "Kávový koktejl",
+    "description": "Energizující kávový koktejl s vanilkovou zmrzlinou.",
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29mZmVlJTIwY29ja3RhaWx8ZW58MHx8MHx8fDA%3D",
+    "link": "/napoj/kavovy-koktejl",
+    "ingredients": [
+      { "name": "espresso", "quantity": 60, "unit": "ml" },
+      { "name": "vanilková zmrzlina", "quantity": 200, "unit": "g" },
+      { "name": "mléko", "quantity": 100, "unit": "ml" },
+      { "name": "cukr", "quantity": 2, "unit": "lžíce" }
+    ],
+    "instructions": [
+      "Uvař espresso pomocí kávovaru nebo instantní kávy (60 ml).",
+      "Nech espresso vychladnout na pokojovou teplotu (můžeš ho dát do lednice na 10 minut).",
+      "Připrav si mixér a ujisti se, že je čistý a suchý.",
+      "Do mixéru vlož vanilkovou zmrzlinu (200 g).",
+      "Nalij vychladlé espresso do mixéru.",
+      "Přidej mléko (100 ml).",
+      "Přidej cukr (2 lžíce).",
+      "Zapni mixér na střední rychlost a mixuj všechny ingredience do hladké konzistence (asi 1-2 minuty).",
+      "Vypni mixér a nalij koktejl do vysokých sklenic.",
+      "Podávej s šlehačkou na vrchu a posypte kakaem nebo čokoládou."
+    ],
+    "time": 10,
+    "rating": 4.8,
+    "difficulty": 2,
     "portion": 2
   }
 ]
