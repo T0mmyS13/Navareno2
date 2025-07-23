@@ -15,15 +15,16 @@
 - **🛒 Shopping List** - Generate shopping list from recipes
 
 
+
 ## 📊 Project Statistics
 
 - **Version:** 0.1.0
-- **Dependencies:** 26
+- **Dependencies:** 28
 - **Dev Dependencies:** 12
 - **Source Files:** 43
 - **Components:** 7
 - **API Endpoints:** 8
-- **Last Updated:** 1. 7. 2025
+- **Last Updated:** 23. 7. 2025
 
 ## 🛠️ Technologies
 

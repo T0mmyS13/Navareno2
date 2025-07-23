@@ -1,103 +1,103 @@
-# Google Gemini AI - Nastavení (ZDARMA)
+# Google Gemini AI - Setup (FREE)
 
-## Přehled
-Aplikace nyní používá Google Gemini AI pro analýzu obrázků jídla. Tato služba je **ZDARMA** a nevyžaduje platební kartu!
+## Overview
+The application now uses Google Gemini AI for food image analysis. This service is **FREE** and does not require a credit card!
 
-## ✅ Výhody Google Gemini:
-- **100% ZDARMA** - žádné poplatky
-- **15 požadavků za minutu** zdarma
-- **Neomezené použití** denně
-- **Žádná platební karta** potřeba
-- **Výborná analýza obrázků** s Gemini 2.5 Flash
-- **Přesnější identifikace ingrediencí**
-- **Lepší JSON výstup**
+## ✅ Benefits of Google Gemini:
+- **100% FREE** - No charges
+- **15 requests per minute** for free
+- **Unlimited daily usage**
+- **No credit card** required
+- **Excellent image analysis** with Gemini 2.5 Flash
+- **More accurate ingredient identification**
+- **Better JSON output**
 
-## 🔧 Nastavení
+## 🔧 Setup
 
-### 1. Získání Google Gemini API klíče
-1. Jděte na [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Přihlaste se pomocí Google účtu
-3. Klikněte na "Create API Key"
-4. Zkopírujte klíč
+### 1. Obtain a Google Gemini API Key
+1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Sign in with your Google account
+3. Click "Create API Key"
+4. Copy the key
 
-### 2. Nastavení environment proměnných
+### 2. Set Environment Variables
 
-#### Lokální vývoj
-V souboru `.env.development.local` nahraďte:
+#### Local Development
+In your `.env.development.local` file, replace:
 ```env
 GOOGLE_GEMINI_API_KEY=your_gemini_api_key_here
 ```
-za:
+with:
 ```env
 GOOGLE_GEMINI_API_KEY=AIzaSyC-your-actual-gemini-key-here
 ```
 
-#### Produkce (Vercel)
-1. Jděte do Vercel dashboardu vašeho projektu
-2. Přejděte na Settings > Environment Variables
-3. Přidejte proměnnou:
+#### Production (Vercel)
+1. Go to your project's Vercel dashboard
+2. Navigate to Settings > Environment Variables
+3. Add a variable:
    - **Name**: `GOOGLE_GEMINI_API_KEY`
    - **Value**: `AIzaSyC-your-actual-gemini-key-here`
-4. Uložte a redeployujte aplikaci
+4. Save and redeploy the application
 
-### 3. Použití funkce
-1. Jděte na stránku "Přidat nový recept"
-2. Nahrajte obrázek jídla
-3. Klikněte na tlačítko "AI Analýza"
-4. Počkejte na analýzu (obvykle 3-5 sekund)
-5. Formulář bude automaticky předvyplněn
-6. Zkontrolujte a případně upravte data
-7. Uložte recept
+### 3. Using the Feature
+1. Go to the "Add New Recipe" page
+2. Upload a food image
+3. Click the "AI Analyze" button
+4. Wait for the analysis (usually 3-5 seconds)
+5. The form will be auto-filled
+6. Review and edit the data if needed
+7. Save the recipe
 
 
-## 🎯 Jak to funguje
+## 🎯 How it Works
 
-1. **Nahrání obrázku**: Uživatel nahraje fotku jídla
-2. **AI Analýza**: Obrázek se pošle na Google Gemini API
-3. **Analýza**: AI analyzuje obrázek a identifikuje:
-   - Typ jídla
-   - Ingredience (podle vzhledu)
-   - Odhadovaný čas přípravy
-   - Počet porcí
-   - Složitost
-   - Kategorii
-4. **Předvyplnění**: Data se automaticky vloží do formuláře
-5. **Úprava**: Uživatel může data zkontrolovat a upravit
+1. **Image Upload**: The user uploads a photo of food
+2. **AI Analysis**: The image is sent to the Google Gemini API
+3. **Analysis**: The AI analyzes the image and identifies:
+   - Type of food
+   - Ingredients (by appearance)
+   - Estimated preparation time
+   - Number of servings
+   - Difficulty
+   - Category
+4. **Auto-fill**: The data is automatically inserted into the form
+5. **Edit**: The user can review and edit the data
 
-## 📊 Omezení
-- **15 požadavků za minutu** (dostatečné pro většinu uživatelů)
-- **Maximální velikost obrázku**: 4MB
-- **Podporované formáty**: JPEG, PNG, WebP, GIF
+## 📊 Limitations
+- **15 requests per minute** (sufficient for most users)
+- **Maximum image size**: 4MB
+- **Supported formats**: JPEG, PNG, WebP, GIF
 
-## 💰 Náklady
-- **ZDARMA** - žádné poplatky
-- **Neomezené použití** denně
-- **Žádné skryté poplatky**
+## 💰 Costs
+- **FREE** - No charges
+- **Unlimited daily usage**
+- **No hidden fees**
 
-## 🔒 Bezpečnost
-- API klíč je uložen pouze na serveru
-- Obrázky se neukládají trvale
-- Analýza probíhá pouze při požadavku uživatele
+## 🔒 Security
+- API key is stored only on the server
+- Images are not stored permanently
+- Analysis occurs only on user request
 
-## 🐛 Řešení problémů
+## 🐛 Troubleshooting
 
-### Chyba "Invalid API key"
-- Zkontrolujte, zda je správně nastaven GOOGLE_GEMINI_API_KEY
-- Ověřte, zda klíč začíná `AIzaSyC`
-- Zkuste vytvořit nový klíč
+### "Invalid API key" Error
+- Check that GOOGLE_GEMINI_API_KEY is set correctly
+- Make sure the key starts with `AIzaSyC`
+- Try creating a new key
 
-### Chyba "Quota exceeded"
-- Počkejte 1 minutu a zkuste znovu
-- Máte limit 15 požadavků za minutu
+### "Quota exceeded" Error
+- Wait 1 minute and try again
+- You have a limit of 15 requests per minute
 
-### Pomalá analýza
-- Zmenšete velikost obrázku
-- Použijte JPEG formát
-- Zkontrolujte připojení k internetu
+### Slow Analysis
+- Reduce the image size
+- Use JPEG format
+- Check your internet connection
 
-## 🎉 Výhody pro uživatele
+## 🎉 User Benefits
 
-- **Žádné poplatky** - funkce je 100% zdarma
-- **Okamžité použití** - žádná registrace platební karty
-- **Spolehlivost** - Google infrastruktura
-- **Kvalita** - výborné výsledky analýzy 
+- **No charges** - the feature is 100% free
+- **Instant use** - no credit card registration
+- **Reliability** - Google infrastructure
+- **Quality** - excellent analysis results 
